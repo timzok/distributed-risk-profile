@@ -1,0 +1,66 @@
+{
+   "fundId": "Fund1",
+   "fundName": "Fund Name 1",
+   "Regions": [
+      {
+         "regionCode": "EU",
+         "Low": {
+            "assetValue": 2000,
+            "pourcentage": 74
+         },
+         "Medium": {
+            "assetValue": 500,
+            "pourcentage": 18.5
+         },
+         "High": {
+            "assetValue": 200,
+            "pourcentage": 7.4
+         }
+      },
+      {
+         "regionCode": "NA",
+         "Low": {
+            "assetValue": 25,
+            "pourcentage": 17.7
+         },
+         "Medium": {
+            "assetValue": 32,
+            "pourcentage": 22.7
+         },
+         "High": {
+            "assetValue": 84,
+            "pourcentage": 59.5
+         }
+      },
+      {
+         "regionCode": "OC",
+         "Low": {
+            "assetValue": 564,
+            "pourcentage": 86
+         },
+         "Medium": {
+            "assetValue": 12,
+            "pourcentage": 1.8
+         },
+         "High": {
+            "assetValue": 80,
+            "pourcentage": 12.2
+         }
+      },
+      {
+         "regionCode": "AS",
+         "Low": {
+            "assetValue": 159,
+            "pourcentage": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "pourcentage": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "pourcentage": 0.6
+         }
+      }
+   ]
+}
