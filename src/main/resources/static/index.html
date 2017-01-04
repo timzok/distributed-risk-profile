@@ -13,6 +13,7 @@
     <script src="./js/jquery-jvectormap.js"></script>
     <script src="./js/jquery-mousewheel.js"></script>
     <script src="./js/google-charts.js"></script>
+    <script src="./js/pie-charts.js"></script>
 
     <script src="./js/assets/jvectormap.js"></script>
     <script src="./js/assets/abstract-element.js"></script>
@@ -69,25 +70,25 @@
 <div class="container-fluid">
     <div class="row">
             <div class="col-md-8">
-                    <div id="world-map" style="width: 600px; height: 400px"></div>
-                    <script>
-                        $(function(){
-                          $('#world-map').vectorMap({
-                              map: 'continents_mill',
-                              backgroundColor: 'gray',
-                            series: {
-                                    regions: [{
-                                      scale: {
-                                        '1': 'FFF',
-                                        '2': '#002144'
-                                      },
-                                      attribute: 'fill',
-                                      values: { 'EU': 2, 'NA': 2 }
-                                    }]
-                                  }
-                             });
-                        });
-                    </script>
+                <div id="world-map" style="width: 600px; height: 400px"></div>
+                <script>
+                    $(function(){
+                      $('#world-map').vectorMap({
+                          map: 'continents_mill',
+                          backgroundColor: 'gray',
+                        series: {
+                                regions: [{
+                                  scale: {
+                                    '1': 'FFF',
+                                    '2': '#002144'
+                                  },
+                                  attribute: 'fill',
+                                  values: { 'EU': 2, 'NA': 2 }
+                                }]
+                              }
+                         });
+                    });
+                </script>
             </div>
             <div class="col-md-4">
                 <div id="donutchart-AF"></div>
@@ -149,35 +150,8 @@
 
 
 <script type="text/javascript">
-
-    function drawChart(chartID, title, l, m, h) {
-        google.charts.load("current", {packages:["corechart"]});
-          google.charts.setOnLoadCallback(drawChart);
-          function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-              ['Rank'  , 'Percent'],
-              ['Low'   ,  l],
-              ['Medium',  m],
-              ['High'  ,  h]
-            ]);
-
-            var options = {
-              title: title,
-              pieHole: 0.6,
-              colors: [ '#aaba0a', '#fca311', 'c71D06'],
-              pieSliceText: 'none',
-              backgroundColor: '#edf1f5',
-              reverseCategories: true
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById(chartID));
-            chart.draw(data, options);
-          }
-    }
-
-    drawChart('donutchart-NA', 'North America', 666, 1234, 235);
-    drawChart('donutchart-EU', 'Europe', 123, 543, 34);
-    </script>
+    $(loadCharts());
+</script>
 
 
 </body>
