@@ -24,29 +24,15 @@ function renderMap(code){
 
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
-        $(placeholder).vectorMap({map: maps.get(code),
-        backgroundColor: 'transparent'});
-        //drawMap($(placeholder), maps.get(code), {})
-
+        drawVectorMap($(placeholder), maps.get(code), getCountriesData(code))
     }
 
     $("#world-map").fadeOut( 200, "linear", complete );
 }
 
-//function renderMap2(code){
-//    function complete() {
-//        drawMap(maps.get(code), {})
-//        $('#world-map').fadeIn().resize();
-//    }
-//    $("#world-map").fadeOut( 200, "linear", complete );
-//}
-
-
-
 
 function onRegionClick(e, code){
     renderMap(code.toLowerCase());
-   //renderMap2(code.toLowerCase());
 }
 
 function showWorldMap(){
@@ -58,29 +44,24 @@ function showWorldMap(){
         $(placeholder(key)).fadeOut();
     }
     $("#world-map").fadeIn();
+    drawWorldMap($('#fund-selection').val())
 }
 
 function drawWorldMap(fundID){
     $.getJSON( "./jsonfiles/MapPerregions" + fundID + ".json", function( data ) {
-        loadRegionData(data.Regions);
+        drawMap(data.Regions);
         drawWorldMapPieCharts(data.Regions);
     });
 
 }}
 
 
-function loadRegionData(regionData) {
-    var regionList = { };
-    $.each( regionData, function( key, val ) {
-        regionList[regionData[key].regionCode] = 2;
-      });
-
-    drawMap('#world-map', 'continents_mill', regionList)
-
+function drawMap(regionData) {
+    drawVectorMap('#world-map', 'continents_mill', getWorldData(regionData) )
 }
 
-function drawMap(mapID, mapName, data) {
 
+function drawVectorMap(mapID, mapName, data) {
     $(mapID).html('');
     $(mapID).vectorMap({
         map: mapName,
@@ -105,4 +86,17 @@ function setObserver() {
     $( "#fund-selection" ).change(function() {
         drawWorldMap(this.value);
     });
+}
+
+function getWorldData(regionData) {
+var regionsList = { };
+$.each( regionData, function( key, val ) {
+    regionsList[regionData[key].regionCode] = 2;
+  });
+
+  return regionsList;
+}
+
+function getCountriesData(code) {
+    {}
 }

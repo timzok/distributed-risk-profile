@@ -1,0 +1,820 @@
+[
+   {region:"AF",
+   countries : [
+      {
+         "FIELD2": "BF",
+         "FIELD3": "Burkina Faso"
+      },
+      {
+         "FIELD2": "DJ",
+         "FIELD3": "Djibouti"
+      },
+      {
+         "FIELD2": "BI",
+         "FIELD3": "Burundi"
+      },
+      {
+         "FIELD2": "BJ",
+         "FIELD3": "Benin"
+      },
+      {
+         "FIELD2": "ZA",
+         "FIELD3": "South Africa"
+      },
+      {
+         "FIELD2": "BW",
+         "FIELD3": "Botswana"
+      },
+      {
+         "FIELD2": "DZ",
+         "FIELD3": "Algeria"
+      },
+      {
+         "FIELD2": "ET",
+         "FIELD3": "Ethiopia"
+      },
+      {
+         "FIELD2": "RW",
+         "FIELD3": "Rwanda"
+      },
+      {
+         "FIELD2": "TZ",
+         "FIELD3": "Tanzania"
+      },
+      {
+         "FIELD2": "GQ",
+         "FIELD3": "Eq. Guinea"
+      },
+      {
+         "FIELD2": "NA",
+         "FIELD3": "Namibia"
+      },
+      {
+         "FIELD2": "NE",
+         "FIELD3": "Niger"
+      },
+      {
+         "FIELD2": "NG",
+         "FIELD3": "Nigeria"
+      },
+      {
+         "FIELD2": "TN",
+         "FIELD3": "Tunisia"
+      },
+      {
+         "FIELD2": "LR",
+         "FIELD3": "Liberia"
+      },
+      {
+         "FIELD2": "LS",
+         "FIELD3": "Lesotho"
+      },
+      {
+         "FIELD2": "ZW",
+         "FIELD3": "Zimbabwe"
+      },
+      {
+         "FIELD2": "TG",
+         "FIELD3": "Togo"
+      },
+      {
+         "FIELD2": "TD",
+         "FIELD3": "Chad"
+      },
+      {
+         "FIELD2": "ER",
+         "FIELD3": "Eritrea"
+      },
+      {
+         "FIELD2": "LY",
+         "FIELD3": "Libya"
+      },
+      {
+         "FIELD2": "GW",
+         "FIELD3": "Guinea-Bissau"
+      },
+      {
+         "FIELD2": "ZM",
+         "FIELD3": "Zambia"
+      },
+      {
+         "FIELD2": "CI",
+         "FIELD3": "C“te d'Ivoire"
+      },
+      {
+         "FIELD2": "EH",
+         "FIELD3": "W. Sahara"
+      },
+      {
+         "FIELD2": "CM",
+         "FIELD3": "Cameroon"
+      },
+      {
+         "FIELD2": "EG",
+         "FIELD3": "Egypt"
+      },
+      {
+         "FIELD2": "SL",
+         "FIELD3": "Sierra Leone"
+      },
+      {
+         "FIELD2": "CG",
+         "FIELD3": "Congo"
+      },
+      {
+         "FIELD2": "CF",
+         "FIELD3": "Central African Rep."
+      },
+      {
+         "FIELD2": "AO",
+         "FIELD3": "Angola"
+      },
+      {
+         "FIELD2": "CD",
+         "FIELD3": "Dem. Rep. Congo"
+      },
+      {
+         "FIELD2": "GA",
+         "FIELD3": "Gabon"
+      },
+      {
+         "FIELD2": "GN",
+         "FIELD3": "Guinea"
+      },
+      {
+         "FIELD2": "GM",
+         "FIELD3": "Gambia"
+      },
+      {
+         "FIELD2": "XS",
+         "FIELD3": "Somaliland"
+      },
+      {
+         "FIELD2": "CV",
+         "FIELD3": "Cape Verde"
+      },
+      {
+         "FIELD2": "GH",
+         "FIELD3": "Ghana"
+      },
+      {
+         "FIELD2": "SZ",
+         "FIELD3": "Swaziland"
+      },
+      {
+         "FIELD2": "MG",
+         "FIELD3": "Madagascar"
+      },
+      {
+         "FIELD2": "MA",
+         "FIELD3": "Morocco"
+      },
+      {
+         "FIELD2": "KE",
+         "FIELD3": "Kenya"
+      },
+      {
+         "FIELD2": "SS",
+         "FIELD3": "S. Sudan"
+      },
+      {
+         "FIELD2": "ML",
+         "FIELD3": "Mali"
+      },
+      {
+         "FIELD2": "KM",
+         "FIELD3": "Comoros"
+      },
+      {
+         "FIELD2": "ST",
+         "FIELD3": "S?o Tom‚ and Principe"
+      },
+      {
+         "FIELD2": "MW",
+         "FIELD3": "Malawi"
+      },
+      {
+         "FIELD2": "SO",
+         "FIELD3": "Somalia"
+      },
+      {
+         "FIELD2": "SN",
+         "FIELD3": "Senegal"
+      },
+      {
+         "FIELD2": "MR",
+         "FIELD3": "Mauritania"
+      },
+      {
+         "FIELD2": "UG",
+         "FIELD3": "Uganda"
+      },
+      {
+         "FIELD2": "SD",
+         "FIELD3": "Sudan"
+      },
+      {
+         "FIELD2": "MZ",
+         "FIELD3": "Mozambique"
+      }
+   ]},
+   {
+      region:"AS", 
+      countries : [
+      {
+         "FIELD2": "BD",
+         "FIELD3": "Bangladesh"
+      },
+      {
+         "FIELD2": "MN",
+         "FIELD3": "Mongolia"
+      },
+      {
+         "FIELD2": "BN",
+         "FIELD3": "Brunei"
+      },
+      {
+         "FIELD2": "BH",
+         "FIELD3": "Bahrain"
+      },
+      {
+         "FIELD2": "BT",
+         "FIELD3": "Bhutan"
+      },
+      {
+         "FIELD2": "HK",
+         "FIELD3": "Hong Kong"
+      },
+      {
+         "FIELD2": "JO",
+         "FIELD3": "Jordan"
+      },
+      {
+         "FIELD2": "PS",
+         "FIELD3": "Palestine"
+      },
+      {
+         "FIELD2": "LB",
+         "FIELD3": "Lebanon"
+      },
+      {
+         "FIELD2": "LA",
+         "FIELD3": "Lao PDR"
+      },
+      {
+         "FIELD2": "TW",
+         "FIELD3": "Taiwan"
+      },
+      {
+         "FIELD2": "TR",
+         "FIELD3": "Turkey"
+      },
+      {
+         "FIELD2": "LK",
+         "FIELD3": "Sri Lanka"
+      },
+      {
+         "FIELD2": "TL",
+         "FIELD3": "Timor-Leste"
+      },
+      {
+         "FIELD2": "TM",
+         "FIELD3": "Turkmenistan"
+      },
+      {
+         "FIELD2": "TJ",
+         "FIELD3": "Tajikistan"
+      },
+      {
+         "FIELD2": "TH",
+         "FIELD3": "Thailand"
+      },
+      {
+         "FIELD2": "XC",
+         "FIELD3": "N. Cyprus"
+      },
+      {
+         "FIELD2": "NP",
+         "FIELD3": "Nepal"
+      },
+      {
+         "FIELD2": "PK",
+         "FIELD3": "Pakistan"
+      },
+      {
+         "FIELD2": "PH",
+         "FIELD3": "Philippines"
+      },
+      {
+         "FIELD2": "-99",
+         "FIELD3": "Siachen Glacier"
+      },
+      {
+         "FIELD2": "AE",
+         "FIELD3": "United Arab Emirates"
+      },
+      {
+         "FIELD2": "CN",
+         "FIELD3": "China"
+      },
+      {
+         "FIELD2": "AF",
+         "FIELD3": "Afghanistan"
+      },
+      {
+         "FIELD2": "IQ",
+         "FIELD3": "Iraq"
+      },
+      {
+         "FIELD2": "JP",
+         "FIELD3": "Japan"
+      },
+      {
+         "FIELD2": "IR",
+         "FIELD3": "Iran"
+      },
+      {
+         "FIELD2": "AM",
+         "FIELD3": "Armenia"
+      },
+      {
+         "FIELD2": "SY",
+         "FIELD3": "Syria"
+      },
+      {
+         "FIELD2": "VN",
+         "FIELD3": "Vietnam"
+      },
+      {
+         "FIELD2": "GE",
+         "FIELD3": "Georgia"
+      },
+      {
+         "FIELD2": "IL",
+         "FIELD3": "Israel"
+      },
+      {
+         "FIELD2": "IN",
+         "FIELD3": "India"
+      },
+      {
+         "FIELD2": "AZ",
+         "FIELD3": "Azerbaijan"
+      },
+      {
+         "FIELD2": "ID",
+         "FIELD3": "Indonesia"
+      },
+      {
+         "FIELD2": "OM",
+         "FIELD3": "Oman"
+      },
+      {
+         "FIELD2": "KG",
+         "FIELD3": "Kyrgyzstan"
+      },
+      {
+         "FIELD2": "UZ",
+         "FIELD3": "Uzbekistan"
+      },
+      {
+         "FIELD2": "MM",
+         "FIELD3": "Myanmar"
+      },
+      {
+         "FIELD2": "SG",
+         "FIELD3": "Singapore"
+      },
+      {
+         "FIELD2": "KH",
+         "FIELD3": "Cambodia"
+      },
+      {
+         "FIELD2": "CY",
+         "FIELD3": "Cyprus"
+      },
+      {
+         "FIELD2": "QA",
+         "FIELD3": "Qatar"
+      },
+      {
+         "FIELD2": "KR",
+         "FIELD3": "Korea"
+      },
+      {
+         "FIELD2": "KP",
+         "FIELD3": "Dem. Rep. Korea"
+      },
+      {
+         "FIELD2": "KW",
+         "FIELD3": "Kuwait"
+      },
+      {
+         "FIELD2": "KZ",
+         "FIELD3": "Kazakhstan"
+      },
+      {
+         "FIELD2": "SA",
+         "FIELD3": "Saudi Arabia"
+      },
+      {
+         "FIELD2": "MY",
+         "FIELD3": "Malaysia"
+      },
+      {
+         "FIELD2": "YE",
+         "FIELD3": "Yemen"
+      }
+   ]},
+   {
+      region:"EU", 
+      countries : [
+      {
+         "FIELD2": "BE",
+         "FIELD3": "Belgium"
+      },
+      {
+         "FIELD2": "FR",
+         "FIELD3": "France"
+      },
+      {
+         "FIELD2": "BG",
+         "FIELD3": "Bulgaria"
+      },
+      {
+         "FIELD2": "DK",
+         "FIELD3": "Denmark"
+      },
+      {
+         "FIELD2": "HR",
+         "FIELD3": "Croatia"
+      },
+      {
+         "FIELD2": "DE",
+         "FIELD3": "Germany"
+      },
+      {
+         "FIELD2": "BA",
+         "FIELD3": "Bosnia and Herz."
+      },
+      {
+         "FIELD2": "HU",
+         "FIELD3": "Hungary"
+      },
+      {
+         "FIELD2": "JE",
+         "FIELD3": "Jersey"
+      },
+      {
+         "FIELD2": "FI",
+         "FIELD3": "Finland"
+      },
+      {
+         "FIELD2": "BY",
+         "FIELD3": "Belarus"
+      },
+      {
+         "FIELD2": "GR",
+         "FIELD3": "Greece"
+      },
+      {
+         "FIELD2": "RU",
+         "FIELD3": "Russia"
+      },
+      {
+         "FIELD2": "NL",
+         "FIELD3": "Netherlands"
+      },
+      {
+         "FIELD2": "PT",
+         "FIELD3": "Portugal"
+      },
+      {
+         "FIELD2": "NO",
+         "FIELD3": "Norway"
+      },
+      {
+         "FIELD2": "LI",
+         "FIELD3": "Liechtenstein"
+      },
+      {
+         "FIELD2": "LV",
+         "FIELD3": "Latvia"
+      },
+      {
+         "FIELD2": "LT",
+         "FIELD3": "Lithuania"
+      },
+      {
+         "FIELD2": "LU",
+         "FIELD3": "Luxembourg"
+      },
+      {
+         "FIELD2": "FO",
+         "FIELD3": "Faeroe Is."
+      },
+      {
+         "FIELD2": "PL",
+         "FIELD3": "Poland"
+      },
+      {
+         "FIELD2": "XK",
+         "FIELD3": "Kosovo"
+      },
+      {
+         "FIELD2": "CH",
+         "FIELD3": "Switzerland"
+      },
+      {
+         "FIELD2": "AD",
+         "FIELD3": "Andorra"
+      },
+      {
+         "FIELD2": "EE",
+         "FIELD3": "Estonia"
+      },
+      {
+         "FIELD2": "IS",
+         "FIELD3": "Iceland"
+      },
+      {
+         "FIELD2": "AL",
+         "FIELD3": "Albania"
+      },
+      {
+         "FIELD2": "IT",
+         "FIELD3": "Italy"
+      },
+      {
+         "FIELD2": "GG",
+         "FIELD3": "Guernsey"
+      },
+      {
+         "FIELD2": "CZ",
+         "FIELD3": "Czech Rep."
+      },
+      {
+         "FIELD2": "IM",
+         "FIELD3": "Isle of Man"
+      },
+      {
+         "FIELD2": "GB",
+         "FIELD3": "United Kingdom"
+      },
+      {
+         "FIELD2": "AX",
+         "FIELD3": "Aland"
+      },
+      {
+         "FIELD2": "IE",
+         "FIELD3": "Ireland"
+      },
+      {
+         "FIELD2": "ES",
+         "FIELD3": "Spain"
+      },
+      {
+         "FIELD2": "ME",
+         "FIELD3": "Montenegro"
+      },
+      {
+         "FIELD2": "MD",
+         "FIELD3": "Moldova"
+      },
+      {
+         "FIELD2": "RO",
+         "FIELD3": "Romania"
+      },
+      {
+         "FIELD2": "RS",
+         "FIELD3": "Serbia"
+      },
+      {
+         "FIELD2": "MK",
+         "FIELD3": "Macedonia"
+      },
+      {
+         "FIELD2": "SK",
+         "FIELD3": "Slovakia"
+      },
+      {
+         "FIELD2": "MT",
+         "FIELD3": "Malta"
+      },
+      {
+         "FIELD2": "SI",
+         "FIELD3": "Slovenia"
+      },
+      {
+         "FIELD2": "SM",
+         "FIELD3": "San Marino"
+      },
+      {
+         "FIELD2": "UA",
+         "FIELD3": "Ukraine"
+      },
+      {
+         "FIELD2": "SE",
+         "FIELD3": "Sweden"
+      },
+      {
+         "FIELD2": "AT",
+         "FIELD3": "Austria"
+      }
+   ]},
+      {
+      region:"NA", countries : [
+      {
+         "FIELD2": "PR",
+         "FIELD3": "Puerto Rico"
+      },
+      {
+         "FIELD2": "DO",
+         "FIELD3": "Dominican Rep."
+      },
+      {
+         "FIELD2": "DM",
+         "FIELD3": "Dominica"
+      },
+      {
+         "FIELD2": "LC",
+         "FIELD3": "Saint Lucia"
+      },
+      {
+         "FIELD2": "NI",
+         "FIELD3": "Nicaragua"
+      },
+      {
+         "FIELD2": "PA",
+         "FIELD3": "Panama"
+      },
+      {
+         "FIELD2": "CA",
+         "FIELD3": "Canada"
+      },
+      {
+         "FIELD2": "SV",
+         "FIELD3": "El Salvador"
+      },
+      {
+         "FIELD2": "HT",
+         "FIELD3": "Haiti"
+      },
+      {
+         "FIELD2": "TT",
+         "FIELD3": "Trinidad and Tobago"
+      },
+      {
+         "FIELD2": "JM",
+         "FIELD3": "Jamaica"
+      },
+      {
+         "FIELD2": "GT",
+         "FIELD3": "Guatemala"
+      },
+      {
+         "FIELD2": "HN",
+         "FIELD3": "Honduras"
+      },
+      {
+         "FIELD2": "BZ",
+         "FIELD3": "Belize"
+      },
+      {
+         "FIELD2": "BS",
+         "FIELD3": "Bahamas"
+      },
+      {
+         "FIELD2": "CR",
+         "FIELD3": "Costa Rica"
+      },
+      {
+         "FIELD2": "US",
+         "FIELD3": "United States"
+      },
+      {
+         "FIELD2": "GL",
+         "FIELD3": "Greenland"
+      },
+      {
+         "FIELD2": "MX",
+         "FIELD3": "Mexico"
+      },
+      {
+         "FIELD2": "CU",
+         "FIELD3": "Cuba"
+      }
+   ]},
+   {      region:"OC", countries : [
+      {
+         "FIELD2": "GU",
+         "FIELD3": "Guam"
+      },
+      {
+         "FIELD2": "PW",
+         "FIELD3": "Palau"
+      },
+      {
+         "FIELD2": "KI",
+         "FIELD3": "Kiribati"
+      },
+      {
+         "FIELD2": "NC",
+         "FIELD3": "New Caledonia"
+      },
+      {
+         "FIELD2": "NU",
+         "FIELD3": "Niue"
+      },
+      {
+         "FIELD2": "NZ",
+         "FIELD3": "New Zealand"
+      },
+      {
+         "FIELD2": "AU",
+         "FIELD3": "Australia"
+      },
+      {
+         "FIELD2": "PG",
+         "FIELD3": "Papua New Guinea"
+      },
+      {
+         "FIELD2": "SB",
+         "FIELD3": "Solomon Is."
+      },
+      {
+         "FIELD2": "PF",
+         "FIELD3": "Fr. Polynesia"
+      },
+      {
+         "FIELD2": "FJ",
+         "FIELD3": "Fiji"
+      },
+      {
+         "FIELD2": "FM",
+         "FIELD3": "Micronesia"
+      },
+      {
+         "FIELD2": "WS",
+         "FIELD3": "Samoa"
+      },
+      {
+         "FIELD2": "VU",
+         "FIELD3": "Vanuatu"
+      }
+   ]},
+   {      region:"SA", countries : [
+      {
+         "FIELD2": "PY",
+         "FIELD3": "Paraguay"
+      },
+      {
+         "FIELD2": "CO",
+         "FIELD3": "Colombia"
+      },
+      {
+         "FIELD2": "VE",
+         "FIELD3": "Venezuela"
+      },
+      {
+         "FIELD2": "CL",
+         "FIELD3": "Chile"
+      },
+      {
+         "FIELD2": "SR",
+         "FIELD3": "Suriname"
+      },
+      {
+         "FIELD2": "BO",
+         "FIELD3": "Bolivia"
+      },
+      {
+         "FIELD2": "EC",
+         "FIELD3": "Ecuador"
+      },
+      {
+         "FIELD2": "AR",
+         "FIELD3": "Argentina"
+      },
+      {
+         "FIELD2": "GY",
+         "FIELD3": "Guyana"
+      },
+      {
+         "FIELD2": "BR",
+         "FIELD3": "Brazil"
+      },
+      {
+         "FIELD2": "PE",
+         "FIELD3": "Peru"
+      },
+      {
+         "FIELD2": "UY",
+         "FIELD3": "Uruguay"
+      },
+      {
+         "FIELD2": "FK",
+         "FIELD3": "Falkland Is."
+      }
+   ]}
+]
