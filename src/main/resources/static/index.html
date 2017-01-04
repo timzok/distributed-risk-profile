@@ -81,7 +81,14 @@
                                   attribute: 'fill',
                                   values: { 'EU': 2, 'NA': 2 }
                                 }]
-                          }
+                        },
+                        onRegionTipShow: function(e, el){
+                            var map =  $('#world-map').vectorMap('get', 'mapObject');
+                            map.tip.html(el[0].innerText + " low: 30%, medium:35%, high:35% ");
+                        },
+                        onRegionClick: function(e, el){
+
+                        }
                      });
                 });
                 </script>
