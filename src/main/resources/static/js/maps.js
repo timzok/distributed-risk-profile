@@ -58,6 +58,8 @@ function loadRegionData(fundData) {
         regionList[fundData[key].regionCode] = 2;
       });
 
+    $('#world-map').html('');
+
     $('#world-map').vectorMap({
         map: 'continents_mill',
         backgroundColor: 'transparent',
