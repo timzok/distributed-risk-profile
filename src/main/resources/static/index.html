@@ -11,13 +11,10 @@
     <script src="./js/jquery.js"></script>
     <script src="./js/jquery-jvectormap.js"></script>
     <script src="./js/jquery-mousewheel.js"></script>
-
     <script src="./js/assets/jvectormap.js"></script>
-
     <script src="./js/assets/abstract-element.js"></script>
     <script src="./js/assets/abstract-canvas-element.js"></script>
     <script src="./js/assets/abstract-shape-element.js"></script>
-
     <script src="./js/assets/svg-element.js"></script>
     <script src="./js/assets/svg-group-element.js"></script>
     <script src="./js/assets/svg-canvas-element.js"></script>
@@ -26,7 +23,6 @@
     <script src="./js/assets/svg-circle-element.js"></script>
     <script src="./js/assets/svg-image-element.js"></script>
     <script src="./js/assets/svg-text-element.js"></script>
-
     <script src="./js/assets/vml-element.js"></script>
     <script src="./js/assets/vml-group-element.js"></script>
     <script src="./js/assets/vml-canvas-element.js"></script>
@@ -34,11 +30,9 @@
     <script src="./js/assets/vml-path-element.js"></script>
     <script src="./js/assets/vml-circle-element.js"></script>
     <script src="./js/assets/vml-image-element.js"></script>
-
     <script src="./js/assets/map-object.js"></script>
     <script src="./js/assets/region.js"></script>
     <script src="./js/assets/marker.js"></script>
-
     <script src="./js/assets/vector-canvas.js"></script>
     <script src="./js/assets/simple-scale.js"></script>
     <script src="./js/assets/ordinal-scale.js"></script>
@@ -74,24 +68,23 @@
 
                 <div id="world-map" style="width: 600px; height: 400px"></div>
                 <script>
-    $(function(){
-      $('#world-map').vectorMap({
-                                  map: 'continents_mill',
-                                  backgroundColor: 'gray',
-                                series: {
-                                        regions: [{
-                                          scale: {
-                                            '1': 'FFF',
-                                            '2': '#002144'
-                                          },
-                                          attribute: 'fill',
-                                          values: { 'EU': 2, 'NA': 2 }
-                                        }]
-                                      }
-                                 });
-    });
-  </script>
-
+                $(function() {
+                  $('#world-map').vectorMap({
+                        map: 'continents_mill',
+                        backgroundColor: '#D0DBE5',
+                        series: {
+                                regions: [{
+                                  scale: {
+                                    '1': 'FFF',
+                                    '2': '#154BCC'
+                                  },
+                                  attribute: 'fill',
+                                  values: { 'EU': 2, 'NA': 2 }
+                                }]
+                          }
+                     });
+                });
+                </script>
             </div>
         </div>
     </div>
