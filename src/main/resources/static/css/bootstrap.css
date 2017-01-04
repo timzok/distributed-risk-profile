@@ -4,6 +4,13 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+.jvectormap-region {
+    stroke: #002144;
+    stroke-width: 1;
+}
+
+
+
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;

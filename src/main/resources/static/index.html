@@ -13,7 +13,7 @@
     <script src="./js/jquery-jvectormap.js"></script>
     <script src="./js/jquery-mousewheel.js"></script>
     <script src="./js/google-charts.js"></script>
-    <script src="./js/pie-charts.js"></script>
+    <script src="./js/rbc-charts.js"></script>
 
     <script src="./js/assets/jvectormap.js"></script>
     <script src="./js/assets/abstract-element.js"></script>
@@ -59,50 +59,69 @@
         <img src="./images/RBCIS_logo.png" alt="RBC I&amp;TS" id="rbcisLogo">
     </div>
     <div id="ofd-um" style="">
-        Having problems?
-        <span>
-	    	<a id="contactUsLink" href="http://www.rbcis.com/AboutUs/p_ContactInfo.aspx">Please contact us</a>
-	    </span>
+
     </div>
 </div>
-<div id="c_hack">
-    <div class="" id="c">
-<div class="container-fluid">
-    <div class="row">
-            <div class="col-md-8">
-                <div id="world-map" style="width: 600px; height: 400px"></div>
-                <script>
-                    $(function(){
-                      $('#world-map').vectorMap({
-                          map: 'continents_mill',
-                          backgroundColor: 'gray',
-                        series: {
-                                regions: [{
-                                  scale: {
-                                    '1': 'FFF',
-                                    '2': '#002144'
-                                  },
-                                  attribute: 'fill',
-                                  values: { 'EU': 2, 'NA': 2 }
-                                }]
-                              }
-                         });
-                    });
-                </script>
-            </div>
-            <div class="col-md-4">
-                <div id="donutchart-AF"></div>
-                <div id="donutchart-NA"></div>
-                <div id="donutchart-OC"></div>
-                <div id="donutchart-AS"></div>
-                <div id="donutchart-EU"></div>
-                <div id="donutchart-SA"></div>
 
+
+<div class="container-fluid">
+    <!-- Filters -->
+    <div class="row">
+        <form class="form-inline" style="text-align: left; padding: 20px">
+            <div class="form-group">
+                <label>Select fund to display :</label>
+                   <select class="form-control">
+                       <option>Fund A</option>
+                       <option>Fund B</option>
+                       <option>Fund C</option>
+                   </select>
             </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <!-- Map and pie charts -->
+    <div class="row">
+        <div class="col-md-9">
+            <div id="world-map" style="width: auto; height: 600px"></div>
+            <script>
+                $(function(){
+                  $('#world-map').vectorMap({
+                      map: 'continents_mill',
+                      backgroundColor: 'transparent',
+
+                    series: {
+                            regions: [{
+                              scale: {
+                                '1': 'FFF',
+                                '2': '#002144'
+                              },
+                              attribute: 'fill',
+                              values: { 'EU': 2, 'NA': 2 }
+                            }]
+                          }
+                     });
+                });
+            </script>
+        </div>
+
+        <div class="col-md-3">
+            <div id="donutchart-AF"></div>
+            <div id="donutchart-NA"></div>
+            <div id="donutchart-OC"></div>
+            <div id="donutchart-AS"></div>
+            <div id="donutchart-EU"></div>
+            <div id="donutchart-SA"></div>
         </div>
     </div>
+
+    <!-- Bar charts for selected countries -->
+    <div class="row">
+        <div id="country-A" style="width: 900px; height: 500px;"></div>
+        <div id="country-B" style="width: 900px; height: 500px;"></div>
+    </div>
 </div>
-</div>
+
 <div>
     <div id="renderFooterIf">
         <div id="footer_hack">
@@ -150,7 +169,8 @@
 
 
 <script type="text/javascript">
-    $(loadCharts());
+    $(loadPieCharts());
+    $(loadBarCharts());
 </script>
 
 
