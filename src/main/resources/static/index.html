@@ -4,30 +4,119 @@
     <link rel="stylesheet" type="text/css" href="./css/styleScreen.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/rbcdScreen.css" media="all">
+    <link rel="stylesheet" type="text/css" href="./css/ofdScreen.css" media="all">
+
+    <!-- JVectorMap -->
+    <link rel="stylesheet" media="all" href="./css/jquery-jvectormap.css"/>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery-jvectormap.js"></script>
+    <script src="./js/jquery-mousewheel.js"></script>
+    <script src="./js/google-charts.js"></script>
+    <script src="./js/rbc-charts.js"></script>
+    <script src="./js/maps.js"></script>
+
+    <script src="./js/assets/jvectormap.js"></script>
+    <script src="./js/assets/abstract-element.js"></script>
+    <script src="./js/assets/abstract-canvas-element.js"></script>
+    <script src="./js/assets/abstract-shape-element.js"></script>
+    <script src="./js/assets/svg-element.js"></script>
+    <script src="./js/assets/svg-group-element.js"></script>
+    <script src="./js/assets/svg-canvas-element.js"></script>
+    <script src="./js/assets/svg-shape-element.js"></script>
+    <script src="./js/assets/svg-path-element.js"></script>
+    <script src="./js/assets/svg-circle-element.js"></script>
+    <script src="./js/assets/svg-image-element.js"></script>
+    <script src="./js/assets/svg-text-element.js"></script>
+    <script src="./js/assets/vml-element.js"></script>
+    <script src="./js/assets/vml-group-element.js"></script>
+    <script src="./js/assets/vml-canvas-element.js"></script>
+    <script src="./js/assets/vml-shape-element.js"></script>
+    <script src="./js/assets/vml-path-element.js"></script>
+    <script src="./js/assets/vml-circle-element.js"></script>
+    <script src="./js/assets/vml-image-element.js"></script>
+    <script src="./js/assets/map-object.js"></script>
+    <script src="./js/assets/region.js"></script>
+    <script src="./js/assets/marker.js"></script>
+    <script src="./js/assets/vector-canvas.js"></script>
+    <script src="./js/assets/simple-scale.js"></script>
+    <script src="./js/assets/ordinal-scale.js"></script>
+    <script src="./js/assets/numeric-scale.js"></script>
+    <script src="./js/assets/color-scale.js"></script>
+    <script src="./js/assets/legend.js"></script>
+    <script src="./js/assets/data-series.js"></script>
+    <script src="./js/assets/proj.js"></script>
+    <script src="./js/assets/map.js"></script>
+
+    <script src="./js/assets/jquery-jvectormap-continents.js"></script>
+    <script src="./js/assets/jquery-jvectormap-africa-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-asia-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-europe-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-north_america-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-oceania-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-south_america-mill.js"></script>
     <meta charset="UTF-8">
     <title>Distributed Risk Profile</title>
 </head>
+
 <body>
-<div style="text-align:left; height:150px" id="ofd_h">
+<div id="ofd_h">
     <div id="ofd-logo">
         <img src="./images/RBCIS_logo.png" alt="RBC I&amp;TS" id="rbcisLogo">
     </div>
     <div id="ofd-um" style="">
-        Having problems?
-        <span>
-	    	<a id="contactUsLink" href="http://www.rbcis.com/AboutUs/p_ContactInfo.aspx">Please contact us</a>
-	    </span>
+
     </div>
 </div>
-<div id="c_hack">
-    <div class="noHeader" id="c">
-        <div id="outer-body">
-            <div>
 
+
+<div class="container-fluid">
+    <!-- Filters -->
+    <div class="row">
+        <form class="form-inline" style="text-align: left; padding: 20px">
+            <div class="form-group">
+                <label>Select fund to display :</label>
+                   <select class="form-control">
+                       <option>Fund A</option>
+                       <option>Fund B</option>
+                       <option>Fund C</option>
+                   </select>
             </div>
+
+        </form>
+    </div>
+
+    <!-- Map and pie charts -->
+    <div class="row">
+        <div class="col-md-9">
+            <button class="btn btn-default pull-right" type="button" onclick="showWorldMap()">
+                <<
+            </button>
+            <div id="world-map" style="width: auto; height: 600px"></div>
+            <div id="eu-map" style="width: auto; height: 600px"></div>
+            <div id="af-map" style="width: auto; height: 600px"></div>
+            <div id="na-map" style="width: auto; height: 600px"></div>
+            <div id="oc-map" style="width: auto; height: 600px"></div>
+            <div id="as-map" style="width: auto; height: 600px"></div>
+            <div id="sa-map" style="width: auto; height: 600px"></div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="donutchart-AF"></div>
+            <div id="donutchart-NA"></div>
+            <div id="donutchart-OC"></div>
+            <div id="donutchart-AS"></div>
+            <div id="donutchart-EU"></div>
+            <div id="donutchart-SA"></div>
         </div>
     </div>
+
+    <!-- Bar charts for selected countries -->
+    <div class="row">
+        <div id="country-A" style="width: 900px; height: 500px;"></div>
+        <div id="country-B" style="width: 900px; height: 500px;"></div>
+    </div>
 </div>
+
 <div>
     <div id="renderFooterIf">
         <div id="footer_hack">
@@ -72,5 +161,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(loadPieCharts());
+    $(drawWorldMap());
+
+</script>
+
 </body>
 </html>

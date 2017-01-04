@@ -34,7 +34,7 @@ input{border:1px solid #C9C9C9;color:#585858;padding:1px 10px;background:#FAFAFA
 #c_hack{background-color:#FFFFFF;width:100%;text-align:center;min-height:350px;}
 
 /* header */
-#ofd_h{height:81px;z-index:950; background:#002144; }
+#ofd_h{height:100px;z-index:950; background:#002144; }
 #h{height:81px;z-index:950;}
 #logo{float:left;}
 
