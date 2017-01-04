@@ -34,6 +34,15 @@ function onRegionClick(e, code){
 }
 
 function drawWorldMap(){
+    function placeholder(code) {
+        return '#' + code + '-map';
+    }
+
+    for (var key of maps.keys()) {
+        $(placeholder(key)).fadeOut();
+    }
+    $("#world-map").fadeIn( 200);
+
     $('#world-map').vectorMap({
         map: 'continents_mill',
         backgroundColor: 'transparent',
