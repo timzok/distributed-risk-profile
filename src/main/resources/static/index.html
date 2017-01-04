@@ -4,6 +4,14 @@
     <link rel="stylesheet" type="text/css" href="./css/styleScreen.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/rbcdScreen.css" media="all">
+
+
+    <!-- JVectorMap -->
+    <link rel="stylesheet" href="./jvectormap/jquery-jvectormap.css" type="text/css" media="screen"/>
+    <script src="./jvectormap/jquery.js"></head>
+    <script src="./jvectormap/jquery-jvectormap.js"></script>
+    <script src="./jvectormap/jquerw-world_mill.js"</script>
+
     <meta charset="UTF-8">
     <title>Distributed Risk Profile</title>
 </head>
@@ -23,6 +31,13 @@
     <div class="noHeader" id="c">
         <div id="outer-body">
             <div>
+
+                <div id="world-map" style="width: 600px; height: 400px"></div>
+                <script>
+    $(function(){
+      $('#world-map').vectorMap({map: 'world_mill'});
+    });
+  </script>
 
             </div>
         </div>
