@@ -139,7 +139,7 @@ thead th{background:#585858;font-size:13px;color:#fff;border:1px solid #C9C9C9;f
 div.tableheader{background:#585858;font-size:13px;color:#fff;border:1px solid #C9C9C9;padding:2px 9px;margin:0;width:970px}
 div.navtableheader{background:#585858;font-size:13px;color:#fff;border:1px solid #C9C9C9;padding:2px 9px;margin:0;width:970px;font-weight: bold}
 th.navalerttableheader{background:#585858;font-size:13px;color:#fff;border:1px solid #C9C9C9;padding:2px 9px;margin:0;font-weight: normal;text-align:left}
-td{padding:2px 9px;border:1px solid #C9C9C9;}
+td{padding:2px 9px;border: none;}
 tr.alt td{background:#FAFAFA}
 
 tr.altDeMeyerSpecialOne td{background:#FAFAFA;border-width:0px;text-align:left;}
