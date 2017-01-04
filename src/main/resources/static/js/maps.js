@@ -23,7 +23,8 @@ function renderMap(code){
 
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
-        $(placeholder).vectorMap({map: maps.get(code)});
+        $(placeholder).vectorMap({map: maps.get(code),
+         backgroundColor: 'transparent'});
     }
     $("#world-map").fadeOut( 200, "linear", complete );
 }
@@ -35,7 +36,7 @@ function onRegionClick(e, code){
 function drawWorldMap(){
     $('#world-map').vectorMap({
         map: 'continents_mill',
-        backgroundColor: 'gray',
+        backgroundColor: 'transparent',
         series: {
             regions: [{
                 scale: {

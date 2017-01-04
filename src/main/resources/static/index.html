@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="./css/styleScreen.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/rbcdScreen.css" media="all">
+    <link rel="stylesheet" type="text/css" href="./css/ofdScreen.css" media="all">
 
     <!-- JVectorMap -->
     <link rel="stylesheet" media="all" href="./css/jquery-jvectormap.css"/>
@@ -11,7 +12,7 @@
     <script src="./js/jquery-jvectormap.js"></script>
     <script src="./js/jquery-mousewheel.js"></script>
     <script src="./js/google-charts.js"></script>
-    <script src="./js/pie-charts.js"></script>
+    <script src="./js/rbc-charts.js"></script>
     <script src="./js/maps.js"></script>
 
     <script src="./js/assets/jvectormap.js"></script>
@@ -63,38 +64,56 @@
         <img src="./images/RBCIS_logo.png" alt="RBC I&amp;TS" id="rbcisLogo">
     </div>
     <div id="ofd-um" style="">
-        Having problems?
-        <span>
-	    	<a id="contactUsLink" href="http://www.rbcis.com/AboutUs/p_ContactInfo.aspx">Please contact us</a>
-	    </span>
+
     </div>
 </div>
-<div id="c_hack">
-    <div class="" id="c">
-<div class="container-fluid">
-    <div class="row">
-            <div class="col-md-8">
-                <div id="world-map" style="width: 600px; height: 400px"></div>
-                <div id="eu-map" style="width: 600px; height: 400px"></div>
-                <div id="af-map" style="width: 600px; height: 400px"></div>
-                <div id="na-map" style="width: 600px; height: 400px"></div>
-                <div id="oc-map" style="width: 600px; height: 400px"></div>
-                <div id="as-map" style="width: 600px; height: 400px"></div>
-                <div id="sa-map" style="width: 600px; height: 400px"></div>
-            </div>
-            <div class="col-md-4">
-                <div id="donutchart-AF"></div>
-                <div id="donutchart-NA"></div>
-                <div id="donutchart-OC"></div>
-                <div id="donutchart-AS"></div>
-                <div id="donutchart-EU"></div>
-                <div id="donutchart-SA"></div>
 
+
+<div class="container-fluid">
+    <!-- Filters -->
+    <div class="row">
+        <form class="form-inline" style="text-align: left; padding: 20px">
+            <div class="form-group">
+                <label>Select fund to display :</label>
+                   <select class="form-control">
+                       <option>Fund A</option>
+                       <option>Fund B</option>
+                       <option>Fund C</option>
+                   </select>
             </div>
+
+        </form>
+    </div>
+
+    <!-- Map and pie charts -->
+    <div class="row">
+        <div class="col-md-9">
+            <div id="world-map" style="width: auto; height: 600px"></div>
+            <div id="eu-map" style="width: auto; height: 600px"></div>
+            <div id="af-map" style="width: auto; height: 600px"></div>
+            <div id="na-map" style="width: auto; height: 600px"></div>
+            <div id="oc-map" style="width: auto; height: 600px"></div>
+            <div id="as-map" style="width: auto; height: 600px"></div>
+            <div id="sa-map" style="width: auto; height: 600px"></div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="donutchart-AF"></div>
+            <div id="donutchart-NA"></div>
+            <div id="donutchart-OC"></div>
+            <div id="donutchart-AS"></div>
+            <div id="donutchart-EU"></div>
+            <div id="donutchart-SA"></div>
         </div>
     </div>
+
+    <!-- Bar charts for selected countries -->
+    <div class="row">
+        <div id="country-A" style="width: 900px; height: 500px;"></div>
+        <div id="country-B" style="width: 900px; height: 500px;"></div>
+    </div>
 </div>
-</div>
+
 <div>
     <div id="renderFooterIf">
         <div id="footer_hack">
@@ -141,8 +160,9 @@
 </div>
 
 <script type="text/javascript">
-    $(loadCharts());
+    $(loadPieCharts());
     $(drawWorldMap());
+
 </script>
 
 </body>
