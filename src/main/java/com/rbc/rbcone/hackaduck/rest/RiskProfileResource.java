@@ -64,11 +64,11 @@ public class RiskProfileResource {
 
     private RiskEntity createEntityRisk(String anEntityId) {
         RiskEntity result = new RiskEntity();
-        result.setFund(new LegalFund("1", "LFUND1"));
+        /*result.setFund(new LegalFund("1", "LFUND1"));
         result.setEntityId(anEntityId);
         result.setLow(new Risk(25.0, 345, 12));
         result.setMedium(new Risk(50.0, 5677, 82));
-        result.setHigh(new Risk(25.0, 35, 6));
+        result.setHigh(new Risk(25.0, 35, 6));*/
         return result;
     }
 }
