@@ -20,11 +20,11 @@ public class RiskProfileResource {
     public List<LegalFund> getFundList() {
         // Mocked data
         ArrayList<LegalFund> rslt = new ArrayList<LegalFund>();
-        rslt.add(new LegalFund("1", "LFUND1"));
-        rslt.add(new LegalFund("2", "LFUND2"));
-        rslt.add(new LegalFund("3", "LFUND3"));
-        rslt.add(new LegalFund("4", "LFUND4"));
-        rslt.add(new LegalFund("5", "LFUND5"));
+        rslt.add(createLegalFund("1", "LFUND1"));
+        rslt.add(createLegalFund("2", "LFUND2"));
+        rslt.add(createLegalFund("3", "LFUND3"));
+        rslt.add(createLegalFund("4", "LFUND4"));
+        rslt.add(createLegalFund("5", "LFUND5"));
         return rslt;
     }
 
@@ -64,11 +64,18 @@ public class RiskProfileResource {
 
     private RiskEntity createEntityRisk(String anEntityId) {
         RiskEntity result = new RiskEntity();
-        result.setFund(new LegalFund("1", "LFUND1"));
+        /*result.setFund(new LegalFund("1", "LFUND1"));
         result.setEntityId(anEntityId);
         result.setLow(new Risk(25.0, 345, 12));
         result.setMedium(new Risk(50.0, 5677, 82));
-        result.setHigh(new Risk(25.0, 35, 6));
+        result.setHigh(new Risk(25.0, 35, 6));*/
         return result;
+    }
+    
+    private LegalFund createLegalFund(String anId, String aName) {
+    	LegalFund rslt = new LegalFund();
+    	/*rslt.setId(anId);
+    	rslt.setName(aName);*/
+    	return rslt;
     }
 }

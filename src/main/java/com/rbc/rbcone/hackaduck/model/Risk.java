@@ -16,7 +16,7 @@ public class Risk {
     /**
      * The risk value.
      */
-    private double riskValue;
+    private double assetValue;
     /**
      * The number of account holders of the fund being in this risk  category.
      */
@@ -24,8 +24,11 @@ public class Risk {
     /**
      * The percentage of the fund held by the account holders that are in this risk category.
      */
-    private int accountHolderPercentOwnership;
-
+    private int percentagePerAssetValue;
+    /**
+     * The percentage of the asset held by the account holders that are in this risk category.
+     */
+    private int percentagePerTotalAssetValue;
     public Risk() {
 
     }
