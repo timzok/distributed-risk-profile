@@ -69,7 +69,7 @@
 </div>
 
 
-<div class="container-fluid">
+<div class="container">
     <!-- Filters -->
     <div class="row">
         <form class="form-inline" style="text-align: left; padding: 20px">
@@ -86,27 +86,29 @@
 
     <!-- Map and pie charts -->
     <div class="row">
-        <div class="col-md-9">
-            <button class="btn btn-default pull-right" type="button" onclick="showWorldMap()">
-                <<
-            </button>
-            <div id="world-map" style="width: auto; height: 600px"></div>
-            <div id="eu-map" style="width: auto; height: 600px"></div>
-            <div id="af-map" style="width: auto; height: 600px"></div>
-            <div id="na-map" style="width: auto; height: 600px"></div>
-            <div id="oc-map" style="width: auto; height: 600px"></div>
-            <div id="as-map" style="width: auto; height: 600px"></div>
-            <div id="sa-map" style="width: auto; height: 600px"></div>
-        </div>
+        <table>
+            <tr>
+                <td><div id="donutchart-AF"></div></td>
+                <td><div id="donutchart-NA"></div></td>
+                <td><div id="donutchart-OC"></div></td>
+                <td><div id="donutchart-AS"></div></td>
+                <td><div id="donutchart-EU"></div></td>
+                <td><div id="donutchart-SA"></div></td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <button class="btn btn-default pull-right" type="button" onclick="showWorldMap()">
+            <<
+        </button>
 
-        <div class="col-md-3">
-            <div id="donutchart-AF"></div>
-            <div id="donutchart-NA"></div>
-            <div id="donutchart-OC"></div>
-            <div id="donutchart-AS"></div>
-            <div id="donutchart-EU"></div>
-            <div id="donutchart-SA"></div>
-        </div>
+        <div id="world-map" style="width: auto; height: 600px"></div>
+        <div id="eu-map" style="width: auto; height: 600px"></div>
+        <div id="af-map" style="width: auto; height: 600px"></div>
+        <div id="na-map" style="width: auto; height: 600px"></div>
+        <div id="oc-map" style="width: auto; height: 600px"></div>
+        <div id="as-map" style="width: auto; height: 600px"></div>
+        <div id="sa-map" style="width: auto; height: 600px"></div>
     </div>
 
     <!-- Bar charts for selected countries -->
@@ -163,10 +165,9 @@
 
 <script type="text/javascript">
 
-
-    $(loadPieCharts());
+    //$(loadPieCharts());
     $(drawWorldMap('Fund1'));
-    $(initializeMap());
+    $(setObserver());
 
 </script>
 

@@ -11,6 +11,7 @@ maps.set("na", 'north_america_mill');
 maps.set("oc", 'oceania_mill');{
 maps.set("sa", 'south_america_mill');
 
+
 function renderMap(code){
     function complete() {
         function placeholder(code) {
@@ -24,13 +25,28 @@ function renderMap(code){
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
         $(placeholder).vectorMap({map: maps.get(code),
-         backgroundColor: 'transparent'});
+        backgroundColor: 'transparent'});
+        //drawMap($(placeholder), maps.get(code), {})
+
     }
+
     $("#world-map").fadeOut( 200, "linear", complete );
 }
 
+//function renderMap2(code){
+//    function complete() {
+//        drawMap(maps.get(code), {})
+//        $('#world-map').fadeIn().resize();
+//    }
+//    $("#world-map").fadeOut( 200, "linear", complete );
+//}
+
+
+
+
 function onRegionClick(e, code){
     renderMap(code.toLowerCase());
+   //renderMap2(code.toLowerCase());
 }
 
 function showWorldMap(){
@@ -47,21 +63,27 @@ function showWorldMap(){
 function drawWorldMap(fundID){
     $.getJSON( "./jsonfiles/MapPerregions" + fundID + ".json", function( data ) {
         loadRegionData(data.Regions);
+        drawWorldMapPieCharts(data.Regions);
     });
 
 }}
 
 
-function loadRegionData(fundData) {
+function loadRegionData(regionData) {
     var regionList = { };
-    $.each( fundData, function( key, val ) {
-        regionList[fundData[key].regionCode] = 2;
+    $.each( regionData, function( key, val ) {
+        regionList[regionData[key].regionCode] = 2;
       });
 
-    $('#world-map').html('');
+    drawMap('#world-map', 'continents_mill', regionList)
 
-    $('#world-map').vectorMap({
-        map: 'continents_mill',
+}
+
+function drawMap(mapID, mapName, data) {
+
+    $(mapID).html('');
+    $(mapID).vectorMap({
+        map: mapName,
         backgroundColor: 'transparent',
         series: {
             regions: [{
@@ -70,15 +92,16 @@ function loadRegionData(fundData) {
                     '2': '#002144'
                 },
                 attribute: 'fill',
-                values:  regionList //{ 'EU': 2, 'NA': 2 }
+                values:  data
             }]
         },
         onRegionTipShow : onRegionTipShow,
         onRegionClick : onRegionClick
-    });
+    }).resize();
+
 }
 
-function initializeMap() {
+function setObserver() {
     $( "#fund-selection" ).change(function() {
         drawWorldMap(this.value);
     });
