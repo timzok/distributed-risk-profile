@@ -75,7 +75,20 @@
                 <div id="world-map" style="width: 600px; height: 400px"></div>
                 <script>
     $(function(){
-      $('#world-map').vectorMap({map: 'continents_mill'});
+      $('#world-map').vectorMap({
+                                  map: 'continents_mill',
+                                  backgroundColor: 'gray',
+                                series: {
+                                        regions: [{
+                                          scale: {
+                                            '1': 'FFF',
+                                            '2': '#002144'
+                                          },
+                                          attribute: 'fill',
+                                          values: { 'EU': 2, 'NA': 2 }
+                                        }]
+                                      }
+                                 });
     });
   </script>
 
