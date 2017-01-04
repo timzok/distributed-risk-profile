@@ -15,21 +15,22 @@ public class Country {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	public int countryId;
+	public int id;
 
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="region_id")
 	public Region region;
 	
 	
 	public String type;
 	public String label;
-	public int getCountryId() {
-		return countryId;
+	
+	public int getId() {
+		return id;
 	}
 	
-	public void setCountryId(int countryId) {
-		this.countryId = countryId;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getType() {
 		return type;

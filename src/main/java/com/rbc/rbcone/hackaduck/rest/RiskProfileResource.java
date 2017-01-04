@@ -20,11 +20,11 @@ public class RiskProfileResource {
     public List<LegalFund> getFundList() {
         // Mocked data
         ArrayList<LegalFund> rslt = new ArrayList<LegalFund>();
-        rslt.add(new LegalFund("1", "LFUND1"));
+   /*     rslt.add(new LegalFund("1", "LFUND1"));
         rslt.add(new LegalFund("2", "LFUND2"));
         rslt.add(new LegalFund("3", "LFUND3"));
         rslt.add(new LegalFund("4", "LFUND4"));
-        rslt.add(new LegalFund("5", "LFUND5"));
+        rslt.add(new LegalFund("5", "LFUND5"));*/
         return rslt;
     }
 

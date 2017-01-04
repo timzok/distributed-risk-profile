@@ -2,11 +2,15 @@ package com.rbc.rbcone.hackaduck.model.country;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 
@@ -14,12 +18,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 public class Region {
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int id;
 	
 	public String name;
 	
-	@OneToMany(mappedBy="region")
+//	fetch = FetchType.LAZY,
+	// @OneToMany( fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE }, mappedBy = "region")
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL},mappedBy="region")
 	public Set<Country> country;
 
 	public int getId() {

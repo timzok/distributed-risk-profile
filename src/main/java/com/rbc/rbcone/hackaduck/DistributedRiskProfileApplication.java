@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rbc.rbcone.hackaduck.model.country.Country;
 import com.rbc.rbcone.hackaduck.model.country.Region;
+import com.rbc.rbcone.hackaduck.model.country.repository.CountryRepository;
 import com.rbc.rbcone.hackaduck.model.country.repository.RegionRepository;
 
 @SpringBootApplication
@@ -27,6 +28,9 @@ public class DistributedRiskProfileApplication {
 
 	@Autowired
 	private RegionRepository regionRepo;
+	
+	@Autowired
+	private CountryRepository countryRepo;
 	
 	
 	private static final Logger log = LoggerFactory.getLogger(DistributedRiskProfileApplication.class);
@@ -40,34 +44,40 @@ public class DistributedRiskProfileApplication {
 	@PostConstruct
 	public void postConstruct() throws JsonParseException, JsonMappingException, IOException{
 		
+		log.info("POSTCONSTRUCT");
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		TypeReference<List<Region>> mapType = new TypeReference<List<Region>>() {};
 		
 		List<Region> regions = mapper.readValue(this.getClass().getResourceAsStream("/Regions.json"),mapType);
 
-		log.info("POSTCONSTRUCT");
-		
-		int i=0;
 		for (Region cr: regions){
-			
-			cr.setId(i++);
-			
-			log.info(cr.getName());
 			for (Country ctry: cr.getCountry())
 			{
-				log.info(ctry.getLabel()+"<->"+ctry.getType());
+				ctry.setRegion(cr);
 			}
 		}
-		
+
 		log.info("Persisting the regions");
 		regionRepo.save(regions);
 		log.info("Region is persisted");	
-		for (Region test: regionRepo.findAll())
+		
+		/*for (Region test: regionRepo.findAll())
 		{
 			log.info(test.getName() + "<>"+test.getId());
+		
+			for(Country countries: test.getCountry())
+			{
+				log.info(countries.getType()+"-"+countries.getLabel()+"--->"+countries.getId()+ "----"+ countries.getRegion().getId());
+			}
+			
+			
 		}
 	
+		for(Country countries: countryRepo.findAll())
+		{
+			log.info(countries.getType()+"-"+countries.getLabel()+"--->"+countries.getId()+ countries.getRegion().getId());
+		}*/
 	
 		
 		
