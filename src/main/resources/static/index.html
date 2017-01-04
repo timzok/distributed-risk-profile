@@ -4,8 +4,6 @@
     <link rel="stylesheet" type="text/css" href="./css/styleScreen.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/rbcdScreen.css" media="all">
-    <link rel="stylesheet" type="text/css" href="./css/ofdScreen.css" media="all">
-
 
     <!-- JVectorMap -->
     <link rel="stylesheet" media="all" href="./css/jquery-jvectormap.css"/>
@@ -14,6 +12,7 @@
     <script src="./js/jquery-mousewheel.js"></script>
     <script src="./js/google-charts.js"></script>
     <script src="./js/pie-charts.js"></script>
+    <script src="./js/maps.js"></script>
 
     <script src="./js/assets/jvectormap.js"></script>
     <script src="./js/assets/abstract-element.js"></script>
@@ -48,7 +47,12 @@
     <script src="./js/assets/map.js"></script>
 
     <script src="./js/assets/jquery-jvectormap-continents.js"></script>
-
+    <script src="./js/assets/jquery-jvectormap-africa-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-asia-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-europe-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-north_america-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-oceania-mill.js"></script>
+    <script src="./js/assets/jquery-jvectormap-south_america-mill.js"></script>
     <meta charset="UTF-8">
     <title>Distributed Risk Profile</title>
 </head>
@@ -71,24 +75,12 @@
     <div class="row">
             <div class="col-md-8">
                 <div id="world-map" style="width: 600px; height: 400px"></div>
-                <script>
-                    $(function(){
-                      $('#world-map').vectorMap({
-                          map: 'continents_mill',
-                          backgroundColor: 'gray',
-                        series: {
-                                regions: [{
-                                  scale: {
-                                    '1': 'FFF',
-                                    '2': '#002144'
-                                  },
-                                  attribute: 'fill',
-                                  values: { 'EU': 2, 'NA': 2 }
-                                }]
-                              }
-                         });
-                    });
-                </script>
+                <div id="eu-map" style="width: 600px; height: 400px"></div>
+                <div id="af-map" style="width: 600px; height: 400px"></div>
+                <div id="na-map" style="width: 600px; height: 400px"></div>
+                <div id="oc-map" style="width: 600px; height: 400px"></div>
+                <div id="as-map" style="width: 600px; height: 400px"></div>
+                <div id="sa-map" style="width: 600px; height: 400px"></div>
             </div>
             <div class="col-md-4">
                 <div id="donutchart-AF"></div>
@@ -148,11 +140,10 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
     $(loadCharts());
+    $(drawWorldMap());
 </script>
-
 
 </body>
 </html>
