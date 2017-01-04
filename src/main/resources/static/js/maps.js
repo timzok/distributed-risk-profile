@@ -44,7 +44,20 @@ function showWorldMap(){
     $("#world-map").fadeIn();
 }
 
-function drawWorldMap(){
+function drawWorldMap(fundID){
+    $.getJSON( "./jsonfiles/MapPerregions" + fundID + ".json", function( data ) {
+        loadRegionData(data.Regions);
+    });
+
+}}
+
+
+function loadRegionData(fundData) {
+    var regionList = { };
+    $.each( fundData, function( key, val ) {
+        regionList[fundData[key].regionCode] = 2;
+      });
+
     $('#world-map').vectorMap({
         map: 'continents_mill',
         backgroundColor: 'transparent',
@@ -55,10 +68,16 @@ function drawWorldMap(){
                     '2': '#002144'
                 },
                 attribute: 'fill',
-                values: { 'EU': 2, 'NA': 2 }
+                values:  regionList //{ 'EU': 2, 'NA': 2 }
             }]
         },
         onRegionTipShow : onRegionTipShow,
         onRegionClick : onRegionClick
     });
-}}
+}
+
+function initializeMap() {
+    $( "#fund-selection" ).change(function() {
+        drawWorldMap(this.value);
+    });
+}

@@ -75,10 +75,9 @@
         <form class="form-inline" style="text-align: left; padding: 20px">
             <div class="form-group">
                 <label>Select fund to display :</label>
-                   <select class="form-control">
-                       <option>Fund A</option>
-                       <option>Fund B</option>
-                       <option>Fund C</option>
+                   <select id="fund-selection" class="form-control">
+                       <option value="Fund1">Fund 1</option>
+                       <option value="Fund2">Fund 2</option>
                    </select>
             </div>
 
@@ -163,8 +162,11 @@
 </div>
 
 <script type="text/javascript">
+
+
     $(loadPieCharts());
-    $(drawWorldMap());
+    $(drawWorldMap('Fund1'));
+    $(initializeMap());
 
 </script>
 
