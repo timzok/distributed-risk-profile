@@ -1,3 +1,11 @@
+var mapTitles = new Map();
+mapTitles.set("EU", 'Europe');
+mapTitles.set("AF", 'Africa');
+mapTitles.set("AS", 'Asia');
+mapTitles.set("NA", 'North America');
+mapTitles.set("OC", 'Oceania');
+mapTitles.set("SA", 'South America');
+
 function drawWorldMapPieCharts(regionData) {
     $("#donutchart-AF").html('');
     $("#donutchart-NA").html('');
@@ -10,7 +18,7 @@ function drawWorldMapPieCharts(regionData) {
     $.each( regionData, function( key, val ) {
         var r = regionData[key];
         drawPieChart( "donutchart-" + r.regionCode,
-                      "donutchart-" + r.regionCode,
+                      mapTitles.get(r.regionCode),
                       r.Low.assetValue,
                       r.Medium.assetValue,
                       r.High.assetValue
