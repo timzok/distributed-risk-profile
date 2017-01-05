@@ -86,7 +86,13 @@ function drawColumnChart(countryData) {
         var options = {
             chart: {
                 title: 'Bar chart for ' + countryData.CountryName
-            }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'out',
+                startup: true
+            },
+            colors: [ '#aaba0a', '#fca311', 'c71D06']
         };
 
         var chart = new google.charts.Bar(document.getElementById('country-chart'));
