@@ -52,7 +52,7 @@ public class DistributedRiskProfileApplication {
 	
 	@Transactional
 	@PostConstruct
-	public void postConstruct() throws JsonParseException, JsonMappingException, IOException, InterruptedException{
+	public void postConstruct() throws IOException, InterruptedException{
 
 		log.info("POSTCONSTRUCT");
 		ObjectMapper mapper = new ObjectMapper();
