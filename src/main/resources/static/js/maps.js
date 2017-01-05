@@ -33,9 +33,7 @@ function renderMap(code){
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
 
-        getCountriesData($('#fund-selection').val(), code).then(
-            drawVectorMap(placeholder, maps.get(code), countriesMap)
-        );
+        getCountriesDataAndDrawMap($('#fund-selection').val(), code, drawVectorMap, placeholder);
     }
 
     $("#world-map").fadeOut( 200, "linear", complete );
@@ -116,10 +114,11 @@ $.each( regionData.regions, function( key, val ) {
   return regionsList;
 }
 
-function getCountriesData(fundID, code) {
+function getCountriesDataAndDrawMap(fundID, code, callback, placeholder) {
     return $.getJSON( "/api/funds/" + fundID + "/regions/" + code + "/countries", function( data ) {
         $.each( data.countries, function( key, val ) {
             countriesMap[val.countryCode] = 2;
         });
+        callback(placeholder, maps.get(code), countriesMap);
     });
 }
