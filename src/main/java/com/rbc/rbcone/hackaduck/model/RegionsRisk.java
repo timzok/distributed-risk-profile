@@ -1,5 +1,6 @@
 package com.rbc.rbcone.hackaduck.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,6 +33,15 @@ public class RegionsRisk {
     /**
      * Risk information about the medium risk category.
      */
-	private List<RegionRisk> regions;
+	private List<RegionRisk> regions = new ArrayList<RegionRisk>();
 
+	
+	public RegionRisk getRegionRisk(String aRegionCode) {
+		for (RegionRisk regionRisk : regions) {
+			if (regionRisk.getRegionCode().equals(aRegionCode)) {
+				return regionRisk;
+			}
+		}
+		return null;
+	}
 }

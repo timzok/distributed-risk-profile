@@ -39,4 +39,27 @@ public class RegionRisk {
      */
 	private Risk high;
 	
+	public void setRisk(Risk aRisk, String aRiskLevel) {
+		if ("L".equals(aRiskLevel)) {
+			low = aRisk;
+		} else if ("M".equals(aRiskLevel)) {
+			medium = aRisk;
+		} else if ("H".equals(aRiskLevel)) {
+			high = aRisk;
+		} 
+	}
+	
+	public void fillMissingRisks() {
+		if (low==null) {
+			low = new Risk(0, 0, 0);
+		} 
+		if (medium==null) {
+			medium = new Risk(0, 0, 0);
+		} 
+		if (high==null) {
+			high = new Risk(0, 0, 0);
+		} 
+		
+	}
+	
 }
