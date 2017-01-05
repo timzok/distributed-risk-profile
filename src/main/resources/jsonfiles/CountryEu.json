@@ -163,6 +163,22 @@
             "assetValue": 2,
             "percentagePerAssetValue": 0.6
          }
+      },
+      {
+         "CountryCode": "RU",
+         "CountryName": "Russia",
+         "Low": {
+            "assetValue": 159,
+            "percentagePerAssetValue": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "percentagePerAssetValue": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "percentagePerAssetValue": 0.6
+         }
       }
    ]
 }
