@@ -19,9 +19,9 @@ function drawWorldMapPieCharts(regionData) {
         var r = regionData[key];
         drawPieChart( "donutchart-" + r.regionCode,
                       mapTitles.get(r.regionCode),
-                      r.Low.assetValue,
-                      r.Medium.assetValue,
-                      r.High.assetValue
+                      r.low.assetValue,
+                      r.medium.assetValue,
+                      r.high.assetValue
                       );
     });
 
@@ -93,4 +93,14 @@ function loadPieCharts() {
 function loadColumCharts() {
     drawColumnChart('country-a', 'Data for chart A');
     drawColumnChart('country-b', 'Data for chart B');
+}
+
+function loadFundDropdown() {
+    $.getJSON("/api/funds", function (funds) {
+        funds.forEach(function (fund) {
+            var option = $('<option/>');
+            option.attr({'value': fund.id}).text(fund.name);
+            $('#fund-selection').append(option);
+        });
+    });
 }
