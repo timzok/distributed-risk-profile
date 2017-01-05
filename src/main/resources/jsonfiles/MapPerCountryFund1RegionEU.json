@@ -6,6 +6,7 @@
 		[
 			{
 				"countryCode":"FR",
+				"countryName":"France",
 				"low":{
 					"assetValue":2000.0,
 					"accountHolderCount":2000,
@@ -27,6 +28,7 @@
 			},
 			{
 				"countryCode":"BE",
+				"countryName":"Belgium",
 				"low":{
 					"assetValue":25.0,
 					"accountHolderCount":25,
@@ -48,6 +50,7 @@
 			},
 			{
 				"countryCode":"ES",
+				"countryName":"Estonia",
 				"low":{
 					"assetValue":564.0,
 					"accountHolderCount":564,
@@ -69,6 +72,7 @@
 			},
 			{
 				"countryCode":"LI",
+				"countryName":"Lithuania",
 				"low":{
 					"assetValue":159.0,
 					"accountHolderCount":159,
