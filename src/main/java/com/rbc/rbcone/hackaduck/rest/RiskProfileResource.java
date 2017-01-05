@@ -41,17 +41,16 @@ public class RiskProfileResource {
 	
     @RequestMapping(value = "/funds", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public List<LegalFund> getFundList() {
-        // Mocked data
+    // Mocked data
     	
-    	ArrayList<LegalFund> localFunds = new ArrayList<LegalFund>();
-    	
-    	for(SaraLegalFund cse: saraLegalFundRepo.findAll())
+   	ArrayList<LegalFund> localFunds = new ArrayList<LegalFund>();
+
+   	for(SaraLegalFund cse: saraLegalFundRepo.findAll())
 		{
     		localFunds.add(new LegalFund(cse.getId(),cse.getName()));
-			
 		}
     	
-    	return localFunds;
+   	return localFunds;
     }
 
     @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
