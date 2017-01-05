@@ -52,6 +52,7 @@ public class DistributedRiskProfileApplication {
 //	@PostConstruct
 	public void postConstruct() throws JsonParseException, JsonMappingException, IOException, InterruptedException{
 
+/*		
 		log.info("POSTCONSTRUCT");
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
@@ -121,7 +122,7 @@ public class DistributedRiskProfileApplication {
 		}
 
 		promRepo.save(promoters);
-
+	*/	
 		/*
 		for(Country countries: countryRepo.findAll())
 		{

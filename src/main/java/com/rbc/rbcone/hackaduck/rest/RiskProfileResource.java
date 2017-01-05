@@ -1,8 +1,11 @@
 package com.rbc.rbcone.hackaduck.rest;
 
+import com.rbc.rbcone.hackaduck.model.CountriesRisk;
+import com.rbc.rbcone.hackaduck.model.CountryRisk;
 import com.rbc.rbcone.hackaduck.model.LegalFund;
+import com.rbc.rbcone.hackaduck.model.RegionRisk;
+import com.rbc.rbcone.hackaduck.model.RegionsRisk;
 import com.rbc.rbcone.hackaduck.model.Risk;
-import com.rbc.rbcone.hackaduck.model.RiskEntity;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,72 +19,99 @@ import java.util.List;
 @RequestMapping("/api")
 public class RiskProfileResource {
 
+    private ArrayList<LegalFund> funds = new ArrayList<LegalFund>();
+	
+    public RiskProfileResource() {
+        funds.add(createLegalFund("Fund1", "Fund Name 1"));
+        funds.add(createLegalFund("Fund2", "Fund Name 2"));
+    }
+	
     @RequestMapping(value = "/funds", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public List<LegalFund> getFundList() {
         // Mocked data
-        ArrayList<LegalFund> rslt = new ArrayList<LegalFund>();
-        rslt.add(createLegalFund("1", "Fund1"));
-        rslt.add(createLegalFund("2", "Fund2"));
-//        rslt.add(createLegalFund("3", "LFUND3"));
-//        rslt.add(createLegalFund("4", "LFUND4"));
-//        rslt.add(createLegalFund("5", "LFUND5"));
-        return rslt;
+        return funds;
     }
 
     @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public List<RiskEntity> getRegionRiskList(@PathVariable("fundId") String aFundId) {
-        ArrayList<RiskEntity> rslt = new ArrayList<RiskEntity>();
-        if("1".equalsIgnoreCase(aFundId)) {
-            rslt.add(createEntityRisk("AF"));
-            rslt.add(createEntityRisk("NA"));
-//            rslt.add(createEntityRisk("AS"));
-            rslt.add(createEntityRisk("EU"));
-        }else {
-
-//            rslt.add(createEntityRisk("AF"));
-//            rslt.add(createEntityRisk("NA"));
-            rslt.add(createEntityRisk("AS"));
-            rslt.add(createEntityRisk("EU"));
-        }
+    public RegionsRisk getRegionRiskList(@PathVariable("fundId") String aFundId) {
+    	LegalFund targetFund = findLegalFund(aFundId);
+    	RegionsRisk rslt = new RegionsRisk();
+    	rslt.setFundId(aFundId);
+    	rslt.setFundName(targetFund.getName());
+    	
+    	ArrayList<RegionRisk> regions = new ArrayList<RegionRisk>();
+    	regions.add(createRegionRisk("EU", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
+    	regions.add(createRegionRisk("NA", new Risk(25, 25, 17.7, 17.7), new Risk(32, 32, 22.7, 22.7), new Risk(84, 84, 59.5, 59.5)));
+    	regions.add(createRegionRisk("OC", new Risk(564, 564, 86, 86), new Risk(12, 12, 1.8, 1.8), new Risk(80, 80, 12.2, 12.2)));
+    	regions.add(createRegionRisk("AS", new Risk(159, 159, 51.7, 51.7), new Risk(147, 147, 47.7, 47.7), new Risk(2, 2, 0.6, 0.6)));
+    	rslt.setRegions(regions);
         return rslt;
     }
 
     @RequestMapping(value = "/funds/{fundId}/regions/{regionId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public RiskEntity getRegionRisk(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionId) {
+    public RegionRisk getRegionRisk(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionId) {
         // Mocked data
-        return createEntityRisk("EU");
+        return createRegionRisk(aRegionId, new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5));
     }
 
     @RequestMapping(value = "/funds/{fundId}/regions/{regionId}/countries", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public List<RiskEntity> getCountriesRiskList(@PathVariable("fundId") String aFundId) {
+    public CountriesRisk getCountriesRiskList(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionId) {
         // Mocked data
-        ArrayList<RiskEntity> result = new ArrayList<RiskEntity>();
-        result.add(createEntityRisk("GMY"));
-        result.add(createEntityRisk("FRA"));
-        result.add(createEntityRisk("ESP"));
-        result.add(createEntityRisk("IRL"));
-        return result;
+    	LegalFund targetFund = findLegalFund(aFundId);
+    	CountriesRisk rslt = new CountriesRisk();
+    	rslt.setFundId(aFundId);
+    	rslt.setFundName(targetFund.getName());
+    	rslt.setRegionCode(aRegionId);
+    	
+    	ArrayList<CountryRisk> countries = new ArrayList<CountryRisk>();
+    	countries.add(createCountryRisk("FR", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
+    	countries.add(createCountryRisk("BE", new Risk(25, 25, 17.7, 17.7), new Risk(32, 32, 22.7, 22.7), new Risk(84, 84, 59.5, 59.5)));
+    	countries.add(createCountryRisk("ES", new Risk(564, 564, 86, 86), new Risk(12, 12, 1.8, 1.8), new Risk(80, 80, 12.2, 12.2)));
+    	countries.add(createCountryRisk("LI", new Risk(159, 159, 51.7, 51.7), new Risk(147, 147, 47.7, 47.7), new Risk(2, 2, 0.6, 0.6)));
+    	rslt.setCountries(countries);
+        return rslt;
     }
 
     @RequestMapping(value = "/funds/{fundId}/countries/{countryId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public RiskEntity getCountryRisk(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId) {
+    public CountryRisk getCountryRisk(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId) {
         // Mocked data
-        return createEntityRisk("GMY");
+        return createCountryRisk(aCountryId, new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5));
     }
 
 
-    private RiskEntity createEntityRisk(String anEntityId) {
-        RiskEntity result = new RiskEntity();
-        result.setFund(new LegalFund("1", "Fund1"));
-        result.setEntityId(anEntityId);
-        result.setLow(new Risk(25.0, 345, 12, 4));
-        result.setMedium(new Risk(50.0, 5677, 82, 5));
-        result.setHigh(new Risk(25.0, 35, 6, 1));
-        return result;
+    private RegionRisk createRegionRisk(String aRegionId, Risk aLowRisk, Risk aMediumRisk, Risk aHighRisk) {
+    	RegionRisk rslt = new RegionRisk();
+    	rslt.setRegionCode(aRegionId);
+    	rslt.setLow(aLowRisk);
+    	rslt.setMedium(aMediumRisk);
+    	rslt.setHigh(aHighRisk);
+    	return rslt;
     }
-    
+
+    private CountryRisk createCountryRisk(String aCountryId, Risk aLowRisk, Risk aMediumRisk, Risk aHighRisk) {
+    	CountryRisk rslt = new CountryRisk();
+    	rslt.setCountryCode(aCountryId);
+    	rslt.setLow(aLowRisk);
+    	rslt.setMedium(aMediumRisk);
+    	rslt.setHigh(aHighRisk);
+    	return rslt;
+    }
+    	
     private LegalFund createLegalFund(String anId, String aName) {
     	LegalFund rslt = new LegalFund(anId, aName);
     	return rslt;
+    }
+    
+    private LegalFund findLegalFund(String aFundId) {
+    	LegalFund targetFund = null;
+    	for (LegalFund fund : funds) {
+    		if (fund.getId().equals(aFundId)) {
+    			targetFund = fund;
+    		}
+    	}
+    	if (targetFund==null) {
+    		targetFund = funds.get(0);
+    	}
+    	return targetFund;
     }
 }
