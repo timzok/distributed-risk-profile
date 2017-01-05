@@ -17,8 +17,8 @@ function drawWorldMapPieCharts(regionData) {
 
     $.each( regionData, function( key, val ) {
         var r = regionData[key];
-        drawPieChart( "donutchart-" + r.regionCode,
-                      mapTitles.get(r.regionCode),
+        drawPieChart( "donutchart-" + r.entityId,
+                      mapTitles.get(r.entityId),
                       r.low.assetValue,
                       r.medium.assetValue,
                       r.high.assetValue
@@ -30,7 +30,8 @@ function drawWorldMapPieCharts(regionData) {
 
 function drawPieChart(chartID, title, l, m, h) {
     google.charts.load("current", {packages:["corechart"]});
-       google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart);
+
        function drawChart() {
          var data = google.visualization.arrayToDataTable([
            ['Rank'  , 'Percent'],
