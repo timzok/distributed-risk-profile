@@ -23,8 +23,6 @@ public class Region {
 	
 	public String name;
 	
-//	fetch = FetchType.LAZY,
-	// @OneToMany( fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE }, mappedBy = "region")
 	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL},mappedBy="region")
 	public Set<Country> country;
 
