@@ -59,7 +59,7 @@ function drawPieChart(chartID, title, l, m, h) {
 
 
 function drawColumnChart(chartID, title) {
-    google.charts.load('current', {'packages':['bar']});
+    google.charts.load('current', {'packages':['bar', 'corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
