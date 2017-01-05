@@ -17,11 +17,11 @@ function drawWorldMapPieCharts(regionData) {
 
     $.each( regionData, function( key, val ) {
         var r = regionData[key];
-        drawPieChart( "donutchart-" + r.regionCode,
-                      mapTitles.get(r.regionCode),
-                      r.Low.assetValue,
-                      r.Medium.assetValue,
-                      r.High.assetValue
+        drawPieChart( "donutchart-" + r.entityId,
+                      mapTitles.get(r.entityId),
+                      r.low.assetValue,
+                      r.medium.assetValue,
+                      r.high.assetValue
                       );
     });
 
@@ -93,4 +93,14 @@ function loadPieCharts() {
 function loadBarCharts() {
     drawBarChart('country-A', 'Data for chart A');
     drawBarChart('country-B', 'Data for chart B');
+}
+
+function loadFundDropdown() {
+    $.getJSON("/api/funds", function (funds) {
+        funds.forEach(function (fund) {
+            var option = $('<option/>');
+            option.attr({'value': fund.id}).text(fund.name);
+            $('#fund-selection').append(option);
+        });
+    });
 }
