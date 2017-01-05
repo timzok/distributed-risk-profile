@@ -45,7 +45,7 @@ function renderMap(code){
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
 
-        getCountriesDataAndDrawMap($('#fund-selection').val(), code, drawVectorMap, placeholder);
+        getCountriesDataAndDrawMap(selectedFund(), code, drawVectorMap, placeholder);
     }
 
     $("#world-map").fadeOut( 200, "linear", complete );
@@ -76,7 +76,7 @@ function showWorldMap(){
         $(placeholder(key)).fadeOut();
     }
     $("#world-map").fadeIn();
-    drawWorldMap($('#fund-selection').val())
+    drawWorldMap(selectedFund())
 }
 
 function drawWorldMap(fundID){
@@ -121,7 +121,7 @@ function drawVectorMap(mapID, mapName, data, worldMap) {
 
 function setObserver() {
     $( "#fund-selection" ).change(function() {
-        drawWorldMap(this.value);
+        drawWorldMap(selectedFund());
     });
 }
 

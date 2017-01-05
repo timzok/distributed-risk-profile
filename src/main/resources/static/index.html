@@ -72,14 +72,24 @@
 <div class="container">
     <!-- Filters -->
     <div class="row">
-        <form class="form-inline" style="text-align: left; padding: 20px">
-            <div class="form-group">
-                <label>Select fund to display :</label>
-                   <select id="fund-selection" class="form-control">
-                   </select>
-            </div>
+        <div class="col-md-6">
+            <form class="form-inline" style="text-align: left; padding: 20px">
+                <div class="form-group">
+                    <label>Select fund to display :</label>
+                       <select id="fund-selection" class="form-control">
+                       </select>
+                </div>
 
-        </form>
+            </form>
+        </div>
+
+        <div class="col-lg-6">
+        <ul class="legend">
+            <li><span class="low"></span> Low</li>
+            <li><span class="medium"></span> Medium</li>
+            <li><span class="high"></span> High</li>
+        </ul>
+        </div>
     </div>
 
     <!-- Map and pie charts -->
@@ -96,9 +106,10 @@
         </table>
     </div>
     <div class="row">
+        <div id="chart_div"></div>
         <div class="col-md-8">
             <button class="btn btn-default pull-right" type="button" onclick="showWorldMap()">
-                <<
+                < WorldMap
             </button>
 
             <div id="world-map" style="width: auto; height: 500px"></div>

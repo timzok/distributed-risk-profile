@@ -41,15 +41,15 @@ function drawPieChart(chartID, title, l, m, h) {
          ]);
 
          var options = {
+             legend: {position: "none"},
            title: title,
-           width: 180,
-           height: 180,
+           width: 150,
+           height: 150,
            titleTextStyle: { fontSize: 13 },
            pieHole: 0.6,
            colors: [ '#aaba0a', '#fca311', 'c71D06'],
            pieSliceText: 'none',
            backgroundColor: 'none',
-           //reverseCategories: true,
            chartArea: {left:10, top:40, 'width': '100%', 'height': '100%'}
          };
 
@@ -74,27 +74,27 @@ function drawPieChart(chartID, title, l, m, h) {
 
 
 function drawColumnChart(countryData) {
+
     function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            [' ', 'Acc', 'Cty', 'Total'],
-            ['Low', countryData.low.assetValue, countryData.low.percentagePerAssetValue, countryData.low.percentagePerTotalAssetValue],
-            ['Medium', countryData.medium.assetValue, countryData.medium.percentagePerAssetValue, countryData.medium.percentagePerTotalAssetValue],
-            ['High', countryData.high.assetValue, countryData.high.percentagePerAssetValue, countryData.high.percentagePerTotalAssetValue]
+
+        var data = new google.visualization.arrayToDataTable([
+            ['Rank', 'Low', 'Medium', 'High'],
+            ['Investor', countryData.low.assetValue                   , countryData.medium.assetValue                   , countryData.high.assetValue],
+            ['Country' , countryData.low.percentagePerAssetValue      , countryData.medium.percentagePerAssetValue      , countryData.high.percentagePerAssetValue],
+            ['Region'  , countryData.low.percentagePerTotalAssetValue , countryData.medium.percentagePerTotalAssetValue , countryData.high.percentagePerTotalAssetValue]
         ]);
 
         var options = {
-            chart: {
-                title: 'Risk details for ' + countryData.countryCode
-            },
-            animation: {
-                duration: 1000,
-                easing: 'out',
-                startup: 'true'
-            },
-            colors: [ '#aaba0a', '#fca311', 'c71D06']
+            legend: {position: "none"},
+            isStacked: 'percent',
+            titleTextStyle: { fontSize: 13 },
+            title: 'Risk details for ' + countryData.countryCode,
+            colors: [ '#aaba0a', '#fca311', '#c71D06']
+
         };
 
-        var chart = new google.charts.Bar(document.getElementById('country-chart-' + countryData.countryCode));
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('country-chart-' + countryData.countryCode));
         chart.draw(data, options);
     }
 
@@ -106,6 +106,7 @@ function drawColumnChart(countryData) {
         chartDiv += "</div>"
 
     $('#country-charts').append(chartDiv);
+
 
     google.charts.setOnLoadCallback(drawChart);
 
