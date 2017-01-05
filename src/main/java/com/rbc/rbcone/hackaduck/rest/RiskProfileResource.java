@@ -41,7 +41,6 @@ public class RiskProfileResource {
 	
     @RequestMapping(value = "/funds", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public List<LegalFund> getFundList() {
-    // Mocked data
     	
    	ArrayList<LegalFund> localFunds = new ArrayList<LegalFund>();
 
@@ -53,6 +52,7 @@ public class RiskProfileResource {
    	return localFunds;
     }
 
+    
     @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public RegionsRisk getRegionRiskList(@PathVariable("fundId") String aFundId) {
     	LegalFund targetFund = findLegalFund(aFundId);
