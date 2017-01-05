@@ -89,12 +89,6 @@ public class DistributedRiskProfileApplication {
 		TypeReference<List<SaraRelation>> saraRelationType = new TypeReference<List<SaraRelation>>() {};
 		List<SaraRelation> saraRelation = mapper.readValue(this.getClass().getResourceAsStream("/ttRelationEntLF.json"),saraRelationType);
 		saraRelationRepo.save(saraRelation);
-
-		Object[] a = saraRelationRepo.findRegionLevelRelations();
-		for (int i=0; i<a.length;i++) {
-			Object[] b = (Object[])a[i];
-			System.out.println("<>>>" + b[0] + "  " + b[1]);
-		}
 		
 	}
 	
