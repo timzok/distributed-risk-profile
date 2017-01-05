@@ -76,7 +76,7 @@ function drawPieChart(chartID, title, l, m, h) {
 function drawColumnChart(countryData) {
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Rank', 'Acc', 'Cty', 'Total'],
+            [' ', 'Acc', 'Cty', 'Total'],
             ['Low', countryData.low.assetValue, countryData.low.percentagePerAssetValue, countryData.low.percentagePerTotalAssetValue],
             ['Medium', countryData.medium.assetValue, countryData.medium.percentagePerAssetValue, countryData.medium.percentagePerTotalAssetValue],
             ['High', countryData.high.assetValue, countryData.high.percentagePerAssetValue, countryData.high.percentagePerTotalAssetValue]
@@ -84,18 +84,17 @@ function drawColumnChart(countryData) {
 
         var options = {
             chart: {
-                title: 'Bar chart for ' + countryData.countryName
+                title: 'Risk details for ' + countryData.countryCode
             },
             animation: {
                 duration: 1000,
                 easing: 'out',
-                startup: true
+                startup: 'true'
             },
             colors: [ '#aaba0a', '#fca311', 'c71D06']
         };
 
         var chart = new google.charts.Bar(document.getElementById('country-chart-' + countryData.countryCode));
-
         chart.draw(data, options);
     }
 
@@ -110,7 +109,7 @@ function drawColumnChart(countryData) {
 
     google.charts.setOnLoadCallback(drawChart);
 
-    $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Delete</button>")
+    $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Remove</button>")
 }
 
 
