@@ -59,6 +59,18 @@ function drawPieChart(chartID, title, l, m, h) {
  }
 
 
+ function drawColumnChart('countryCode')
+$.getJSON( "../jsonfiles/", function( data ) {
+    regionsMap = data.reduce(function(map, obj) {
+        map[obj.entityId] = obj;
+        return map;
+    }, {});
+    drawMap(data);
+    drawWorldMapPieCharts(data);
+});
+
+
+
 
 
 function drawColumnChart(countryCode) {
