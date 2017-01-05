@@ -33,7 +33,7 @@ function renderMap(code){
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
 
-        getCountriesData($('#fund-selection').val(), code).then(
+        getCountriesData($('#fund-selection').val(), code).done(
             drawVectorMap(placeholder, maps.get(code), countriesMap)
         );
     }
