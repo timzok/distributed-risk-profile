@@ -1,3 +1,33 @@
+var mapTitles = new Map();
+mapTitles.set("EU", 'Europe');
+mapTitles.set("AF", 'Africa');
+mapTitles.set("AS", 'Asia');
+mapTitles.set("NA", 'North America');
+mapTitles.set("OC", 'Oceania');
+mapTitles.set("SA", 'South America');
+
+function drawWorldMapPieCharts(regionData) {
+    $("#donutchart-AF").html('');
+    $("#donutchart-NA").html('');
+    $("#donutchart-OC").html('');
+    $("#donutchart-AS").html('');
+    $("#donutchart-EU").html('');
+    $("#donutchart-SA").html('');
+
+
+    $.each( regionData, function( key, val ) {
+        var r = regionData[key];
+        drawPieChart( "donutchart-" + r.regionCode,
+                      mapTitles.get(r.regionCode),
+                      r.Low.assetValue,
+                      r.Medium.assetValue,
+                      r.High.assetValue
+                      );
+    });
+
+}
+
+
 function drawPieChart(chartID, title, l, m, h) {
     google.charts.load("current", {packages:["corechart"]});
        google.charts.setOnLoadCallback(drawChart);
@@ -11,13 +41,15 @@ function drawPieChart(chartID, title, l, m, h) {
 
          var options = {
            title: title,
+           width: 180,
+           height: 180,
            titleTextStyle: { fontSize: 13 },
            pieHole: 0.6,
            colors: [ '#aaba0a', '#fca311', 'c71D06'],
            pieSliceText: 'none',
            backgroundColor: 'none',
            reverseCategories: true,
-           chartArea: {'width': '80%', 'height': '80%'}
+           chartArea: {left:10, top:40, 'width': '100%', 'height': '100%'}
          };
 
          var chart = new google.visualization.PieChart(document.getElementById(chartID));
