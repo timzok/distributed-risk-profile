@@ -72,6 +72,32 @@ public class RiskProfileResource {
         return rslt;
     }
 
+    @RequestMapping(value = "/funds/{fundId}/regions/{regionId}/topcountries/{topCount}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
+    public CountriesRisk getTopCountriesRiskList(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionId, @PathVariable("topCount") int aTopCount) {
+        // Mocked data
+    	LegalFund targetFund = findLegalFund(aFundId);
+    	CountriesRisk rslt = new CountriesRisk();
+    	rslt.setFundId(aFundId);
+    	rslt.setFundName(targetFund.getName());
+    	rslt.setRegionCode(aRegionId);
+    	
+    	ArrayList<CountryRisk> countries = new ArrayList<CountryRisk>();
+    	if (aTopCount>1) {
+        	countries.add(createCountryRisk("FR", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
+    	}
+    	if (aTopCount>2) {
+    		countries.add(createCountryRisk("BE", new Risk(25, 25, 17.7, 17.7), new Risk(32, 32, 22.7, 22.7), new Risk(84, 84, 59.5, 59.5)));
+    	}
+    	if (aTopCount>3) {
+    		countries.add(createCountryRisk("ES", new Risk(564, 564, 86, 86), new Risk(12, 12, 1.8, 1.8), new Risk(80, 80, 12.2, 12.2)));
+    	}
+    	if (aTopCount>4) {
+    		countries.add(createCountryRisk("LI", new Risk(159, 159, 51.7, 51.7), new Risk(147, 147, 47.7, 47.7), new Risk(2, 2, 0.6, 0.6)));
+    	}
+    	rslt.setCountries(countries);
+        return rslt;
+    }
+
     @RequestMapping(value = "/funds/{fundId}/countries/{countryId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public CountryRisk getCountryRisk(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId) {
         // Mocked data
