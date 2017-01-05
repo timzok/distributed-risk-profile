@@ -1,6 +1,14 @@
-function onRegionTipShow(e, el){
+var regionsMap = {};
+
+function onRegionTipShow(e, el, code){
     var map =  $('#world-map').vectorMap('get', 'mapObject');
-    map.tip.html(el[0].innerText + " low: 30%, medium:35%, high:35% ");
+    var regionData = regionsMap[code];
+    if (regionData) {
+        map.tip.html(el[0].innerText +
+            " low: " + regionData.Low.assetValue +
+            " %, medium:" + regionData.Medium.assetValue +
+            "%, high:" + regionData.Medium.assetValue +"% ");
+    }
 }
 
 var maps = new Map();
@@ -10,7 +18,6 @@ maps.set("as", 'asia_mill');
 maps.set("na", 'north_america_mill');
 maps.set("oc", 'oceania_mill');{
 maps.set("sa", 'south_america_mill');
-
 
 function renderMap(code){
     function complete() {
@@ -49,6 +56,10 @@ function showWorldMap(){
 
 function drawWorldMap(fundID){
     $.getJSON( "./jsonfiles/MapPerregions" + fundID + ".json", function( data ) {
+        regionsMap = data.Regions.reduce(function(map, obj) {
+            map[obj.regionCode] = obj;
+            return map;
+        }, {});
         drawMap(data.Regions);
         drawWorldMapPieCharts(data.Regions);
     });
@@ -78,7 +89,7 @@ function drawVectorMap(mapID, mapName, data) {
         },
         onRegionTipShow : onRegionTipShow,
         onRegionClick : onRegionClick
-    }).resize();
+    });
 
 }
 
