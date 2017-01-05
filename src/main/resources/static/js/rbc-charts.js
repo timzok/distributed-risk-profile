@@ -77,7 +77,7 @@ function drawColumnChart(countryData) {
     google.charts.load('current', {'packages':['bar', 'corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
-    $('#country-chart').html('');
+    $('#country-charts').append("<div id='country-chart-" + countryData.countryCode + "' style='width: 100%; height: 100%' />");
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
@@ -99,7 +99,7 @@ function drawColumnChart(countryData) {
             colors: [ '#aaba0a', '#fca311', 'c71D06']
         };
 
-        var chart = new google.charts.Bar(document.getElementById('country-chart'));
+        var chart = new google.charts.Bar(document.getElementById('country-chart-' + countryData.countryCode));
 
         chart.draw(data, options);
     }
