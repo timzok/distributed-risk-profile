@@ -58,27 +58,27 @@ function drawPieChart(chartID, title, l, m, h) {
  }
 
 
-function drawBarChart(chartID, title) {
+function drawColumnChart(chartID, title) {
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales', 'Expenses', 'Profit'],
-      ['Low', 1000, 400, 200],
-      ['Medium', 1170, 460, 250],
-      ['High', 660, 1120, 300]
-    ]);
+        var data = google.visualization.arrayToDataTable([
+            ['Year', 'Sales', 'Expenses', 'Profit'],
+            ['2014', 1000, 400, 200],
+            ['2015', 1170, 460, 250],
+            ['2016', 660, 1120, 300],
+            ['2017', 1030, 540, 350]
+        ]);
 
-    var options = {
-      chart: {
-        title: 'Company Performance',
-        subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-      }
-    };
+        var options = {
+            chart: {
+                title: title
+            }
+        };
 
-    var chart = new google.charts.Bar(document.getElementById('chartID'));
+        var chart = new google.charts.Bar(document.getElementById(chartID));
 
-    chart.draw(data, options);
+        chart.draw(data, options);
     }
 }
 
@@ -90,7 +90,7 @@ function loadPieCharts() {
 }
 
 
-function loadBarCharts() {
-    drawBarChart('country-A', 'Data for chart A');
-    drawBarChart('country-B', 'Data for chart B');
+function loadColumCharts() {
+    drawColumnChart('country-a', 'Data for chart A');
+    drawColumnChart('country-b', 'Data for chart B');
 }
