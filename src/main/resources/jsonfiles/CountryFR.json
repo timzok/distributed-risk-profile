@@ -1,0 +1,21 @@
+{
+   "fundId": "Fund2",
+   "fundName": "Fund Name 2",
+   "CountryCode": "FR",
+   "CountryName": "France",
+   "Low": {
+            "assetValue": 20,
+            "percentagePerAssetValue": 15,
+            "percentagePerTotalAssetValue":74
+         },
+   "Medium": {
+         "assetValue": 500,
+         "percentagePerAssetValue": 18.5,
+         "percentagePerTotalAssetValue":74
+      },
+   "High": {
+         "assetValue": 200,
+         "percentagePerAssetValue": 7.5,
+         "percentagePerTotalAssetValue":74
+      }
+}
