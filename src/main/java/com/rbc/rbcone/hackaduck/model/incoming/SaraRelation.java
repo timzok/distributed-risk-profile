@@ -8,24 +8,27 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 @Entity
 public class SaraRelation {
 
-	@Id
-	public int 	  id;
 	
-	public String relationId;  	//fc-relationId
-	public String bpId;			//fc-bp-id
-	public String lfId;			//fc-lf-id
-	public String accId;		//fc-acc-id
-	public String rad;			//fc-rad
-	public String relationType;	//fc-relationType
-	public String nbAcc;		//fi-nb-acc
-	public String assetValue;	//fde-asset-value
-	public int getId() {
+	//public int 	  id;
+	
+	public String relationId;  			//fc-relationId
+	public String bpId;					//fc-bp-id
+	public String lfId;					//fc-lf-id
+	public String accId;				//fc-acc-id
+	public String rad;					//fc-rad
+	public String relationType;			//fc-relationType
+	public String nbAcc;				//fi-nb-acc
+	public String assetValue;			//fde-asset-value
+	public String distributionType; 	// fc-distriutionType
+	
+	/*public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
+	}*/
 	
+	@Id
 	public String getRelationId() {
 		return relationId;
 	}
@@ -87,6 +90,14 @@ public class SaraRelation {
 	@JsonSetter("fde-asset-value")
 	public void setAssetValue(String assetValue) {
 		this.assetValue = assetValue;
+	}
+	public String getDistributionType() {
+		return distributionType;
+	}
+	
+	@JsonSetter("fc-distriutionType")
+	public void setDistributionType(String distributionType) {
+		this.distributionType = distributionType;
 	}
 	
 }

@@ -14,7 +14,7 @@ public class SaraEntity {
 	public String name;				// fc-name
 	public String nature;			//fc-nature
 	public String type;				//fc-type
-	public String distributionType; // fc-distriutionType
+	//public String distributionType; // fc-distriutionType
 	
 	public String getId() {
 		return id;
@@ -54,17 +54,10 @@ public class SaraEntity {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getDistributionType() {
-		return distributionType;
-	}
-	@JsonSetter("fc-distriutionType")
-	public void setDistributionType(String distributionType) {
-		this.distributionType = distributionType;
-	}
 	
 	public String toString(){
 		
-		return this.getId()+"-"+this.getName()+"-"+this.getDistributionType()+"-"+this.getNature()+"-"+this.getResidenceCode()+"-"+this.getType();
+		return this.getId()+"-"+this.getName()+"-"+this.getNature()+"-"+this.getResidenceCode()+"-"+this.getType();
 		
 	}
 	

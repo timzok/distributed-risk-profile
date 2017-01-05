@@ -49,7 +49,7 @@ function drawPieChart(chartID, title, l, m, h) {
            colors: [ '#aaba0a', '#fca311', 'c71D06'],
            pieSliceText: 'none',
            backgroundColor: 'none',
-           reverseCategories: true,
+           //reverseCategories: true,
            chartArea: {left:10, top:40, 'width': '100%', 'height': '100%'}
          };
 
@@ -77,7 +77,12 @@ function drawColumnChart(countryData) {
     google.charts.load('current', {'packages':['bar', 'corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
-    $('#country-charts').append("<div id='country-chart-" + countryData.countryCode + "' style='width: 100%; height: 100%' />");
+    var cID = 'country-chart-' + countryData.countryCode;
+    var chartDiv  = "<div id='c-" + cID + "' style=\"position:absolute\">"
+        chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
+        chartDiv += "</div>"
+
+    $('#country-charts').append(chartDiv);
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
@@ -102,6 +107,8 @@ function drawColumnChart(countryData) {
         var chart = new google.charts.Bar(document.getElementById('country-chart-' + countryData.countryCode));
 
         chart.draw(data, options);
+
+        $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Delete</button>")
     }
 }
 
