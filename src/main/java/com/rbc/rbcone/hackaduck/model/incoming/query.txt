@@ -1,8 +1,8 @@
 
-select g.id, r.rad, sum(r.assetValue) 
-from country c, region g, legal_fund f, entity e, relation r
-where f.fund_id = "Fund1"
-and r.fund_id = r.entity_id
-and f.domiciliation_id = c.id
+select g.id, r.rad, sum(r.asset_Value) 
+from country c, region g, sara_legal_fund f, sara_entity e, sara_relation r
+where f.id = 'Fund1'
+and r.lf_id = r.bp_id
+and f.domiciliation = c.id
 and c.region_id = g.id
 group by g.id, r.rad

@@ -18,7 +18,7 @@ public class SaraRelation {
 	public String rad;					//fc-rad
 	public String relationType;			//fc-relationType
 	public String nbAcc;				//fi-nb-acc
-	public String assetValue;			//fde-asset-value
+	public double assetValue;			//fde-asset-value
 	public String distributionType; 	// fc-distriutionType
 	
 	/*public int getId() {
@@ -83,12 +83,12 @@ public class SaraRelation {
 	public void setNbAcc(String nbAcc) {
 		this.nbAcc = nbAcc;
 	}
-	public String getAssetValue() {
+	public double getAssetValue() {
 		return assetValue;
 	}
 	
 	@JsonSetter("fde-asset-value")
-	public void setAssetValue(String assetValue) {
+	public void setAssetValue(double assetValue) {
 		this.assetValue = assetValue;
 	}
 	public String getDistributionType() {
