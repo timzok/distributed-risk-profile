@@ -22,6 +22,11 @@ import com.rbc.rbcone.hackaduck.model.country.Country;
 import com.rbc.rbcone.hackaduck.model.country.Region;
 import com.rbc.rbcone.hackaduck.model.country.repository.CountryRepository;
 import com.rbc.rbcone.hackaduck.model.country.repository.RegionRepository;
+import com.rbc.rbcone.hackaduck.model.incoming.AccountHolder;
+import com.rbc.rbcone.hackaduck.model.incoming.Fund;
+import com.rbc.rbcone.hackaduck.model.incoming.Peps;
+import com.rbc.rbcone.hackaduck.model.incoming.Promoter;
+import com.rbc.rbcone.hackaduck.model.incoming.repository.PromoterRepository;
 
 @SpringBootApplication
 public class DistributedRiskProfileApplication {
@@ -31,6 +36,9 @@ public class DistributedRiskProfileApplication {
 	
 	@Autowired
 	private CountryRepository countryRepo;
+	
+	@Autowired
+	private PromoterRepository promRepo;
 	
 	
 	private static final Logger log = LoggerFactory.getLogger(DistributedRiskProfileApplication.class);
@@ -42,7 +50,7 @@ public class DistributedRiskProfileApplication {
 	
 	@Transactional
 	@PostConstruct
-	public void postConstruct() throws JsonParseException, JsonMappingException, IOException{
+	public void postConstruct() throws JsonParseException, JsonMappingException, IOException, InterruptedException{
 		
 		log.info("POSTCONSTRUCT");
 		ObjectMapper mapper = new ObjectMapper();
@@ -61,8 +69,9 @@ public class DistributedRiskProfileApplication {
 		log.info("Persisting the regions");
 		regionRepo.save(regions);
 		log.info("Region is persisted");	
+		//Thread.sleep(1000);
 		
-		/*for (Region test: regionRepo.findAll())
+		for (Region test: regionRepo.findAll())
 		{
 			log.info(test.getName() + "<>"+test.getId());
 		
@@ -73,7 +82,47 @@ public class DistributedRiskProfileApplication {
 			
 			
 		}
-	
+		
+		ObjectMapper mapper2 = new ObjectMapper();
+		mapper2.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+		TypeReference<List<Promoter>> mapType2 = new TypeReference<List<Promoter>>() {};
+
+		List<Promoter> promoters = mapper2.readValue(this.getClass().getResourceAsStream("/FirstJsonfile.json"),mapType2);
+		
+		for (Promoter prom: promoters)
+		{
+			for (Fund fund: prom.getFunds())
+			{
+				fund.setPromoter(prom);
+				
+			}
+		}
+		
+		
+		
+		log.info("Size of promoters:"  + promoters.size());
+		for (Promoter prom: promoters)
+		{
+			for (Fund fund: prom.getFunds())
+			{
+				log.info(fund.getId()+"-"+fund.getDomiciliation()+"-"+fund.getName());
+				
+				for(AccountHolder accHold: fund.getAccountHolders())
+				{
+					log.info("    "+accHold.getAccountHolderId()+"-"+accHold.getName());
+				
+						for(Peps peps : accHold.getPeps())
+						{
+							log.info("             "+ peps.getPepsId()+"-"+peps.getFirstName());
+						}
+					
+				}
+			}
+		}
+		
+		promRepo.save(promoters);
+		
+		/*
 		for(Country countries: countryRepo.findAll())
 		{
 			log.info(countries.getType()+"-"+countries.getLabel()+"--->"+countries.getId()+ countries.getRegion().getId());
