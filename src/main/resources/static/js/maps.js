@@ -39,7 +39,12 @@ function renderMap(code){
 
 
 function onRegionClick(e, code){
-    renderMap(code.toLowerCase());
+    var regionData = regionsMap[code];
+    if (regionData) {
+        renderMap(code.toLowerCase());
+    } else {
+        e.preventDefault();
+    }
 }
 
 function showWorldMap(){
