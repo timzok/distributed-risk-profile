@@ -60,7 +60,7 @@ function drawPieChart(chartID, title, l, m, h) {
 
 
  function getAndDrawColumnChart(countryCode) {
-    $.getJSON( "../jsonfiles/Country" + countryCode, function( data ) {
+    $.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
         drawColumnChart(data);
     });
   };
