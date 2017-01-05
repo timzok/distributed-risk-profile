@@ -1,10 +1,18 @@
-{"ttEntity": [
+[
   {
     "fc-bp-id": "MIG-DLR-b442",
     "fc-residence-code": "LU",
-    "fc-name": " ",
+    "fc-name": "name",
     "fc-nature": "L",
     "fc-type": "01",
     "fc-distriutionType": "Segragated"
+  },
+   {
+    "fc-bp-id": "MIG-2222",
+    "fc-residence-code": "FR",
+    "fc-name": "FR NAME",
+    "fc-nature": "H",
+    "fc-type": "02",
+    "fc-distriutionType": "internal"
   }
-]}
+]
