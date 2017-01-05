@@ -9,8 +9,11 @@ import com.rbc.rbcone.hackaduck.model.LegalFund;
 import com.rbc.rbcone.hackaduck.model.RegionRisk;
 import com.rbc.rbcone.hackaduck.model.RegionsRisk;
 import com.rbc.rbcone.hackaduck.model.Risk;
+import com.rbc.rbcone.hackaduck.model.incoming.SaraLegalFund;
+import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraLegalFundRepository;
 import com.rbc.rbcone.hackaduck.model.Peps;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -27,6 +31,9 @@ public class RiskProfileResource {
 
     private ArrayList<LegalFund> funds = new ArrayList<LegalFund>();
 	
+    @Autowired
+    private SaraLegalFundRepository saraLegalFundRepo;
+    
     public RiskProfileResource() {
         funds.add(createLegalFund("Fund1", "Fund Name 1"));
         funds.add(createLegalFund("Fund2", "Fund Name 2"));
@@ -35,7 +42,16 @@ public class RiskProfileResource {
     @RequestMapping(value = "/funds", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public List<LegalFund> getFundList() {
         // Mocked data
-        return funds;
+    	
+    	ArrayList<LegalFund> localFunds = new ArrayList<LegalFund>();
+    	
+    	for(SaraLegalFund cse: saraLegalFundRepo.findAll())
+		{
+    		localFunds.add(new LegalFund(cse.getId(),cse.getName()));
+			
+		}
+    	
+    	return localFunds;
     }
 
     @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
