@@ -1,92 +1,86 @@
 package com.rbc.rbcone.hackaduck.model.incoming;
 
-import java.util.Set;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 @Entity
-public class Peps {
+public class SaraPeps {
 
 	@Id
-	@Column(name="ID")
-	public String pepsId;
+	String pepsId;			// fc-pepsId
 	
-	public String firstName;
-	public String lastName;
-	public String role;
-	public String nationality;
-	public String country;
+	String firstName;		// fc-firtName;
+	String lastName;		// fc-lastName
+	String role;			// fc-role
+	String nationality; 	// fc-nationality
+	String country;			// fc-country
+	String relationId;  	// fc-relationId
 	
-	@ManyToMany(mappedBy="peps")
-	public Set<AccountHolder> accountHolders;
-
 	public String getPepsId() {
 		return pepsId;
 	}
 	
-	@JsonSetter("pepsId")
+	@JsonSetter("fc-pepsId")
 	public void setPepsId(String pepsId) {
 		this.pepsId = pepsId;
 	}
-
 	public String getFirstName() {
 		return firstName;
 	}
-
-	@JsonSetter("firtName")
+	
+	@JsonSetter("fc-firtName")
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
 	public String getLastName() {
 		return lastName;
 	}
-
-	@JsonSetter("lastName")
+	
+	@JsonSetter("fc-lastName")
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 	public String getRole() {
 		return role;
 	}
-
-	@JsonSetter("role")
+	
+	@JsonSetter("fc-role")
 	public void setRole(String role) {
 		this.role = role;
 	}
-
 	public String getNationality() {
 		return nationality;
 	}
-
-	@JsonSetter("nationality")
+	
+	@JsonSetter("fc-nationality")
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
-
 	public String getCountry() {
 		return country;
 	}
-
-	@JsonSetter("country")
+	
+	@JsonSetter("fc-country")
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
-	public Set<AccountHolder> getAccountHolders() {
-		return accountHolders;
-	}
-
-	public void setAccountHolders(Set<AccountHolder> accountHolders) {
-		this.accountHolders = accountHolders;
+	
+	
+	public String getRelationId() {
+		return relationId;
 	}
 	
+	@JsonSetter("fc-relationId")
+	public void setRelationId(String relationId) {
+		this.relationId = relationId;
+	}
+	
+	public String toString(){
+		
+		return 	getPepsId()+"-"+getFirstName()+"-"+getLastName()+"-"+getRole()+"-"+getNationality()+"-"+getCountry()+"-"+getRelationId();			// fc-pepsId
+		
+	}
+
 }

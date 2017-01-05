@@ -1,6 +1,7 @@
 package com.rbc.rbcone.hackaduck.rest;
 
 import com.rbc.rbcone.hackaduck.model.CountriesRisk;
+import com.rbc.rbcone.hackaduck.model.CountryDetailRisk;
 import com.rbc.rbcone.hackaduck.model.CountryLegalEntityRisk;
 import com.rbc.rbcone.hackaduck.model.CountryRisk;
 import com.rbc.rbcone.hackaduck.model.LegalEntity;
@@ -45,10 +46,17 @@ public class RiskProfileResource {
     	rslt.setFundName(targetFund.getName());
     	
     	ArrayList<RegionRisk> regions = new ArrayList<RegionRisk>();
-    	regions.add(createRegionRisk("EU", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
-    	regions.add(createRegionRisk("NA", new Risk(25, 25, 17.7, 17.7), new Risk(32, 32, 22.7, 22.7), new Risk(84, 84, 59.5, 59.5)));
-    	regions.add(createRegionRisk("OC", new Risk(564, 564, 86, 86), new Risk(12, 12, 1.8, 1.8), new Risk(80, 80, 12.2, 12.2)));
-    	regions.add(createRegionRisk("AS", new Risk(159, 159, 51.7, 51.7), new Risk(147, 147, 47.7, 47.7), new Risk(2, 2, 0.6, 0.6)));
+    	if ("Fund1".equals(aFundId)) {
+        	regions.add(createRegionRisk("EU", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
+        	regions.add(createRegionRisk("NA", new Risk(25, 25, 17.7, 17.7), new Risk(32, 32, 22.7, 22.7), new Risk(84, 84, 59.5, 59.5)));
+        	regions.add(createRegionRisk("OC", new Risk(564, 564, 86, 86), new Risk(12, 12, 1.8, 1.8), new Risk(80, 80, 12.2, 12.2)));
+        	regions.add(createRegionRisk("AS", new Risk(159, 159, 51.7, 51.7), new Risk(147, 147, 47.7, 47.7), new Risk(2, 2, 0.6, 0.6)));
+    	} else {
+        	regions.add(createRegionRisk("AS", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
+        	regions.add(createRegionRisk("OC", new Risk(25, 25, 17.7, 17.7), new Risk(32, 32, 22.7, 22.7), new Risk(84, 84, 59.5, 59.5)));
+        	regions.add(createRegionRisk("EU", new Risk(564, 564, 86, 86), new Risk(12, 12, 1.8, 1.8), new Risk(80, 80, 12.2, 12.2)));
+        	regions.add(createRegionRisk("SA", new Risk(159, 159, 51.7, 51.7), new Risk(147, 147, 47.7, 47.7), new Risk(2, 2, 0.6, 0.6)));
+    	}
     	rslt.setRegions(regions);
         return rslt;
     }
@@ -95,9 +103,18 @@ public class RiskProfileResource {
     }
 
     @RequestMapping(value = "/funds/{fundId}/countries/{countryId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public CountryRisk getCountryRisk(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId) {
+    public CountryDetailRisk getCountryRisk(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId) {
         // Mocked data
-        return createCountryRisk(aCountryId, "Luxembourg", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5));
+    	LegalFund targetFund = findLegalFund(aFundId);
+    	CountryDetailRisk rslt = new CountryDetailRisk();
+    	rslt.setFundId(targetFund.getId());
+    	rslt.setFundName(targetFund.getName());
+    	rslt.setCountryCode(aCountryId);
+    	rslt.setCountryName("Luxembourg");
+    	rslt.setLow(new Risk(2000* Math.random(), (int)(2000* Math.random()), 74* Math.random(), 74* Math.random()));
+    	rslt.setMedium(new Risk(500* Math.random(), (int)(500* Math.random()), 50* Math.random(), 50* Math.random()));
+    	rslt.setHigh(new Risk(200* Math.random(), (int)(200* Math.random()), 100* Math.random(), 100* Math.random()));
+        return rslt; 
     }
 
     @RequestMapping(value = "/funds/{fundId}/countries/{countryId}/legalEntities/rads/{rad}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})

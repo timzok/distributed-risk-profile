@@ -1,4 +1,4 @@
-{"ttPeps": [
+ [
   {
     "fc-pepsId": "",
     "fc-firtName": "",
@@ -7,5 +7,14 @@
     "fc-nationality": "",
     "fc-country": "",
     "fc-relationId": "RE140130MIG46350245302"
+  },
+    {
+    "fc-pepsId": "1",
+    "fc-firtName": "Bour",
+    "fc-lastName": "Antoine",
+    "fc-role": "haha",
+    "fc-nationality": "fr",
+    "fc-country": "fr",
+    "fc-relationId": "AAARE140130MIG46350245302"
   }
-]}
+]
