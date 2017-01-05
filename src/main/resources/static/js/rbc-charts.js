@@ -59,25 +59,29 @@ function drawPieChart(chartID, title, l, m, h) {
  }
 
 
-function drawColumnChart(chartID, title) {
+
+
+function drawColumnChart(countryCode) {
     google.charts.load('current', {'packages':['bar', 'corechart']});
     google.charts.setOnLoadCallback(drawChart);
+
+    $('#country-chart').html('');
+
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales', 'Expenses', 'Profit'],
-            ['2014', 1000, 400, 200],
-            ['2015', 1170, 460, 250],
-            ['2016', 660, 1120, 300],
-            ['2017', 1030, 540, 350]
+            ['Rank', 'Acc', 'Cty', 'Total'],
+            ['Low', 1000, 400, 200],
+            ['Medium', 1170, 460, 250],
+            ['High', 660, 1120, 300],
         ]);
 
         var options = {
             chart: {
-                title: title
+                title: 'Bar chart for ' + countryCode
             }
         };
 
-        var chart = new google.charts.Bar(document.getElementById(chartID));
+        var chart = new google.charts.Bar(document.getElementById('country-chart'));
 
         chart.draw(data, options);
     }
@@ -90,11 +94,6 @@ function loadPieCharts() {
     drawPieChart('donutchart-EU', 'Europe', 123, 543, 34);
 }
 
-
-function loadColumCharts() {
-    drawColumnChart('country-a', 'Data for chart A');
-    drawColumnChart('country-b', 'Data for chart B');
-}
 
 function loadFundDropdown() {
     $.getJSON("/api/funds", function (funds) {

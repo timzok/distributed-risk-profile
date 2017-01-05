@@ -96,23 +96,31 @@
         </table>
     </div>
     <div class="row">
-        <button class="btn btn-default pull-right" type="button" onclick="showWorldMap()">
-            <<
-        </button>
+        <div class="col-md-9">
+            <button class="btn btn-default pull-right" type="button" onclick="showWorldMap()">
+                <<
+            </button>
 
-        <div id="world-map" style="width: auto; height: 600px"></div>
-        <div id="eu-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="af-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="na-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="oc-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="as-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="sa-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="world-map" style="width: auto; height: 600px"></div>
+            <div id="eu-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="af-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="na-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="oc-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="as-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="sa-map" style="width: auto; height: 600px; display:none;"></div>
+        </div>
+        <div class="col-md-3">
+            <button onClick="drawColumnChart('FR')" >Bar</button>
+            <div id="country-chart" style="width: 100%; height: 100%">
+
+            </div>
+        </div>
     </div>
 
     <!-- Bar charts for selected countries -->
     <div class="row">
-            <div id="country-a" style="width: 900px; height: 500px;"></div>
-        <div id="country-b" style="width: 900px; height: 500px;"></div>
+        <div class="col-md-2"><div id="country-a" style="width: 100%; height: 100%;"></div></div>
+        <div class="col-md-2"><div id="country-b" style="width: 100%; height: 100%;"></div></div>
     </div>
 </div>
 
@@ -163,10 +171,9 @@
 
 <script type="text/javascript">
 
-    $(drawWorldMap('1'));
-    //$(loadColumCharts());
     $(setObserver());
     $(loadFundDropdown());
+    $(drawWorldMap('1'));
 
 </script>
 
