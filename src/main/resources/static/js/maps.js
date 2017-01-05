@@ -87,6 +87,7 @@ function drawWorldMap(fundID){
         }, {});
         drawMap(data);
         drawWorldMapPieCharts(regionsMap);
+        $('#country-charts').html(''); //Remove potential displayed column charts
     });
 }}
 

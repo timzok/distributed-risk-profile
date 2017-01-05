@@ -67,10 +67,10 @@ public class RiskProfileResource {
         	regions.add(createRegionRisk("OC", new Risk(564, 564, 86, 86), new Risk(12, 12, 1.8, 1.8), new Risk(80, 80, 12.2, 12.2)));
         	regions.add(createRegionRisk("AS", new Risk(159, 159, 51.7, 51.7), new Risk(147, 147, 47.7, 47.7), new Risk(2, 2, 0.6, 0.6)));
     	} else {
-        	regions.add(createRegionRisk("AS", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
-        	regions.add(createRegionRisk("OC", new Risk(25, 25, 17.7, 17.7), new Risk(32, 32, 22.7, 22.7), new Risk(84, 84, 59.5, 59.5)));
-        	regions.add(createRegionRisk("EU", new Risk(564, 564, 86, 86), new Risk(12, 12, 1.8, 1.8), new Risk(80, 80, 12.2, 12.2)));
-        	regions.add(createRegionRisk("SA", new Risk(159, 159, 51.7, 51.7), new Risk(147, 147, 47.7, 47.7), new Risk(2, 2, 0.6, 0.6)));
+        	regions.add(createRegionRisk("AS", new Risk(2000 * Math.random(), 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
+        	regions.add(createRegionRisk("OC", new Risk(25   * Math.random(), 25, 17.7, 17.7), new Risk(32, 32, 22.7, 22.7), new Risk(84, 84, 59.5, 59.5)));
+        	regions.add(createRegionRisk("EU", new Risk(564  * Math.random(), 564, 86, 86), new Risk(12, 12, 1.8, 1.8), new Risk(80, 80, 12.2, 12.2)));
+        	regions.add(createRegionRisk("SA", new Risk(159  * Math.random(), 159, 51.7, 51.7), new Risk(147, 147, 47.7, 47.7), new Risk(2, 2, 0.6, 0.6)));
     	}
     	rslt.setRegions(regions);
         return rslt;
