@@ -30,28 +30,27 @@ import java.util.Set;
 public class RiskProfileResource {
 
     private ArrayList<LegalFund> funds = new ArrayList<LegalFund>();
-
+	
     @Autowired
     private SaraLegalFundRepository saraLegalFundRepo;
-
+    
     public RiskProfileResource() {
         funds.add(createLegalFund("Fund1", "Fund Name 1"));
         funds.add(createLegalFund("Fund2", "Fund Name 2"));
     }
-
+	
     @RequestMapping(value = "/funds", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public List<LegalFund> getFundList() {
-        // Mocked data
+    // Mocked data
+    	
+   	ArrayList<LegalFund> localFunds = new ArrayList<LegalFund>();
 
-    	ArrayList<LegalFund> localFunds = new ArrayList<LegalFund>();
-
-    	for(SaraLegalFund cse: saraLegalFundRepo.findAll())
+   	for(SaraLegalFund cse: saraLegalFundRepo.findAll())
 		{
     		localFunds.add(new LegalFund(cse.getId(),cse.getName()));
-
 		}
-
-    	return localFunds;
+    	
+   	return localFunds;
     }
 
     @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
@@ -60,7 +59,7 @@ public class RiskProfileResource {
     	RegionsRisk rslt = new RegionsRisk();
     	rslt.setFundId(aFundId);
     	rslt.setFundName(targetFund.getName());
-
+    	
     	ArrayList<RegionRisk> regions = new ArrayList<RegionRisk>();
     	if ("Fund1".equals(aFundId)) {
         	regions.add(createRegionRisk("EU", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
@@ -91,7 +90,7 @@ public class RiskProfileResource {
     	rslt.setFundId(aFundId);
     	rslt.setFundName(targetFund.getName());
     	rslt.setRegionCode(aRegionId);
-
+    	
     	ArrayList<CountryRisk> countries = new ArrayList<CountryRisk>();
     	countries.add(createCountryRisk("LU", "Luxembourg", new Risk(2000, 2000, 74, 74), new Risk(500, 500, 18.5, 18.5), new Risk(200, 200, 7.5, 7.5)));
     	countries.add(createCountryRisk("FR", "France", new Risk(25, 25, 17.7, 17.7), new Risk(32, 32, 22.7, 22.7), new Risk(84, 84, 59.5, 59.5)));
@@ -130,7 +129,7 @@ public class RiskProfileResource {
     	rslt.setLow(new Risk(2000* Math.random(), (int)(2000* Math.random()), 74* Math.random(), 74* Math.random()));
     	rslt.setMedium(new Risk(500* Math.random(), (int)(500* Math.random()), 50* Math.random(), 50* Math.random()));
     	rslt.setHigh(new Risk(200* Math.random(), (int)(200* Math.random()), 100* Math.random(), 100* Math.random()));
-        return rslt;
+        return rslt; 
     }
 
     @RequestMapping(value = "/funds/{fundId}/countries/{countryId}/legalEntities/rads/{rad}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
@@ -142,20 +141,20 @@ public class RiskProfileResource {
     	rslt.setFundName(targetFund.getName());
     	rslt.setCountryCode(aCountryId);
     	rslt.setRad(aRiskCategory);
-
+    	
     	ArrayList<LegalEntity> entities = new ArrayList<LegalEntity>();
     	entities.add(new LegalEntity("LegalEntity1", "Other Financial Institution", "Legal", Arrays.asList(new Peps("Toto", "Van Der Meulen", "Administrator", "LU"), new Peps("Titi","Dooren","ShareHolder","BE"))));
     	entities.add(new LegalEntity("LegalEntity2", "Other Financial Institution", "Legal", Arrays.asList(new Peps("Tutu","Vonckens","ShareHolder","FR"))));
-
+    	
     	rslt.setLegalEntities(entities);
         return rslt;
     }
-
+    
 
     //**************************************************************************
     //**** Helper methods for mocking ******************************************
     //**************************************************************************
-
+    
     private RegionRisk createRegionRisk(String aRegionId, Risk aLowRisk, Risk aMediumRisk, Risk aHighRisk) {
     	RegionRisk rslt = new RegionRisk();
     	rslt.setRegionCode(aRegionId);
@@ -174,12 +173,12 @@ public class RiskProfileResource {
     	rslt.setHigh(aHighRisk);
     	return rslt;
     }
-
+    	
     private LegalFund createLegalFund(String anId, String aName) {
     	LegalFund rslt = new LegalFund(anId, aName);
     	return rslt;
     }
-
+    
     private LegalFund findLegalFund(String aFundId) {
     	LegalFund targetFund = null;
     	for (LegalFund fund : funds) {

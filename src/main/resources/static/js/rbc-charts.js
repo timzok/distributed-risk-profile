@@ -74,16 +74,6 @@ function drawPieChart(chartID, title, l, m, h) {
 
 
 function drawColumnChart(countryData) {
-    google.charts.load('current', {'packages':['bar', 'corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    var cID = 'country-chart-' + countryData.countryCode;
-    var chartDiv  = "<div id='c-" + cID + "' style=\"position:absolute\">"
-        chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
-        chartDiv += "</div>"
-
-    $('#country-charts').append(chartDiv);
-
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Rank', 'Acc', 'Cty', 'Total'],
@@ -107,9 +97,20 @@ function drawColumnChart(countryData) {
         var chart = new google.charts.Bar(document.getElementById('country-chart-' + countryData.countryCode));
 
         chart.draw(data, options);
-
-        $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Delete</button>")
     }
+
+    google.charts.load('current', {'packages':['bar', 'corechart']});
+
+    var cID = 'country-chart-' + countryData.countryCode;
+    var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
+        chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
+        chartDiv += "</div>"
+
+    $('#country-charts').append(chartDiv);
+
+    google.charts.setOnLoadCallback(drawChart);
+
+    $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Delete</button>")
 }
 
 
