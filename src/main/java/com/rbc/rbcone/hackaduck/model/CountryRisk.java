@@ -21,6 +21,11 @@ public class CountryRisk {
 	private String countryCode;
 
     /**
+     * The country name for human read.
+     */
+	private String countryName;
+	
+    /**
      * Risk information about the low risk category.
      */
 	private Risk low;
