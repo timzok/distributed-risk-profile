@@ -1,6 +1,7 @@
 {
     "fundName": "Fund Name 1",
 	"country": "FR",
+	"rad": "L",
 	"legalEntities": [
 	 	{
 	 		"name": "LegalEntity1",
