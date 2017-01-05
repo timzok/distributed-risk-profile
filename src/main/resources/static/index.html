@@ -76,8 +76,6 @@
             <div class="form-group">
                 <label>Select fund to display :</label>
                    <select id="fund-selection" class="form-control">
-                       <option value="Fund1">Fund 1</option>
-                       <option value="Fund2">Fund 2</option>
                    </select>
             </div>
 
@@ -113,8 +111,8 @@
 
     <!-- Bar charts for selected countries -->
     <div class="row">
-        <div id="country-A" style="width: 900px; height: 500px;"></div>
-        <div id="country-B" style="width: 900px; height: 500px;"></div>
+            <div id="country-a" style="width: 900px; height: 500px;"></div>
+        <div id="country-b" style="width: 900px; height: 500px;"></div>
     </div>
 </div>
 
@@ -165,9 +163,10 @@
 
 <script type="text/javascript">
 
-    //$(loadPieCharts());
-    $(drawWorldMap('Fund1'));
+    $(drawWorldMap('1'));
+    //$(loadColumCharts());
     $(setObserver());
+    $(loadFundDropdown());
 
 </script>
 
