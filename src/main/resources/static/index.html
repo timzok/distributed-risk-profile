@@ -101,13 +101,13 @@
                 <<
             </button>
 
-            <div id="world-map" style="width: auto; height: 600px"></div>
-            <div id="eu-map" style="width: auto; height: 600px; display:none;"></div>
-            <div id="af-map" style="width: auto; height: 600px; display:none;"></div>
-            <div id="na-map" style="width: auto; height: 600px; display:none;"></div>
-            <div id="oc-map" style="width: auto; height: 600px; display:none;"></div>
-            <div id="as-map" style="width: auto; height: 600px; display:none;"></div>
-            <div id="sa-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="world-map" style="width: auto; height: 500px"></div>
+            <div id="eu-map" style="width: auto; height: 500px; display:none;"></div>
+            <div id="af-map" style="width: auto; height: 500px; display:none;"></div>
+            <div id="na-map" style="width: auto; height: 500px; display:none;"></div>
+            <div id="oc-map" style="width: auto; height: 500px; display:none;"></div>
+            <div id="as-map" style="width: auto; height: 500px; display:none;"></div>
+            <div id="sa-map" style="width: auto; height: 500px; display:none;"></div>
         </div>
         <div class="col-md-4" id="country-charts">
 
@@ -170,7 +170,7 @@
 
     $(setObserver());
     $(loadFundDropdown());
-    $(drawWorldMap('1'));
+    $(drawWorldMap(selectedFund()));
 
 </script>
 
