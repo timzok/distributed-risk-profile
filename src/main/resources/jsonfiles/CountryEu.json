@@ -1,0 +1,184 @@
+{
+   "fundId": "Fund2",
+   "fundName": "Fund Name 2",
+   "region": "EU",
+   "countries": [
+      {
+         "CountryCode": "LU",
+		 "CountryName": "Luxembourg",
+         "Low": {
+            "assetValue": 2000,
+            "percentagePerAssetValue": 74
+         },
+         "Medium": {
+            "assetValue": 500,
+            "percentagePerAssetValue": 18.5
+         },
+         "High": {
+            "assetValue": 200,
+            "percentagePerAssetValue": 7.5
+         }
+      },
+      {
+         "CountryCode": "FR",
+		 "CountryName": "France",
+         "Low": {
+            "assetValue": 25,
+            "percentagePerAssetValue": 17.7
+         },
+         "Medium": {
+            "assetValue": 32,
+            "percentagePerAssetValue": 22.7
+
+         },
+         "High": {
+            "assetValue": 84,
+            "percentagePerAssetValue": 59.6
+         }
+      },
+      {
+         "CountryCode": "BE",
+		 "CountryName": "Belgium",
+         "Low": {
+            "assetValue": 564,
+            "percentagePerAssetValue": 86
+         },
+         "Medium": {
+            "assetValue": 12,
+            "percentagePerAssetValue": 1.8
+         },
+         "High": {
+            "assetValue": 80,
+            "percentagePerAssetValue": 12.2
+         }
+      },
+      {
+         "CountryCode": "LT",
+		 "CountryName": "Lituanie",
+         "Low": {
+            "assetValue": 159,
+            "percentagePerAssetValue": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "percentagePerAssetValue": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "percentagePerAssetValue": 0.6
+         }
+      },
+      {
+         "CountryCode": "UA",
+		 "CountryName": "Ukraine",
+         "Low": {
+            "assetValue": 159,
+            "percentagePerAssetValue": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "percentagePerAssetValue": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "percentagePerAssetValue": 0.6
+         }
+      },
+      {
+         "CountryCode": "DE",
+		 "CountryName": "Germany",
+         "Low": {
+            "assetValue": 159,
+            "percentagePerAssetValue": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "percentagePerAssetValue": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "percentagePerAssetValue": 0.6
+         }
+      },
+      {
+         "CountryCode": "HR",
+		 "CountryName": "Croatie",
+         "Low": {
+            "assetValue": 159,
+            "percentagePerAssetValue": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "percentagePerAssetValue": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "percentagePerAssetValue": 0.6
+         }
+      },
+      {
+         "CountryCode": "PL",
+		 "CountryName": "Pologne",
+         "Low": {
+            "assetValue": 159,
+            "percentagePerAssetValue": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "percentagePerAssetValue": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "percentagePerAssetValue": 0.6
+         }
+      },
+      {
+         "CountryCode": "SE",
+		 "CountryName": "Sweden",
+         "Low": {
+            "assetValue": 159,
+            "percentagePerAssetValue": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "percentagePerAssetValue": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "percentagePerAssetValue": 0.6
+         }
+      },
+      {
+         "CountryCode": "SI",
+		 "CountryName": "Slovenia",
+         "Low": {
+            "assetValue": 159,
+            "percentagePerAssetValue": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "percentagePerAssetValue": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "percentagePerAssetValue": 0.6
+         }
+      },
+      {
+         "CountryCode": "RU",
+         "CountryName": "Russia",
+         "Low": {
+            "assetValue": 159,
+            "percentagePerAssetValue": 51.7
+         },
+         "Medium": {
+            "assetValue": 147,
+            "percentagePerAssetValue": 47.7
+         },
+         "High": {
+            "assetValue": 2,
+            "percentagePerAssetValue": 0.6
+         }
+      }
+   ]
+}

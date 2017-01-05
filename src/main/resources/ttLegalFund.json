@@ -1,0 +1,20 @@
+[
+  {
+    "fc-lf-id": "ALQ",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "EMREARE RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "LEM",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "MATETAM RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "MOT",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "MTA TERAREM RATET (MATE)",
+    "fc-region-id": "LEMA"
+  }
+]

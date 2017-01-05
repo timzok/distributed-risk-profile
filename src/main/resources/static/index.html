@@ -76,8 +76,6 @@
             <div class="form-group">
                 <label>Select fund to display :</label>
                    <select id="fund-selection" class="form-control">
-                       <option value="Fund1">Fund 1</option>
-                       <option value="Fund2">Fund 2</option>
                    </select>
             </div>
 
@@ -98,23 +96,28 @@
         </table>
     </div>
     <div class="row">
-        <button class="btn btn-default pull-right" type="button" onclick="showWorldMap()">
-            <<
-        </button>
+        <div class="col-md-8">
+            <button class="btn btn-default pull-right" type="button" onclick="showWorldMap()">
+                <<
+            </button>
 
-        <div id="world-map" style="width: auto; height: 600px"></div>
-        <div id="eu-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="af-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="na-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="oc-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="as-map" style="width: auto; height: 600px; display:none;"></div>
-        <div id="sa-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="world-map" style="width: auto; height: 600px"></div>
+            <div id="eu-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="af-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="na-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="oc-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="as-map" style="width: auto; height: 600px; display:none;"></div>
+            <div id="sa-map" style="width: auto; height: 600px; display:none;"></div>
+        </div>
+        <div class="col-md-4" id="country-charts">
+            <!-- <button onClick="getAndDrawColumnChart('FR')" >Bar</button> -->
+        </div>
     </div>
 
     <!-- Bar charts for selected countries -->
     <div class="row">
-        <div id="country-A" style="width: 900px; height: 500px;"></div>
-        <div id="country-B" style="width: 900px; height: 500px;"></div>
+        <div class="col-md-2"><div id="country-a" style="width: 100%; height: 100%;"></div></div>
+        <div class="col-md-2"><div id="country-b" style="width: 100%; height: 100%;"></div></div>
     </div>
 </div>
 
@@ -165,9 +168,9 @@
 
 <script type="text/javascript">
 
-    //$(loadPieCharts());
-    $(drawWorldMap('Fund1'));
     $(setObserver());
+    $(loadFundDropdown());
+    $(drawWorldMap('1'));
 
 </script>
 

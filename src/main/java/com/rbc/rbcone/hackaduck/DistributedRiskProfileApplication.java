@@ -18,21 +18,31 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbc.rbcone.hackaduck.model.country.Country;
-import com.rbc.rbcone.hackaduck.model.country.Region;
 import com.rbc.rbcone.hackaduck.model.country.repository.CountryRepository;
-import com.rbc.rbcone.hackaduck.model.country.repository.RegionRepository;
+import com.rbc.rbcone.hackaduck.model.incoming.SaraEntity;
+import com.rbc.rbcone.hackaduck.model.incoming.SaraLegalFund;
+import com.rbc.rbcone.hackaduck.model.incoming.SaraRelation;
+import com.rbc.rbcone.hackaduck.model.incoming.SaraPeps;
+import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraEntityRepository;
+import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraLegalFundRepository;
+import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraPepsRepository;
+import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraRelationRepository;
 
 @SpringBootApplication
 public class DistributedRiskProfileApplication {
 
 	@Autowired
-	private RegionRepository regionRepo;
+	private SaraEntityRepository saraEntityRepo;
 	
 	@Autowired
-	private CountryRepository countryRepo;
+	private SaraPepsRepository saraPepsRepo;
 	
+	@Autowired
+	private SaraLegalFundRepository saraLegalFundRepo;
 	
+	@Autowired
+	private SaraRelationRepository saraRelationRepo;
+		
 	private static final Logger log = LoggerFactory.getLogger(DistributedRiskProfileApplication.class);
 	
 	public static void main(String[] args) {
@@ -42,43 +52,28 @@ public class DistributedRiskProfileApplication {
 	
 	@Transactional
 	@PostConstruct
-	public void postConstruct() throws JsonParseException, JsonMappingException, IOException{
-		
+	public void postConstruct() throws JsonParseException, JsonMappingException, IOException, InterruptedException{
+
 		log.info("POSTCONSTRUCT");
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-		TypeReference<List<Region>> mapType = new TypeReference<List<Region>>() {};
 		
-		List<Region> regions = mapper.readValue(this.getClass().getResourceAsStream("/Regions.json"),mapType);
-
-		for (Region cr: regions){
-			for (Country ctry: cr.getCountry())
-			{
-				ctry.setRegion(cr);
-			}
-		}
-
-		log.info("Persisting the regions");
-		regionRepo.save(regions);
-		log.info("Region is persisted");	
+		TypeReference<List<SaraEntity>> mapType = new TypeReference<List<SaraEntity>>() {};
+		List<SaraEntity> saraEntity = mapper.readValue(this.getClass().getResourceAsStream("/ttEntity.json"),mapType);
+		saraEntityRepo.save(saraEntity);
 		
-		/*for (Region test: regionRepo.findAll())
-		{
-			log.info(test.getName() + "<>"+test.getId());
+		TypeReference<List<SaraPeps>> pepsType = new TypeReference<List<SaraPeps>>() {};
+		List<SaraPeps> peps = mapper.readValue(this.getClass().getResourceAsStream("/ttPeps.json"),pepsType);
+		saraPepsRepo.save(peps);
 		
-			for(Country countries: test.getCountry())
-			{
-				log.info(countries.getType()+"-"+countries.getLabel()+"--->"+countries.getId()+ "----"+ countries.getRegion().getId());
-			}
-			
-			
-		}
+		TypeReference<List<SaraLegalFund>> saraLegalFundType = new TypeReference<List<SaraLegalFund>>() {};
+		List<SaraLegalFund> saraLegalFunds = mapper.readValue(this.getClass().getResourceAsStream("/ttLegalFund.json"),saraLegalFundType);
+		saraLegalFundRepo.save(saraLegalFunds);
 	
-		for(Country countries: countryRepo.findAll())
-		{
-			log.info(countries.getType()+"-"+countries.getLabel()+"--->"+countries.getId()+ countries.getRegion().getId());
-		}*/
-	
+		TypeReference<List<SaraRelation>> saraRelationType = new TypeReference<List<SaraRelation>>() {};
+		List<SaraRelation> saraRelation = mapper.readValue(this.getClass().getResourceAsStream("/ttRelationEntLF.json"),saraRelationType);
+		saraRelationRepo.save(saraRelation);
+
 		
 		
 	}

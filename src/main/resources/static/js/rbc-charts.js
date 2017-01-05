@@ -19,9 +19,9 @@ function drawWorldMapPieCharts(regionData) {
         var r = regionData[key];
         drawPieChart( "donutchart-" + r.regionCode,
                       mapTitles.get(r.regionCode),
-                      r.Low.assetValue,
-                      r.Medium.assetValue,
-                      r.High.assetValue
+                      r.low.assetValue,
+                      r.medium.assetValue,
+                      r.high.assetValue
                       );
     });
 
@@ -30,7 +30,8 @@ function drawWorldMapPieCharts(regionData) {
 
 function drawPieChart(chartID, title, l, m, h) {
     google.charts.load("current", {packages:["corechart"]});
-       google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart);
+
        function drawChart() {
          var data = google.visualization.arrayToDataTable([
            ['Rank'  , 'Percent'],
@@ -48,7 +49,7 @@ function drawPieChart(chartID, title, l, m, h) {
            colors: [ '#aaba0a', '#fca311', 'c71D06'],
            pieSliceText: 'none',
            backgroundColor: 'none',
-           reverseCategories: true,
+           //reverseCategories: true,
            chartArea: {left:10, top:40, 'width': '100%', 'height': '100%'}
          };
 
@@ -57,28 +58,57 @@ function drawPieChart(chartID, title, l, m, h) {
        }
  }
 
+ function selectedFund() {
+    return $('#fund-selection').val();
+ }
 
-function drawBarChart(chartID, title) {
-    google.charts.load('current', {'packages':['bar']});
+ function getAndDrawColumnChart(countryCode) {
+    //$.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
+    $.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode , function( data ) {
+        drawColumnChart(data);
+    });
+  };
+
+
+
+
+
+function drawColumnChart(countryData) {
+    google.charts.load('current', {'packages':['bar', 'corechart']});
     google.charts.setOnLoadCallback(drawChart);
+
+    var cID = 'country-chart-' + countryData.countryCode;
+    var chartDiv  = "<div id='c-" + cID + "' style=\"position:absolute\">"
+        chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
+        chartDiv += "</div>"
+
+    $('#country-charts').append(chartDiv);
+
     function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales', 'Expenses', 'Profit'],
-      ['Low', 1000, 400, 200],
-      ['Medium', 1170, 460, 250],
-      ['High', 660, 1120, 300]
-    ]);
+        var data = google.visualization.arrayToDataTable([
+            ['Rank', 'Acc', 'Cty', 'Total'],
+            ['Low', countryData.low.assetValue, countryData.low.percentagePerAssetValue, countryData.low.percentagePerTotalAssetValue],
+            ['Medium', countryData.medium.assetValue, countryData.medium.percentagePerAssetValue, countryData.medium.percentagePerTotalAssetValue],
+            ['High', countryData.high.assetValue, countryData.high.percentagePerAssetValue, countryData.high.percentagePerTotalAssetValue]
+        ]);
 
-    var options = {
-      chart: {
-        title: 'Company Performance',
-        subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-      }
-    };
+        var options = {
+            chart: {
+                title: 'Bar chart for ' + countryData.countryName
+            },
+            animation: {
+                duration: 1000,
+                easing: 'out',
+                startup: true
+            },
+            colors: [ '#aaba0a', '#fca311', 'c71D06']
+        };
 
-    var chart = new google.charts.Bar(document.getElementById('chartID'));
+        var chart = new google.charts.Bar(document.getElementById('country-chart-' + countryData.countryCode));
 
-    chart.draw(data, options);
+        chart.draw(data, options);
+
+        $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Delete</button>")
     }
 }
 
@@ -90,7 +120,12 @@ function loadPieCharts() {
 }
 
 
-function loadBarCharts() {
-    drawBarChart('country-A', 'Data for chart A');
-    drawBarChart('country-B', 'Data for chart B');
+function loadFundDropdown() {
+    $.getJSON("/api/funds", function (funds) {
+        funds.forEach(function (fund) {
+            var option = $('<option/>');
+            option.attr({'value': fund.id}).text(fund.name);
+            $('#fund-selection').append(option);
+        });
+    });
 }
