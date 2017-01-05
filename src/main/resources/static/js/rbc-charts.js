@@ -79,9 +79,9 @@ function drawColumnChart(countryData) {
 
         var data = new google.visualization.arrayToDataTable([
             ['Rank', 'Low', 'Medium', 'High'],
-            ['Investor', countryData.low.assetValue                   , countryData.medium.assetValue                   , countryData.high.assetValue],
-            ['Country' , countryData.low.percentagePerAssetValue      , countryData.medium.percentagePerAssetValue      , countryData.high.percentagePerAssetValue],
-            ['Region'  , countryData.low.percentagePerTotalAssetValue , countryData.medium.percentagePerTotalAssetValue , countryData.high.percentagePerTotalAssetValue]
+            ['Investor', countryData.low.investorCount, countryData.medium.investorCount, countryData.high.investorCount],
+            ['Country' , countryData.low.assetValue   , countryData.medium.assetValue, countryData.high.assetValue],
+            ['Region'  , countryData.low.globalAssetValue , countryData.medium.globalAssetValue , countryData.high.globalAssetValue]
         ]);
 
         var options = {
