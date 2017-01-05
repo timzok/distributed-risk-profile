@@ -20,21 +20,29 @@ public class RiskProfileResource {
     public List<LegalFund> getFundList() {
         // Mocked data
         ArrayList<LegalFund> rslt = new ArrayList<LegalFund>();
-        rslt.add(createLegalFund("1", "LFUND1"));
-        rslt.add(createLegalFund("2", "LFUND2"));
-        rslt.add(createLegalFund("3", "LFUND3"));
-        rslt.add(createLegalFund("4", "LFUND4"));
-        rslt.add(createLegalFund("5", "LFUND5"));
+        rslt.add(createLegalFund("1", "Fund1"));
+        rslt.add(createLegalFund("2", "Fund2"));
+//        rslt.add(createLegalFund("3", "LFUND3"));
+//        rslt.add(createLegalFund("4", "LFUND4"));
+//        rslt.add(createLegalFund("5", "LFUND5"));
         return rslt;
     }
 
     @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public List<RiskEntity> getRegionRiskList(@PathVariable("fundId") String aFundId) {
         ArrayList<RiskEntity> rslt = new ArrayList<RiskEntity>();
-        rslt.add(createEntityRisk("AF"));
-        rslt.add(createEntityRisk("NA"));
-        rslt.add(createEntityRisk("AS"));
-        rslt.add(createEntityRisk("EU"));
+        if("1".equalsIgnoreCase(aFundId)) {
+            rslt.add(createEntityRisk("AF"));
+            rslt.add(createEntityRisk("NA"));
+//            rslt.add(createEntityRisk("AS"));
+            rslt.add(createEntityRisk("EU"));
+        }else {
+
+//            rslt.add(createEntityRisk("AF"));
+//            rslt.add(createEntityRisk("NA"));
+            rslt.add(createEntityRisk("AS"));
+            rslt.add(createEntityRisk("EU"));
+        }
         return rslt;
     }
 
@@ -64,7 +72,7 @@ public class RiskProfileResource {
 
     private RiskEntity createEntityRisk(String anEntityId) {
         RiskEntity result = new RiskEntity();
-        result.setFund(new LegalFund("1", "LFUND1"));
+        result.setFund(new LegalFund("1", "Fund1"));
         result.setEntityId(anEntityId);
         result.setLow(new Risk(25.0, 345, 12, 4));
         result.setMedium(new Risk(50.0, 5677, 82, 5));
