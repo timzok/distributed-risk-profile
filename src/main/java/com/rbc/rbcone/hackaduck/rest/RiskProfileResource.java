@@ -72,16 +72,16 @@ public class RiskProfileResource {
 
     private RiskEntity createEntityRisk(String anEntityId) {
         RiskEntity result = new RiskEntity();
-        result.setFund(new LegalFund("1", "Fund1"));
+  /*      result.setFund(new LegalFund("1", "Fund1"));
         result.setEntityId(anEntityId);
         result.setLow(new Risk(25.0, 345, 12, 4));
         result.setMedium(new Risk(50.0, 5677, 82, 5));
-        result.setHigh(new Risk(25.0, 35, 6, 1));
+        result.setHigh(new Risk(25.0, 35, 6, 1));*/
         return result;
     }
     
     private LegalFund createLegalFund(String anId, String aName) {
-    	LegalFund rslt = new LegalFund(anId, aName);
-    	return rslt;
+    	/*LegalFund rslt = new LegalFund(anId, aName);
+    	return rslt;*/ return null;
     }
 }
