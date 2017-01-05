@@ -59,21 +59,17 @@ function drawPieChart(chartID, title, l, m, h) {
  }
 
 
- function drawColumnChart('countryCode')
-$.getJSON( "../jsonfiles/", function( data ) {
-    regionsMap = data.reduce(function(map, obj) {
-        map[obj.entityId] = obj;
-        return map;
-    }, {});
-    drawMap(data);
-    drawWorldMapPieCharts(data);
-});
+ function getAndDrawColumnChart(countryCode) {
+    $.getJSON( "../jsonfiles/Country" + countryCode, function( data ) {
+        drawColumnChart(data);
+    });
+  };
 
 
 
 
 
-function drawColumnChart(countryCode) {
+function drawColumnChart(countryData) {
     google.charts.load('current', {'packages':['bar', 'corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
@@ -82,14 +78,14 @@ function drawColumnChart(countryCode) {
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Rank', 'Acc', 'Cty', 'Total'],
-            ['Low', 1000, 400, 200],
-            ['Medium', 1170, 460, 250],
-            ['High', 660, 1120, 300],
+            ['Low', countryData.Low.assetValue, countryData.Low.percentagePerAssetValue, countryData.Low.percentagePerTotalAssetValue],
+            ['Medium', countryData.Medium.assetValue, countryData.Medium.percentagePerAssetValue, countryData.Medium.percentagePerTotalAssetValue],
+            ['High', countryData.High.assetValue, countryData.High.percentagePerAssetValue, countryData.High.percentagePerTotalAssetValue]
         ]);
 
         var options = {
             chart: {
-                title: 'Bar chart for ' + countryCode
+                title: 'Bar chart for ' + countryData.CountryName
             }
         };
 
