@@ -57,7 +57,7 @@ public class DistributedRiskProfileApplication {
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		TypeReference<List<Region>> mapType = new TypeReference<List<Region>>() {};
 		
-		List<Region> regions = mapper.readValue(this.getClass().getResourceAsStream("/Regions.json"),mapType);
+		/*List<Region> regions = mapper.readValue(this.getClass().getResourceAsStream("/Regions.json"),mapType);
 
 		for (Region cr: regions){
 			for (Country ctry: cr.getCountry())
@@ -121,7 +121,7 @@ public class DistributedRiskProfileApplication {
 		}
 		
 		promRepo.save(promoters);
-		
+		*/
 		/*
 		for(Country countries: countryRepo.findAll())
 		{

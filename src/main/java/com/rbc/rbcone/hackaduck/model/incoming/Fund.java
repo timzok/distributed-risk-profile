@@ -27,9 +27,15 @@ public class Fund {
 	public String name;
 
 	
+	/*@ManyToMany(fetch = FetchType.EAGER, targetEntity=Resources.class)
+    @JoinTable(name = "clients_access_resources", joinColumns = { @JoinColumn(name = "client_id") }, inverseJoinColumns = { @JoinColumn(name = "res_id") })
+    public Set<Resources> getClientResources() {
+        return this.clientResources;
+    }*/
+	
 	@ManyToMany(fetch = FetchType.EAGER, targetEntity = AccountHolder.class)
 	@JoinTable(name="FUNDS_ACCOUNTHOLDERS", 
-			   joinColumns=@JoinColumn(name="fund_id",referencedColumnName="ID"),
+			   joinColumns=@JoinColumn(name="fund_id",referencedColumnName="id"),
 			   inverseJoinColumns=@JoinColumn(name="account_holder_id",referencedColumnName="ID")
 				)
 	public Set<AccountHolder> accountHolders;
