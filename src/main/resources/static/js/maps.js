@@ -1,13 +1,14 @@
 var regionsMap = {};
+var countriesMap = {};
 
-function onRegionTipShow(e, el, code){
+function onTipShow(e, el, code){
     var map =  $('#world-map').vectorMap('get', 'mapObject');
     var regionData = regionsMap[code];
     if (regionData) {
         map.tip.html(el[0].innerText +
-            " low: " + regionData.Low.assetValue +
-            " %, medium:" + regionData.Medium.assetValue +
-            "%, high:" + regionData.Medium.assetValue +"% ");
+            " low: " + regionData.low.assetValue +
+            " %, medium:" + regionData.medium.assetValue +
+            "%, high:" + regionData.high.assetValue +"% ");
     }
 }
 
@@ -31,7 +32,10 @@ function renderMap(code){
 
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
-        drawVectorMap(placeholder, maps.get(code), getCountriesData(code))
+
+        getCountriesData($('#fund-selection').val(), code).then(
+            drawVectorMap(placeholder, maps.get(code), countriesMap)
+        );
     }
 
     $("#world-map").fadeOut( 200, "linear", complete );
@@ -60,15 +64,14 @@ function showWorldMap(){
 }
 
 function drawWorldMap(fundID){
-    $.getJSON( "./jsonfiles/MapPerRegions" + fundID + ".json", function( data ) {
-        regionsMap = data.Regions.reduce(function(map, obj) {
+    $.getJSON( "/api/funds/" + fundID + "/regions", function( data ) {
+        regionsMap = data.regions.reduce(function(map, obj) {
             map[obj.regionCode] = obj;
             return map;
         }, {});
-        drawMap(data.Regions);
-        drawWorldMapPieCharts(data.Regions);
+        drawMap(data);
+        drawWorldMapPieCharts(regionsMap);
     });
-
 }}
 
 
@@ -77,7 +80,7 @@ function drawMap(regionData) {
 }
 
 
-function drawVectorMap(mapID, mapName, data) {
+function drawVectorMap(mapID, mapName, data, worldMap) {
     $(mapID + " div.jvectormap-container").remove();
     $(mapID).vectorMap({
         map: mapName,
@@ -92,7 +95,7 @@ function drawVectorMap(mapID, mapName, data) {
                 values:  data
             }]
         },
-        onRegionTipShow : onRegionTipShow,
+        onRegionTipShow : onTipShow,
         onRegionClick : onRegionClick
     });
 
@@ -106,13 +109,17 @@ function setObserver() {
 
 function getWorldData(regionData) {
 var regionsList = { };
-$.each( regionData, function( key, val ) {
-    regionsList[regionData[key].regionCode] = 2;
+$.each( regionData.regions, function( key, val ) {
+    regionsList[val.regionCode] = 2;
   });
 
   return regionsList;
 }
 
-function getCountriesData(code) {
-    {}
+function getCountriesData(fundID, code) {
+    return $.getJSON( "/api/funds/" + fundID + "/regions/" + code + "/countries", function( data ) {
+        $.each( data.countries, function( key, val ) {
+            countriesMap[val.countryCode] = 2;
+        });
+    });
 }

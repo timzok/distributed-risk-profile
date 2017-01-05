@@ -19,9 +19,9 @@ function drawWorldMapPieCharts(regionData) {
         var r = regionData[key];
         drawPieChart( "donutchart-" + r.regionCode,
                       mapTitles.get(r.regionCode),
-                      r.Low.assetValue,
-                      r.Medium.assetValue,
-                      r.High.assetValue
+                      r.low.assetValue,
+                      r.medium.assetValue,
+                      r.high.assetValue
                       );
     });
 
@@ -30,7 +30,8 @@ function drawWorldMapPieCharts(regionData) {
 
 function drawPieChart(chartID, title, l, m, h) {
     google.charts.load("current", {packages:["corechart"]});
-       google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart);
+
        function drawChart() {
          var data = google.visualization.arrayToDataTable([
            ['Rank'  , 'Percent'],
@@ -58,27 +59,39 @@ function drawPieChart(chartID, title, l, m, h) {
  }
 
 
-function drawBarChart(chartID, title) {
-    google.charts.load('current', {'packages':['bar']});
+ function getAndDrawColumnChart(countryCode) {
+    $.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
+        drawColumnChart(data);
+    });
+  };
+
+
+
+
+
+function drawColumnChart(countryData) {
+    google.charts.load('current', {'packages':['bar', 'corechart']});
     google.charts.setOnLoadCallback(drawChart);
+
+    $('#country-chart').html('');
+
     function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales', 'Expenses', 'Profit'],
-      ['Low', 1000, 400, 200],
-      ['Medium', 1170, 460, 250],
-      ['High', 660, 1120, 300]
-    ]);
+        var data = google.visualization.arrayToDataTable([
+            ['Rank', 'Acc', 'Cty', 'Total'],
+            ['Low', countryData.Low.assetValue, countryData.Low.percentagePerAssetValue, countryData.Low.percentagePerTotalAssetValue],
+            ['Medium', countryData.Medium.assetValue, countryData.Medium.percentagePerAssetValue, countryData.Medium.percentagePerTotalAssetValue],
+            ['High', countryData.High.assetValue, countryData.High.percentagePerAssetValue, countryData.High.percentagePerTotalAssetValue]
+        ]);
 
-    var options = {
-      chart: {
-        title: 'Company Performance',
-        subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-      }
-    };
+        var options = {
+            chart: {
+                title: 'Bar chart for ' + countryData.CountryName
+            }
+        };
 
-    var chart = new google.charts.Bar(document.getElementById('chartID'));
+        var chart = new google.charts.Bar(document.getElementById('country-chart'));
 
-    chart.draw(data, options);
+        chart.draw(data, options);
     }
 }
 
@@ -90,7 +103,12 @@ function loadPieCharts() {
 }
 
 
-function loadBarCharts() {
-    drawBarChart('country-A', 'Data for chart A');
-    drawBarChart('country-B', 'Data for chart B');
+function loadFundDropdown() {
+    $.getJSON("/api/funds", function (funds) {
+        funds.forEach(function (fund) {
+            var option = $('<option/>');
+            option.attr({'value': fund.id}).text(fund.name);
+            $('#fund-selection').append(option);
+        });
+    });
 }

@@ -24,11 +24,12 @@ public class Risk {
     /**
      * The percentage of the fund held by the account holders that are in this risk category.
      */
-    private int percentagePerAssetValue;
+    private double percentagePerAssetValue;
     /**
      * The percentage of the asset held by the account holders that are in this risk category.
      */
-    private int percentagePerTotalAssetValue;
+    private double percentagePerTotalAssetValue;
+    
     public Risk() {
 
     }
