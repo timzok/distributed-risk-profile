@@ -1,4 +1,5 @@
 var regionsMap = {};
+var countriesMap = {};
 
 function onTipShow(e, el, code){
     var map =  $('#world-map').vectorMap('get', 'mapObject');
@@ -31,7 +32,10 @@ function renderMap(code){
 
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
-        drawVectorMap(placeholder, maps.get(code), getCountriesData(code))
+
+        getCountriesData($('#fund-selection').val(), code).then(
+            drawVectorMap(placeholder, maps.get(code), countriesMap)
+        );
     }
 
     $("#world-map").fadeOut( 200, "linear", complete );
@@ -68,7 +72,6 @@ function drawWorldMap(fundID){
         drawMap(data);
         drawWorldMapPieCharts(regionsMap);
     });
-
 }}
 
 
@@ -113,6 +116,10 @@ $.each( regionData.regions, function( key, val ) {
   return regionsList;
 }
 
-function getCountriesData(code) {
-    {}
+function getCountriesData(fundID, code) {
+    return $.getJSON( "/api/funds/" + fundID + "/regions/" + code + "/countries", function( data ) {
+        $.each( data.countries, function( key, val ) {
+            countriesMap[val.countryCode] = 2;
+        });
+    });
 }
