@@ -59,25 +59,37 @@ function drawPieChart(chartID, title, l, m, h) {
  }
 
 
-function drawColumnChart(chartID, title) {
+ function getAndDrawColumnChart(countryCode) {
+    $.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
+        drawColumnChart(data);
+    });
+  };
+
+
+
+
+
+function drawColumnChart(countryData) {
     google.charts.load('current', {'packages':['bar', 'corechart']});
     google.charts.setOnLoadCallback(drawChart);
+
+    $('#country-chart').html('');
+
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales', 'Expenses', 'Profit'],
-            ['2014', 1000, 400, 200],
-            ['2015', 1170, 460, 250],
-            ['2016', 660, 1120, 300],
-            ['2017', 1030, 540, 350]
+            ['Rank', 'Acc', 'Cty', 'Total'],
+            ['Low', countryData.Low.assetValue, countryData.Low.percentagePerAssetValue, countryData.Low.percentagePerTotalAssetValue],
+            ['Medium', countryData.Medium.assetValue, countryData.Medium.percentagePerAssetValue, countryData.Medium.percentagePerTotalAssetValue],
+            ['High', countryData.High.assetValue, countryData.High.percentagePerAssetValue, countryData.High.percentagePerTotalAssetValue]
         ]);
 
         var options = {
             chart: {
-                title: title
+                title: 'Bar chart for ' + countryData.CountryName
             }
         };
 
-        var chart = new google.charts.Bar(document.getElementById(chartID));
+        var chart = new google.charts.Bar(document.getElementById('country-chart'));
 
         chart.draw(data, options);
     }
@@ -90,11 +102,6 @@ function loadPieCharts() {
     drawPieChart('donutchart-EU', 'Europe', 123, 543, 34);
 }
 
-
-function loadColumCharts() {
-    drawColumnChart('country-a', 'Data for chart A');
-    drawColumnChart('country-b', 'Data for chart B');
-}
 
 function loadFundDropdown() {
     $.getJSON("/api/funds", function (funds) {
