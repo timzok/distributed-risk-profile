@@ -73,6 +73,7 @@ public class RiskProfileResource {
         return null;
     }
 
+
     private RegionRisk createRegionRisk(String aRegionId, Risk aLowRisk, Risk aMediumRisk, Risk aHighRisk) {
     	RegionRisk rslt = new RegionRisk();
     	rslt.setRegionCode(aRegionId);
@@ -81,7 +82,7 @@ public class RiskProfileResource {
     	rslt.setHigh(aHighRisk);
     	return rslt;
     }
-    
+    	
     private LegalFund createLegalFund(String anId, String aName) {
     	LegalFund rslt = new LegalFund(anId, aName);
     	return rslt;

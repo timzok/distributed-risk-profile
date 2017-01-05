@@ -48,15 +48,19 @@ public class DistributedRiskProfileApplication {
 		SpringApplication.run(DistributedRiskProfileApplication.class, args);
 	}
 	
-	@Transactional
-	@PostConstruct
+//	@Transactional
+//	@PostConstruct
 	public void postConstruct() throws JsonParseException, JsonMappingException, IOException, InterruptedException{
+<<<<<<< HEAD
 /*		
+=======
+
+>>>>>>> 0aaa4a0b06e83e55f35868371f0fae18475ab3c3
 		log.info("POSTCONSTRUCT");
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		TypeReference<List<Region>> mapType = new TypeReference<List<Region>>() {};
-		
+
 		List<Region> regions = mapper.readValue(this.getClass().getResourceAsStream("/Regions.json"),mapType);
 
 		for (Region cr: regions){
@@ -68,68 +72,72 @@ public class DistributedRiskProfileApplication {
 
 		log.info("Persisting the regions");
 		regionRepo.save(regions);
-		log.info("Region is persisted");	
+		log.info("Region is persisted");
 		//Thread.sleep(1000);
-		
+
 		for (Region test: regionRepo.findAll())
 		{
 			log.info(test.getName() + "<>"+test.getId());
-		
+
 			for(Country countries: test.getCountry())
 			{
 				log.info(countries.getType()+"-"+countries.getLabel()+"--->"+countries.getId()+ "----"+ countries.getRegion().getId());
 			}
-			
-			
+
+
 		}
-		
+
 		ObjectMapper mapper2 = new ObjectMapper();
 		mapper2.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		TypeReference<List<Promoter>> mapType2 = new TypeReference<List<Promoter>>() {};
 
 		List<Promoter> promoters = mapper2.readValue(this.getClass().getResourceAsStream("/FirstJsonfile.json"),mapType2);
-		
+
 		for (Promoter prom: promoters)
 		{
 			for (Fund fund: prom.getFunds())
 			{
 				fund.setPromoter(prom);
-				
+
 			}
 		}
-		
-		
-		
+
+
+
 		log.info("Size of promoters:"  + promoters.size());
 		for (Promoter prom: promoters)
 		{
 			for (Fund fund: prom.getFunds())
 			{
 				log.info(fund.getId()+"-"+fund.getDomiciliation()+"-"+fund.getName());
-				
+
 				for(AccountHolder accHold: fund.getAccountHolders())
 				{
 					log.info("    "+accHold.getAccountHolderId()+"-"+accHold.getName());
-				
+
 						for(Peps peps : accHold.getPeps())
 						{
 							log.info("             "+ peps.getPepsId()+"-"+peps.getFirstName());
 						}
-					
+
 				}
 			}
 		}
-		
+
 		promRepo.save(promoters);
+<<<<<<< HEAD
 	*/	
+=======
+
+>>>>>>> 0aaa4a0b06e83e55f35868371f0fae18475ab3c3
 		/*
 		for(Country countries: countryRepo.findAll())
 		{
 			log.info(countries.getType()+"-"+countries.getLabel()+"--->"+countries.getId()+ countries.getRegion().getId());
 		}*/
-	
-		
-		
+
+
+
 	}
 	
 }

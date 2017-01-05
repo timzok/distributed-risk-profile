@@ -5,9 +5,9 @@ function onRegionTipShow(e, el, code){
     var regionData = regionsMap[code];
     if (regionData) {
         map.tip.html(el[0].innerText +
-            " low: " + regionData.Low.assetValue +
-            " %, medium:" + regionData.Medium.assetValue +
-            "%, high:" + regionData.Medium.assetValue +"% ");
+            " low: " + regionData.low.assetValue +
+            " %, medium:" + regionData.medium.assetValue +
+            "%, high:" + regionData.high.assetValue +"% ");
     }
 }
 
@@ -60,13 +60,13 @@ function showWorldMap(){
 }
 
 function drawWorldMap(fundID){
-    $.getJSON( "./jsonfiles/MapPerRegions" + fundID + ".json", function( data ) {
-        regionsMap = data.Regions.reduce(function(map, obj) {
-            map[obj.regionCode] = obj;
+    $.getJSON( "/api/funds/" + fundID + "/regions", function( data ) {
+        regionsMap = data.reduce(function(map, obj) {
+            map[obj.entityId] = obj;
             return map;
         }, {});
-        drawMap(data.Regions);
-        drawWorldMapPieCharts(data.Regions);
+        drawMap(data);
+        drawWorldMapPieCharts(data);
     });
 
 }}
@@ -107,7 +107,7 @@ function setObserver() {
 function getWorldData(regionData) {
 var regionsList = { };
 $.each( regionData, function( key, val ) {
-    regionsList[regionData[key].regionCode] = 2;
+    regionsList[regionData[key].entityId] = 2;
   });
 
   return regionsList;

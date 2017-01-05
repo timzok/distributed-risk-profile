@@ -35,7 +35,6 @@ public class AccountHolder {
 	
 	@ManyToMany(fetch = FetchType.EAGER,mappedBy="accountHolders")
 	public Set<Fund> funds;
-		
 
 	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Fund.class)
 	@JoinTable(name="ACCOUNTSHOLDER_PEPS", 
