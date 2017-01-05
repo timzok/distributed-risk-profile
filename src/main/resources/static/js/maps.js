@@ -60,7 +60,7 @@ function showWorldMap(){
 }
 
 function drawWorldMap(fundID){
-    $.getJSON( "./jsonfiles/MapPerregions" + fundID + ".json", function( data ) {
+    $.getJSON( "./jsonfiles/MapPerRegions" + fundID + ".json", function( data ) {
         regionsMap = data.Regions.reduce(function(map, obj) {
             map[obj.regionCode] = obj;
             return map;
