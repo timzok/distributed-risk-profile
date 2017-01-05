@@ -1,15 +1,20 @@
- [
+[
   {
-    "fc-lf-id": "VTS",
-    "fc-lf-domiciliation": "",
-    "fc-lf-name": "",
-    "fc-region-id": "CFU0088320"
-  }, 
-	{
-    "fc-lf-id": "AAA",
-    "fc-lf-domiciliation": "",
-    "fc-lf-name": "",
-    "fc-region-id": "CFU00000"
+    "fc-lf-id": "ALQ",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "EMREARE RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "LEM",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "MATETAM RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "MOT",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "MTA TERAREM RATET (MATE)",
+    "fc-region-id": "LEMA"
   }
 ]
-

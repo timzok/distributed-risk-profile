@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 @Entity
 public class SaraPeps {
 
+	
 	@Id
 	String pepsId;			// fc-pepsId
 	
