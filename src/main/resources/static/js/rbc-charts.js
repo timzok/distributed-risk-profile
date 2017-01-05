@@ -58,9 +58,13 @@ function drawPieChart(chartID, title, l, m, h) {
        }
  }
 
+ function selectedFund() {
+    return $('#fund-selection').val();
+ }
 
  function getAndDrawColumnChart(countryCode) {
-    $.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
+    //$.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
+    $.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode , function( data ) {
         drawColumnChart(data);
     });
   };
@@ -78,14 +82,14 @@ function drawColumnChart(countryData) {
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Rank', 'Acc', 'Cty', 'Total'],
-            ['Low', countryData.Low.assetValue, countryData.Low.percentagePerAssetValue, countryData.Low.percentagePerTotalAssetValue],
-            ['Medium', countryData.Medium.assetValue, countryData.Medium.percentagePerAssetValue, countryData.Medium.percentagePerTotalAssetValue],
-            ['High', countryData.High.assetValue, countryData.High.percentagePerAssetValue, countryData.High.percentagePerTotalAssetValue]
+            ['Low', countryData.low.assetValue, countryData.low.percentagePerAssetValue, countryData.low.percentagePerTotalAssetValue],
+            ['Medium', countryData.medium.assetValue, countryData.medium.percentagePerAssetValue, countryData.medium.percentagePerTotalAssetValue],
+            ['High', countryData.high.assetValue, countryData.high.percentagePerAssetValue, countryData.high.percentagePerTotalAssetValue]
         ]);
 
         var options = {
             chart: {
-                title: 'Bar chart for ' + countryData.CountryName
+                title: 'Bar chart for ' + countryData.countryName
             },
             animation: {
                 duration: 1000,
