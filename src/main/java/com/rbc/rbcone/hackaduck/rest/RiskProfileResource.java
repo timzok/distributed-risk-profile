@@ -73,7 +73,7 @@ public class RiskProfileResource {
     }
     
     private LegalFund createLegalFund(String anId, String aName) {
-    	LegalFund rslt = new LegalFund();
+    	LegalFund rslt = new LegalFund(anId, aName);
     	/*rslt.setId(anId);
     	rslt.setName(aName);*/
     	return rslt;
