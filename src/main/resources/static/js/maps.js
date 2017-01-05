@@ -1,6 +1,6 @@
 var regionsMap = {};
 
-function onRegionTipShow(e, el, code){
+function onTipShow(e, el, code){
     var map =  $('#world-map').vectorMap('get', 'mapObject');
     var regionData = regionsMap[code];
     if (regionData) {
@@ -61,12 +61,12 @@ function showWorldMap(){
 
 function drawWorldMap(fundID){
     $.getJSON( "/api/funds/" + fundID + "/regions", function( data ) {
-        regionsMap = data.reduce(function(map, obj) {
-            map[obj.entityId] = obj;
+        regionsMap = data.regions.reduce(function(map, obj) {
+            map[obj.regionCode] = obj;
             return map;
         }, {});
         drawMap(data);
-        drawWorldMapPieCharts(data);
+        drawWorldMapPieCharts(regionsMap);
     });
 
 }}
@@ -77,7 +77,7 @@ function drawMap(regionData) {
 }
 
 
-function drawVectorMap(mapID, mapName, data) {
+function drawVectorMap(mapID, mapName, data, worldMap) {
     $(mapID + " div.jvectormap-container").remove();
     $(mapID).vectorMap({
         map: mapName,
@@ -92,7 +92,7 @@ function drawVectorMap(mapID, mapName, data) {
                 values:  data
             }]
         },
-        onRegionTipShow : onRegionTipShow,
+        onRegionTipShow : onTipShow,
         onRegionClick : onRegionClick
     });
 
@@ -106,8 +106,8 @@ function setObserver() {
 
 function getWorldData(regionData) {
 var regionsList = { };
-$.each( regionData, function( key, val ) {
-    regionsList[regionData[key].entityId] = 2;
+$.each( regionData.regions, function( key, val ) {
+    regionsList[val.regionCode] = 2;
   });
 
   return regionsList;

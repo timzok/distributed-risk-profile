@@ -17,8 +17,8 @@ function drawWorldMapPieCharts(regionData) {
 
     $.each( regionData, function( key, val ) {
         var r = regionData[key];
-        drawPieChart( "donutchart-" + r.entityId,
-                      mapTitles.get(r.entityId),
+        drawPieChart( "donutchart-" + r.regionCode,
+                      mapTitles.get(r.regionCode),
                       r.low.assetValue,
                       r.medium.assetValue,
                       r.high.assetValue
