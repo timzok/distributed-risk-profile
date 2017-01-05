@@ -31,7 +31,7 @@ function renderMap(code){
 
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
-        drawVectorMap($(placeholder), maps.get(code), getCountriesData(code))
+        drawVectorMap(placeholder, maps.get(code), getCountriesData(code))
     }
 
     $("#world-map").fadeOut( 200, "linear", complete );
@@ -39,7 +39,12 @@ function renderMap(code){
 
 
 function onRegionClick(e, code){
-    renderMap(code.toLowerCase());
+    var regionData = regionsMap[code];
+    if (regionData) {
+        renderMap(code.toLowerCase());
+    } else {
+        e.preventDefault();
+    }
 }
 
 function showWorldMap(){
@@ -73,7 +78,7 @@ function drawMap(regionData) {
 
 
 function drawVectorMap(mapID, mapName, data) {
-    $(mapID).html('');
+    $(mapID + " div.jvectormap-container").remove();
     $(mapID).vectorMap({
         map: mapName,
         backgroundColor: 'transparent',
