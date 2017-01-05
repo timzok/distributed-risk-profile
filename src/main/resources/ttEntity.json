@@ -1,18 +1,23 @@
 [
   {
-    "fc-bp-id": "MIG-DLR-b442",
-    "fc-residence-code": "LU",
-    "fc-name": "name",
+    "fc-bp-id": "MIG-DLR-MH336",
+    "fc-residence-code": "IM",
+    "fc-name": "ETT RARAAT ERRERRAREERAT ERTE ET RAR TERERET",
     "fc-nature": "L",
-    "fc-type": "01",
-    "fc-distriutionType": "Segragated"
+    "fc-type": "03"
   },
-   {
-    "fc-bp-id": "MIG-2222",
-    "fc-residence-code": "FR",
-    "fc-name": "FR NAME",
-    "fc-nature": "H",
-    "fc-type": "02",
-    "fc-distriutionType": "internal"
+  {
+    "fc-bp-id": "BP14011361087103347221",
+    "fc-residence-code": "MT",
+    "fc-name": "RERRE RARRETA TERERET",
+    "fc-nature": "L",
+    "fc-type": "02"
+  },
+  {
+    "fc-bp-id": "BP131017MIG49557427137",
+    "fc-residence-code": "GB",
+    "fc-name": "TARTRERRTE EER REREREER TRT",
+    "fc-nature": "L",
+    "fc-type": "02"
   }
 ]

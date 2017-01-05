@@ -1,12 +1,35 @@
- [
+[
   {
-    "fc-relationId": "RE140130MIG46350245302",
-    "fc-bp-id": "MIG-DLR-b442",
-    "fc-lf-id": "VTS",
-    "fc-acc-id": "CFU0088320",
-    "fc-rad": "H",
+    "fc-relationId": "RE14011038162755056900",
+    "fc-bp-id": "MIG-DLR-MH336",
+    "fc-lf-id": "ALQ",
+    "fc-acc-id": "ROY0000380",
+    "fc-rad": "",
     "fc-relationType": "INVESTOR",
-    "fi-nb-acc": 0,
+    "fc-distriutionType": "Segragated",
+    "fi-nb-acc": 2,
+    "fde-asset-value": 5387.68692
+  },
+  {
+    "fc-relationId": "RE14011440803250062100",
+    "fc-bp-id": "BP14011361087103347221",
+    "fc-lf-id": "LEM",
+    "fc-acc-id": "CIS0000001",
+    "fc-rad": "",
+    "fc-relationType": "INVESTOR",
+    "fc-distriutionType": "Segragated",
+    "fi-nb-acc": 2,
+    "fde-asset-value": 0.0
+  },
+  {
+    "fc-relationId": "RE1503113957985804d100",
+    "fc-bp-id": "BP131017MIG49557427137",
+    "fc-lf-id": "MOT",
+    "fc-acc-id": "FUS0110156",
+    "fc-rad": "",
+    "fc-relationType": "INVESTOR",
+    "fc-distriutionType": "Segragated",
+    "fi-nb-acc": 2,
     "fde-asset-value": 0.0
   }
 ]
