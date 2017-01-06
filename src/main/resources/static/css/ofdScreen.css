@@ -238,4 +238,38 @@ button[type="button"]:disabled.btnCancel,
 
 body {
     margin: 0px 0px 0px 0px;
+    background: #ECF0F4;
+}
+
+div.fancy {
+    padding: 20px;
+    margin-top: 20px;
+    background: #fff;
+    box-shadow: #DFDFDF 0 2px 4px 0;
+    border-radius: 0 5px 5px 0;
+}
+
+.blank-bg {
+    background: #fff;
+}
+
+#ofd-logo {
+    color: yellow;
+    font-size: 25px;
+    font-weight: 200;
+}
+
+
+.bodyTitleCustom {
+    font-size: 25px;
+    font-weight: 200;
+    font-family: "Open Sans",sans-serif;
+    padding: 10px;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.btn {
+    padding:none;
 }
