@@ -210,7 +210,7 @@ function displayPepsInfo(pepsDataForRisk) {
 
     google.charts.load('current', {'packages':['table']});
     google.charts.setOnLoadCallback(drawTable);
-
+    $('#pepsInformations').html('');
     function drawTable() {
         pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
             var cID = 'legal-entity-' + legalEntity.name;
