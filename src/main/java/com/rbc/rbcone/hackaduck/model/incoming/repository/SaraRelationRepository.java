@@ -19,7 +19,11 @@ public interface SaraRelationRepository extends CrudRepository<SaraRelation, Str
 	@Query(nativeQuery=true, value="select f.id as fundId, f.name, c.type as countryCode, c.label as countryName, r.rad, sum(r.asset_Value), count(distinct e.id) from country c, region g, sara_legal_fund f, sara_entity e, sara_relation r where f.id = ? and g.name = ? and c.region_id = g.id and r.lf_id = f.id and r.bp_id = e.id and e.residence_code = c.type group by c.type, r.rad")
 	Object[] findCountryLevelRelations(String aFundId, String aRegionCode);
 	
-	@Query(nativeQuery=true, value="select f.id as fundId, f.name, c.type as countryCode, c.label as countryName, r.rad, sum(r.asset_Value), count(distinct e.id) from country c, region g, sara_legal_fund f, sara_entity e, sara_relation r where f.id = ? and g.name = ? and c.region_id = g.id and r.lf_id = f.id and r.bp_id = e.id and e.residence_code = c.type group by c.type, r.rad")
-	Object[] findTopCountryLevelRelations(String aFundId, String aRegionCode, int aTopCount);
+	@Query(nativeQuery=true, value="select top ? * from (select f.id as fundId, f.name as fundName, c.type as countryCode, c.label as countryName, sum(r.asset_Value) as assetValueSum, count(distinct e.id) as investorCount from country c, region g, sara_legal_fund f, sara_entity e, sara_relation r where f.id = ? and g.name = ? and c.region_id = g.id and r.lf_id = f.id and r.bp_id = e.id and r.rad = 'H' and e.residence_code = c.type group by c.type) order by assetValueSum desc")
+	Object[] findTopCountryLevelRelations(int aTopCount, String aFundId, String aRegionCode);
+	
+	@Query(nativeQuery=true, value="select f.id as fundId, f.name, g.id as regionCode, c.type as countryCode, c.label as countryName, r.rad, sum(r.asset_Value), count(distinct e.id) from country c, region g, sara_legal_fund f, sara_entity e, sara_relation r where f.id = 'LEM' and c.type = 'CA' and c.region_id = g.id and r.lf_id = f.id and r.bp_id = e.id and e.residence_code = c.type group by c.type, r.rad")
+	Object[] findCountryRelations(String aFundId, String aCountryCode);
 		
+	
 }
