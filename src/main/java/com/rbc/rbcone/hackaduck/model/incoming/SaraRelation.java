@@ -21,13 +21,7 @@ public class SaraRelation {
 	public double assetValue;			//fde-asset-value
 	public String distributionType; 	// fc-distriutionType
 	
-	/*public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}*/
-	
+
 	@Id
 	public String getRelationId() {
 		return relationId;

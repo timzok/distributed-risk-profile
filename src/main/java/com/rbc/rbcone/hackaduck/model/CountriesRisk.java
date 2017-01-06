@@ -1,5 +1,6 @@
 package com.rbc.rbcone.hackaduck.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -35,7 +36,15 @@ public class CountriesRisk {
     /**
      * Risk information for each country.
      */
-	private List<CountryRisk> countries;
+	private List<CountryRisk> countries = new ArrayList<CountryRisk>();
 
-
+	
+	public CountryRisk getCountryRisk(String aCountryCode) {
+		for (CountryRisk countryRisk : countries) {
+			if (countryRisk.getCountryCode().equals(aCountryCode)) {
+				return countryRisk;
+			}
+		}
+		return null;
+	}
 }

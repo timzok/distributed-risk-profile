@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CountryRisk {
+public class CountryRisk extends AbstractEntityRisk {
 	
     /**
      * The country ISO code.
@@ -24,20 +24,5 @@ public class CountryRisk {
      * The country name for human read.
      */
 	private String countryName;
-	
-    /**
-     * Risk information about the low risk category.
-     */
-	private Risk low;
-	
-    /**
-     * Risk information about the medium risk category.
-     */
-	private Risk medium;
-	
-    /**
-     * Risk information about the high risk category.
-     */
-	private Risk high;
 
 }
