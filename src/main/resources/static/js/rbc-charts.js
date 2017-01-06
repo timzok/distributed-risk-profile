@@ -141,7 +141,7 @@ function drawColumnChart(countryData) {
     google.charts.setOnLoadCallback(drawChart);
 
     var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>"
-        btn += "<i class=\"fa fa-trash\"></i> Remove"
+        btn += "<i class=\"fa fa-trash\"></i> "
         btn += "</a>"
 
     $('#c-' + cID).append(btn)
