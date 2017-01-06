@@ -50,7 +50,7 @@ public class RiskProfileResource {
 	// Mocked funds
     private ArrayList<LegalFund> funds = new ArrayList<LegalFund>();
 	
-    private static final boolean IS_MOCKED = false;
+    private static final boolean IS_MOCKED = true;
     private HashMap<String, Double[]> fundIdToGlobalAssetPerRiskCategorykMap = new HashMap<String, Double[]>();
     
     
