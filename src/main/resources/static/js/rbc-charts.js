@@ -112,7 +112,7 @@ function drawColumnChart(countryData) {
             isStacked: 'percent',
             titleTextStyle: { fontSize: 13 },
             title: 'Distribution of risk ' + countryData.countryName,
-            colors: [ '#aaba0a', '#fca311', '#c71D06'];
+            colors: [ '#aaba0a', '#fca311', '#c71D06']
 
         };
 
