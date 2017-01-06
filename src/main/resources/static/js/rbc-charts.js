@@ -3,7 +3,7 @@ mapTitles.set("EU", 'Europe');
 mapTitles.set("AF", 'Africa');
 mapTitles.set("AS", 'Asia');
 mapTitles.set("NA", 'North America');
-mapTitles.set("OC", 'Oceania');
+mapTitles.set("OC", 'APAC');
 mapTitles.set("SA", 'South America');
 
 function drawWorldMapPieCharts(regionData) {
@@ -102,16 +102,16 @@ function drawColumnChart(countryData) {
 
         var data = new google.visualization.arrayToDataTable([
             ['Rank', 'Low', 'Medium', 'High'],
-            ['Investor', countryData.low.investorCount, countryData.medium.investorCount, countryData.high.investorCount],
-            ['Country' , countryData.low.assetValue   , countryData.medium.assetValue, countryData.high.assetValue],
-            ['Region'  , countryData.low.globalAssetValue , countryData.medium.globalAssetValue , countryData.high.globalAssetValue]
+            ['% Investor', countryData.low.investorCount, countryData.medium.investorCount, countryData.high.investorCount],
+            ['Country (asset)' , countryData.low.assetValue   , countryData.medium.assetValue, countryData.high.assetValue],
+            ['World (asset)'  , countryData.low.globalAssetValue , countryData.medium.globalAssetValue , countryData.high.globalAssetValue]
         ]);
 
         var options = {
             legend: {position: "none"},
             isStacked: 'percent',
             titleTextStyle: { fontSize: 13 },
-            title: 'Risk details for ' + countryData.countryCode,
+            title: 'Distribution of risk' + countryData.countryName,
             colors: [ '#aaba0a', '#fca311', '#c71D06']
 
         };
@@ -133,7 +133,11 @@ function drawColumnChart(countryData) {
 
     google.charts.setOnLoadCallback(drawChart);
 
-    $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Remove</button>")
+    var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>"
+        btn += "<i class=\"fa fa-trash\"></i> Remove"
+        btn += "</a>"
+
+    $('#c-' + cID).append(btn)
 }
 
 function getAndDisplayPeps(countryCode,riskLevel){
