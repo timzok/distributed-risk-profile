@@ -26,14 +26,14 @@ function drawWorldMapPieCharts(regionData) {
     });
 
 }
-function getAndDisplayTopTen(countryCode) {
-    //$.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
-    $.getJSON( "/jsonfiles/Top10CountryEu.json", function( data ) {
+function getAndDisplayTopTen(regionCode) {
+    $.getJSON( "/api/funds/" + selectedFund() + '/regions/'+ regionCode +'/topcountries/10', function( data ) {
+    //$.getJSON( "/jsonfiles/Top10CountryEu.json", function( data ) {
         countriesMap = data.countries.reduce(function(map, obj) {
             map[obj.countryCode] = obj;
             return map;
         }, {});
-        //drawTopTenChart(countriesMap);
+
         drawTopTenColumnChart(countriesMap)
     });
 };
@@ -104,19 +104,20 @@ function drawTopTenColumnChart (countryCode){
         var data = new google.visualization.DataTable()
         data.addColumn('string', 'Countries');
         data.addColumn('number', 'Asset Value');
-        data.addColumn('number', '% of World');
+        data.addColumn('number', 'World %');
         //data.addRow(['Country', 'Asset Value', '% of World',]);
         $.each( countryCode, function( key, val ) {
             var r = countryCode[key];
-            data.addRow([r.countryCode, r.High.assetValue, (r.High.assetValue/r.High.globalAssetValue)*100]);
+            data.addRow([r.countryCode, r.high.assetValue, (r.high.assetValue/r.high.globalAssetValue)*100]);
         });
 
 
         var options = {
-width:900,
+            //chartArea:{left:20,top:0,width:'100%',height:'100%'},
+            width:900,
             chart: {
                 title: 'TopTen High risk Countries',
-                subtitle: 'Number of assets on the left, Propotion regarinf the world'
+                subtitle: 'Number of assets on the left, World proportion on the right'
             },
             series: {
                 0: { axis: 'assetNum' }, // Bind series 0 to an axis named 'distance'.
@@ -132,32 +133,19 @@ width:900,
                 title: 'Risk details for ' + countryCode.countryCode,
                 colors: [ 'red', 'blue', 'blue']
         };
-        // var options = {
-        //     legend: {position: "none"},
-        //     //isStacked: 'percent',
-        //     titleTextStyle: { fontSize: 13 },
-        //     title: 'Risk details for ' + countryCode.countryCode,
-        //     colors: [ '#aaba0a', '#fca311', '#c71D06']
-        //
-        // };
-
-        var chart = new google.charts.Bar(document.getElementById('country-chart-' + countryCode.countryCode));
+        var chart = new google.charts.Bar(document.getElementById('country-topten'));
         chart.draw(data, options);
     }
 
-    google.charts.load('current', {'packages':['bar', 'corechart']});
+    //google.charts.load('current', {'packages':['bar', 'corechart']});
 
-    var cID = 'country-chart-' + countryCode.countryCode;
-    var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
-    chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
+    var cID = 'country-topten';
+    //var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
+    var chartDiv = "<div id='" + cID + "' style='width: 100%; height: 100%'>"
     chartDiv += "</div>"
 
-    $('#country-charts').append(chartDiv);
+    $('#topten').append(chartDiv);
 
-
-    google.charts.setOnLoadCallback(drawChart);
-
-    $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Remove</button>")
 }
 
 function drawColumnChart(countryData) {
