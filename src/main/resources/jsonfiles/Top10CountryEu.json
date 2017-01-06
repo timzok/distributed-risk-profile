@@ -4,8 +4,8 @@
    "region": "EU",
    "countries": [
       {
-         "CountryCode": "LU",
-		 "CountryName": "Luxembourg",
+         "countryCode": "LU",
+		 "countryName": "Luxembourg",
          "TotalAssetNumber":2700,
          "Low": {
             "assetValue": 2000,
@@ -21,8 +21,8 @@
          }
       },
       {
-         "CountryCode": "FR",
-		 "CountryName": "France",
+         "countryCode": "FR",
+		 "countryName": "France",
          "TotalAssetNumber":141,
          "Low": {
             "assetValue": 25,
@@ -39,8 +39,8 @@
          }
       },
       {
-         "CountryCode": "BE",
-		 "CountryName": "Belgium",
+         "countryCode": "BE",
+		 "countryName": "Belgium",
          "TotalAssetNumber":656,
          "Low": {
             "assetValue": 564,
@@ -56,8 +56,8 @@
          }
       },
       {
-         "CountryCode": "LT",
-		 "CountryName": "Lituanie",
+         "countryCode": "LT",
+		 "countryName": "Lituanie",
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
@@ -73,8 +73,8 @@
          }
       },
       {
-         "CountryCode": "UA",
-		 "CountryName": "Ukraine",
+         "countryCode": "UA",
+		 "countryName": "Ukraine",
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
@@ -90,8 +90,8 @@
          }
       },
       {
-         "CountryCode": "DE",
-		 "CountryName": "Germany",
+         "countryCode": "DE",
+		 "countryName": "Germany",
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
@@ -107,8 +107,8 @@
          }
       },
       {
-         "CountryCode": "HR",
-		 "CountryName": "Croatie",
+         "countryCode": "HR",
+		 "countryName": "Croatie",
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
@@ -124,8 +124,8 @@
          }
       },
       {
-         "CountryCode": "PL",
-		 "CountryName": "Pologne",
+         "countryCode": "PL",
+		 "countryName": "Pologne",
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
@@ -141,8 +141,8 @@
          }
       },
       {
-         "CountryCode": "SE",
-		 "CountryName": "Sweden",
+         "countryCode": "SE",
+		 "countryName": "Sweden",
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
@@ -158,8 +158,8 @@
          }
       },
       {
-         "CountryCode": "SI",
-		 "CountryName": "Slovenia",
+         "countryCode": "SI",
+		 "countryName": "Slovenia",
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,

@@ -28,7 +28,7 @@ function drawWorldMapPieCharts(regionData) {
 }
 function getAndDisplayTopTen(countryCode) {
     //$.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
-    $.getJSON( "/jsonfiles/MapPerCountryFund1RegionEU.json", function( data ) {
+    $.getJSON( "/jsonfiles/Top10CountryEu.json", function( data ) {
         countriesMap = data.countries.reduce(function(map, obj) {
             map[obj.countryCode] = obj;
             return map;
@@ -45,10 +45,10 @@ function drawTopTenChart(countryCode){
         tableDiv += "</div></TD>"
         $("#topten").append(tableDiv);
         drawPieChart( cID,
-            r.countryName + "(" + r.TotalAssetNumber + ")",
-            r.low.assetValue,
-            r.medium.assetValue,
-            r.high.assetValue
+            r.countryName + " (" + r.TotalAssetNumber + ")",
+            r.Low.assetValue,
+            r.Medium.assetValue,
+            r.High.assetValue
         );
     });
 }
