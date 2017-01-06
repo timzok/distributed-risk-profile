@@ -59,6 +59,10 @@ function onRegionClick(e, code){
     $("#worldMapBtn").fadeIn();
     var regionData = regionsMap[code];
     if (regionData) {
+        $('#maps-container').addClass("col-md-8");
+        $('#maps-container').removeClass("col-md-12");
+        $("#country-charts").show();
+
         renderMap(code.toLowerCase());
     } else {
         e.preventDefault();
@@ -105,6 +109,17 @@ function drawMap(regionData) {
 
 function drawVectorMap(mapID, mapName, data, worldMap) {
     currentMapId = mapID;
+
+    if (worldMap) {
+        $("#maps-container").addClass("col-md-12");
+        $("#maps-container").removeClass("col-md-8");
+        $("#country-charts").hide();
+    } else {
+        $('#maps-container').addClass("col-md-8");
+        $('#maps-container').removeClass("col-md-12");
+        $("#country-charts").show();
+    }
+
     $(mapID + " div.jvectormap-container").remove();
     $(mapID).vectorMap({
         map: mapName,
