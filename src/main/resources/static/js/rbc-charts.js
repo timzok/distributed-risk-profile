@@ -113,7 +113,6 @@ function drawColumnChart(countryData) {
             titleTextStyle: { fontSize: 13 },
             title: 'Distribution of risk ' + countryData.countryName,
             colors: [ '#aaba0a', '#fca311', '#c71D06']
-
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('country-chart-' + countryData.countryCode));
@@ -142,7 +141,7 @@ function drawColumnChart(countryData) {
     google.charts.setOnLoadCallback(drawChart);
 
     var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>"
-        btn += "<i class=\"fa fa-trash\"></i> Remove"
+        btn += "<i class=\"fa fa-trash\"></i> "
         btn += "</a>"
 
     $('#c-' + cID).append(btn)
