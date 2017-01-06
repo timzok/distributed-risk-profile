@@ -202,22 +202,26 @@ function drawColumnChart(countryData) {
 
     google.charts.setOnLoadCallback(drawChart);
 
-    var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>"
-        btn += "<i class=\"fa fa-trash\"></i> "
-        btn += "</a>"
+    var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>";
+        btn += "<i class=\"fa fa-trash\"></i> ";
+        btn += "</a>";
 
-    $('#c-' + cID).append(btn)
+    $('#c-' + cID).append(btn);
 }
 
 function getAndDisplayPeps(countryCode,riskLevel){
+
+    var csvUrl = "/api/funds/" + selectedFund() + "/countries/" + countryCode + "/legalEntitiesExport/rads/" + riskLevel;
+
+    //$.getJSON( "/jsonfiles/Peps.json" , function( data ) {
+    $.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/legalEntities/rads/" + riskLevel, function( data ) {
     //$.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/" + riskLevel, function( data ) {
-    $.getJSON( "/jsonfiles/Peps.json" , function( data ) {
+    //$.getJSON( "/jsonfiles/Peps.json" , function( data ) {
         $('#pepsInformation').html('');
         $('#investorInformation').html('');
         //$('#investorInformation').html('');
         displayPepsInfo(data);
-        $('#pepsInformations').show('');
-        //$('#investorInformation').show('');
+        $("#pepsInformations").show('');
     });
 };
 

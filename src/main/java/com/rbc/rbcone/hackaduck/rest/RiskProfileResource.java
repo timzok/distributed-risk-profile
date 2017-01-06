@@ -1,5 +1,6 @@
 package com.rbc.rbcone.hackaduck.rest;
 
+import com.rbc.rbcone.hackaduck.exception.UnknownObjectException;
 import com.rbc.rbcone.hackaduck.model.AbstractEntityRisk;
 import com.rbc.rbcone.hackaduck.model.CountriesRisk;
 import com.rbc.rbcone.hackaduck.model.CountryDetailRisk;
@@ -18,6 +19,9 @@ import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraPepsRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraRelationRepository;
 import com.rbc.rbcone.hackaduck.model.Peps;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.QuoteMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.MediaType;
@@ -26,12 +30,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -356,7 +367,40 @@ public class RiskProfileResource {
     }
 
     @RequestMapping(value = "/funds/{fundId}/countries/{countryId}/legalEntities/rads/{rad}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public CountryLegalEntityRisk getLegalEntityPeps(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId, @PathVariable("rad") String aRiskCategory) {
+    public CountryLegalEntityRisk getLegalEntityPeps(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId, @PathVariable("rad") String aRiskCategory) throws UnknownObjectException {
+    	return getLegalEntityPepsHelper(aFundId, aCountryId, aRiskCategory);
+    }
+    
+
+    @RequestMapping(value = "/funds/{fundId}/countries/{countryId}/legalEntitiesExport/rads/{rad}", method = RequestMethod.GET, produces = {"text/csv; charset=UTF-8"})
+    public void getLegalEntityPepsCSV(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId, @PathVariable("rad") String aRiskCategory, HttpServletResponse aResponse) throws IOException, UnknownObjectException {
+    	aResponse.setContentType("text/plain; charset=utf-8");
+    	String fileName = generateFileName(aFundId, aCountryId, aRiskCategory);
+    	aResponse.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+    	aResponse.addHeader("Expire", "0");
+    	aResponse.addHeader("Pragma", "no-cache");
+    	aResponse.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+    	OutputStreamWriter out = new OutputStreamWriter(aResponse.getOutputStream());
+    	CSVPrinter csvFilePrinter = new CSVPrinter(out, CSVFormat.DEFAULT.withDelimiter(';').withRecordSeparator('\n').withEscape('|').withQuoteMode(QuoteMode.NONE));
+    	
+    	CountryLegalEntityRisk rslt = getLegalEntityPepsHelper(aFundId, aCountryId, aRiskCategory);
+    	
+    	// CSV header
+    	csvFilePrinter.printRecord("Legal Entity Name", "Legal Entity Type", "Legal Entity Nature", "Peps First Name", "Peps Last Name", "Peps Role", "Peps Country Code");
+    	
+    	// CSV body
+    	for (LegalEntity legalEntity : rslt.getLegalEntities()) {
+    		for (Peps peps : legalEntity.getPeps()) {
+    			csvFilePrinter.printRecord(legalEntity.getName(), legalEntity.getType(), legalEntity.getNature(), peps.getFirstName(), peps.getLastName(), peps.getRole(), peps.getCountry());
+    		}
+    	}
+    	
+    	out.flush();
+    	csvFilePrinter.close();
+    }
+    
+    private CountryLegalEntityRisk getLegalEntityPepsHelper(String aFundId, String aCountryId, String aRiskCategory) throws UnknownObjectException {
     	if (IS_MOCKED) {
 	        // Mocked data
 	    	LegalFund targetFund = findLegalFund(aFundId);
@@ -378,6 +422,9 @@ public class RiskProfileResource {
 	    	rslt.setRad(aRiskCategory);
 	    	
 	    	SaraLegalFund legalFund = saraLegalFundRepo.findOne(aFundId);
+	    	if (legalFund==null) {
+	    		throw new UnknownObjectException("No fund found identified by fund id '" + aFundId + "'");
+	    	}
 	    	rslt.setFundId(legalFund.getId());
 	    	rslt.setFundName(legalFund.getName());
 	    	
@@ -409,7 +456,13 @@ public class RiskProfileResource {
     	}
     }
     
-
+    
+    private String generateFileName(String aFundId, String aCountryId, String aRiskCategory) {
+    	SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
+    	String timestampStr = format.format(new Date());
+    	return "peps_" + aFundId + "_" + aCountryId + "_" + aRiskCategory + "_" + timestampStr + ".csv";
+    }
+    
     //**************************************************************************
     //**** Helper methods for mocking ******************************************
     //**************************************************************************
