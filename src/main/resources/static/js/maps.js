@@ -77,16 +77,13 @@ function onCountryClick(e, code){
 }
 
 function showWorldMap(){
-    function placeholder(code) {
-        return '#' + code + '-map';
+    function complete() {
+        $("#world-map").fadeIn();
+        $("#worldMapBtn").fadeOut();
+        drawWorldMap(selectedFund())
     }
 
-    for (var key of maps.keys()) {
-        $(placeholder(key)).fadeOut();
-    }
-    $("#world-map").fadeIn();
-    $("#worldMapBtn").fadeOut();
-    drawWorldMap(selectedFund())
+    $(currentMapId).fadeOut(1, 'linear', complete);
 }
 
 function drawWorldMap(fundID){
