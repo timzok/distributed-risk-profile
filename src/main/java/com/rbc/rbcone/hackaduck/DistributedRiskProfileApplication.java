@@ -30,7 +30,7 @@ import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraEntityRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraLegalFundRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraPepsRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraRelationRepository;
-import com.rbc.rbcone.hackaduck.model.incoming.service.RegionService;
+import com.rbc.rbcone.hackaduck.model.incoming.service.BusinessDataService;
 
 @SpringBootApplication
 public class DistributedRiskProfileApplication {
@@ -51,7 +51,7 @@ public class DistributedRiskProfileApplication {
 	private RegionRepository regionRepo;
 	
 	@Autowired 
-	private RegionService regionService;
+	private BusinessDataService businessDataService;
 		
 	private static final Logger log = LoggerFactory.getLogger(DistributedRiskProfileApplication.class);
 	
@@ -100,7 +100,7 @@ public class DistributedRiskProfileApplication {
 		// where r.lf_id = f.id and r.bp_id = e.id and e.residence_code = c.type and c.region_id = g.id 
 		//group by g.id, r.rad,f.id
 		
-		regionService.feedBusinessDataForRegions();
+		businessDataService.feedBusinessDataForRegions();
 		
 		
 	}

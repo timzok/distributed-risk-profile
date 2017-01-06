@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import com.rbc.rbcone.hackaduck.model.incoming.RegionRiskDB;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.RegionRiskRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraRelationRepository;
-import com.rbc.rbcone.hackaduck.model.incoming.service.RegionService;
+import com.rbc.rbcone.hackaduck.model.incoming.service.BusinessDataService;
 
 @Service
-public class RegionServiceImpl implements RegionService {
+public class BusinessDataServiceImpl implements BusinessDataService {
 
 	@Autowired
 	RegionRiskRepository regionRiskRepository;
@@ -41,8 +41,6 @@ public class RegionServiceImpl implements RegionService {
 			rslt.setRad((String)rsRow[3]);
 			rslt.setSumAssetValue((double)rsRow[4]);
 			rslt.setCountEntity(((BigInteger)rsRow[5]).intValue());
-			System.out.println("COUNT ENTITY:"+((BigInteger)rsRow[5]).intValue());
-			System.out.println(rslt.getId()+"---"+rslt.getFundId()+"---"+rslt.getFundName()+"-----"+rslt.getRegionId()+"------"+rslt.getRad()+"---------"+rslt.getSumAssetValue()+"--------"+rslt.getCountEntity());
 			rsltList.add(rslt);	
 		}
 		
