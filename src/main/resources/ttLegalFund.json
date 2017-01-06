@@ -1,15 +1,104 @@
- [
+[
   {
-    "fc-lf-id": "VTS",
-    "fc-lf-domiciliation": "",
-    "fc-lf-name": "",
-    "fc-region-id": "CFU0088320"
-  }, 
-	{
-    "fc-lf-id": "AAA",
-    "fc-lf-domiciliation": "",
-    "fc-lf-name": "",
-    "fc-region-id": "CFU00000"
+    "fc-lf-id": "002",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "ERAAAT METM (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "003",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "RM TERAREM (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "004",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "TEAT RARAR RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "005",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "ETA ERRAR TETEMATATR RATET-RAM (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "AET",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "ETRATA AERRM METM (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "ALQ",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "EMREARE RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "ARC",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "ERTARAMEMAR RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "COS",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "TARTAR MET ATRM (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "KEE",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "RMA MAARR TEMRA TETEMAR METM (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "LEM",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "MATETAM RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "MOT",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "MTA TERAREM RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "OOO",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "ETRAA RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "OPM",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "ART RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "PUR",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "RERA TERAREM RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "RAI",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "REAMMA RATET (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "SEL",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "ATE MMATEM ATTARRARR METM (MATE)",
+    "fc-region-id": "LEMA"
+  },
+  {
+    "fc-lf-id": "SOL",
+    "fc-lf-domiciliation": "LU",
+    "fc-lf-name": "RAMAMER RATET (MATE)",
+    "fc-region-id": "LEMA"
   }
 ]
-

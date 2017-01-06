@@ -8,24 +8,27 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 @Entity
 public class SaraRelation {
 
-	@Id
-	public int 	  id;
 	
-	public String relationId;  	//fc-relationId
-	public String bpId;			//fc-bp-id
-	public String lfId;			//fc-lf-id
-	public String accId;		//fc-acc-id
-	public String rad;			//fc-rad
-	public String relationType;	//fc-relationType
-	public String nbAcc;		//fi-nb-acc
-	public String assetValue;	//fde-asset-value
-	public int getId() {
+	//public int 	  id;
+	
+	public String relationId;  			//fc-relationId
+	public String bpId;					//fc-bp-id
+	public String lfId;					//fc-lf-id
+	public String accId;				//fc-acc-id
+	public String rad;					//fc-rad
+	public String relationType;			//fc-relationType
+	public double nbAcc;				//fi-nb-acc
+	public double assetValue;			//fde-asset-value
+	public String distributionType; 	// fc-distriutionType
+	
+	/*public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
+	}*/
 	
+	@Id
 	public String getRelationId() {
 		return relationId;
 	}
@@ -72,21 +75,29 @@ public class SaraRelation {
 	public void setRelationType(String relationType) {
 		this.relationType = relationType;
 	}
-	public String getNbAcc() {
+	public double getNbAcc() {
 		return nbAcc;
 	}
 	
 	@JsonSetter("fi-nb-acc")
-	public void setNbAcc(String nbAcc) {
+	public void setNbAcc(double nbAcc) {
 		this.nbAcc = nbAcc;
 	}
-	public String getAssetValue() {
+	public double getAssetValue() {
 		return assetValue;
 	}
 	
 	@JsonSetter("fde-asset-value")
-	public void setAssetValue(String assetValue) {
+	public void setAssetValue(double assetValue) {
 		this.assetValue = assetValue;
+	}
+	public String getDistributionType() {
+		return distributionType;
+	}
+	
+	@JsonSetter("fc-distriutionType")
+	public void setDistributionType(String distributionType) {
+		this.distributionType = distributionType;
 	}
 	
 }

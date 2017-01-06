@@ -66,15 +66,15 @@ function drawPieChart(chartID, title, l, m, h) {
          ]);
 
          var options = {
+             legend: {position: "none"},
            title: title,
-           width: 180,
-           height: 180,
+           width: 150,
+           height: 150,
            titleTextStyle: { fontSize: 13 },
            pieHole: 0.6,
            colors: [ '#aaba0a', '#fca311', 'c71D06'],
            pieSliceText: 'none',
            backgroundColor: 'none',
-           //reverseCategories: true,
            chartArea: {left:10, top:40, 'width': '100%', 'height': '100%'}
          };
 
@@ -97,42 +97,43 @@ function drawPieChart(chartID, title, l, m, h) {
 
 
 function drawColumnChart(countryData) {
+
+    function drawChart() {
+
+        var data = new google.visualization.arrayToDataTable([
+            ['Rank', 'Low', 'Medium', 'High'],
+            ['Investor', countryData.low.investorCount, countryData.medium.investorCount, countryData.high.investorCount],
+            ['Country' , countryData.low.assetValue   , countryData.medium.assetValue, countryData.high.assetValue],
+            ['Region'  , countryData.low.globalAssetValue , countryData.medium.globalAssetValue , countryData.high.globalAssetValue]
+        ]);
+
+        var options = {
+            legend: {position: "none"},
+            isStacked: 'percent',
+            titleTextStyle: { fontSize: 13 },
+            title: 'Risk details for ' + countryData.countryCode,
+            colors: [ '#aaba0a', '#fca311', '#c71D06']
+
+        };
+
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('country-chart-' + countryData.countryCode));
+        chart.draw(data, options);
+    }
+
     google.charts.load('current', {'packages':['bar', 'corechart']});
-    google.charts.setOnLoadCallback(drawChart);
 
     var cID = 'country-chart-' + countryData.countryCode;
-    var chartDiv  = "<div id='c-" + cID + "' style=\"position:absolute\">"
+    var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
         chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
         chartDiv += "</div>"
 
     $('#country-charts').append(chartDiv);
 
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Rank', 'Acc', 'Cty', 'Total'],
-            ['Low', countryData.low.assetValue, countryData.low.percentagePerAssetValue, countryData.low.percentagePerTotalAssetValue],
-            ['Medium', countryData.medium.assetValue, countryData.medium.percentagePerAssetValue, countryData.medium.percentagePerTotalAssetValue],
-            ['High', countryData.high.assetValue, countryData.high.percentagePerAssetValue, countryData.high.percentagePerTotalAssetValue]
-        ]);
 
-        var options = {
-            chart: {
-                title: 'Bar chart for ' + countryData.countryName
-            },
-            animation: {
-                duration: 1000,
-                easing: 'out',
-                startup: true
-            },
-            colors: [ '#aaba0a', '#fca311', 'c71D06']
-        };
+    google.charts.setOnLoadCallback(drawChart);
 
-        var chart = new google.charts.Bar(document.getElementById('country-chart-' + countryData.countryCode));
-
-        chart.draw(data, options);
-
-        $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Delete</button>")
-    }
+    $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Remove</button>")
 }
 
 function getAndDisplayPeps(countryCode,riskLevel){

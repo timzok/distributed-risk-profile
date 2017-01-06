@@ -14,21 +14,17 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Risk {
     /**
-     * The risk value.
+     * The number of investors in this risk category.
+     */
+	private int investorCount;
+    /**
+     * The asset value in EUR.
      */
     private double assetValue;
     /**
-     * The number of account holders of the fund being in this risk  category.
+     * The global asset value in EUR.
      */
-    private int accountHolderCount;
-    /**
-     * The percentage of the fund held by the account holders that are in this risk category.
-     */
-    private double percentagePerAssetValue;
-    /**
-     * The percentage of the asset held by the account holders that are in this risk category.
-     */
-    private double percentagePerTotalAssetValue;
+    private double globalAssetValue;
     
     public Risk() {
 
