@@ -137,6 +137,7 @@ function drawVectorMap(mapID, mapName, data, worldMap) {
                 values:  data
             }]
         },
+        zoomOnScroll:false,
         onRegionTipShow : worldMap ? onTipShow : onCountryTipShow,
         onRegionClick : worldMap ? onRegionClick : onCountryClick
     });
