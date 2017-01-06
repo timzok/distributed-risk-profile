@@ -18,7 +18,10 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rbc.rbcone.hackaduck.model.country.Country;
+import com.rbc.rbcone.hackaduck.model.country.Region;
 import com.rbc.rbcone.hackaduck.model.country.repository.CountryRepository;
+import com.rbc.rbcone.hackaduck.model.country.repository.RegionRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraEntity;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraLegalFund;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraRelation;
@@ -42,6 +45,9 @@ public class DistributedRiskProfileApplication {
 	
 	@Autowired
 	private SaraRelationRepository saraRelationRepo;
+	
+	@Autowired
+	private RegionRepository regionRepo;
 		
 	private static final Logger log = LoggerFactory.getLogger(DistributedRiskProfileApplication.class);
 	
@@ -58,6 +64,16 @@ public class DistributedRiskProfileApplication {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		
+		TypeReference<List<Region>> regionType = new TypeReference<List<Region>>() {};
+		List<Region> regions = mapper.readValue(this.getClass().getResourceAsStream("/Regions.json"), regionType);
+
+		for (Region cr: regions) {
+			for (Country ctry: cr.getCountry()) {
+				ctry.setRegion(cr);
+			}
+		}
+		regionRepo.save(regions);
+				
 		TypeReference<List<SaraEntity>> mapType = new TypeReference<List<SaraEntity>>() {};
 		List<SaraEntity> saraEntity = mapper.readValue(this.getClass().getResourceAsStream("/ttEntity.json"),mapType);
 		saraEntityRepo.save(saraEntity);
@@ -73,8 +89,6 @@ public class DistributedRiskProfileApplication {
 		TypeReference<List<SaraRelation>> saraRelationType = new TypeReference<List<SaraRelation>>() {};
 		List<SaraRelation> saraRelation = mapper.readValue(this.getClass().getResourceAsStream("/ttRelationEntLF.json"),saraRelationType);
 		saraRelationRepo.save(saraRelation);
-
-		
 		
 	}
 	

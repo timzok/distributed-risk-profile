@@ -9,6 +9,8 @@ function onTipShow(e, el, code){
             " low: " + regionData.low.assetValue +
             " %, medium:" + regionData.medium.assetValue +
             "%, high:" + regionData.high.assetValue +"% ");
+    } else {
+        e.preventDefault();
     }
 }
 
@@ -20,6 +22,8 @@ function onCountryTipShow(e, el, code){
             " low: " + coutryData.low.assetValue +
             " %, medium:" + coutryData.medium.assetValue +
             "%, high:" + coutryData.high.assetValue +"% ");
+    } else {
+        e.preventDefault();
     }
 }
 
@@ -45,13 +49,14 @@ function renderMap(code){
         var placeholder = placeholder(code);
         $(placeholder).fadeIn();
 
-        getCountriesDataAndDrawMap($('#fund-selection').val(), code, drawVectorMap, placeholder);
+        getCountriesDataAndDrawMap(selectedFund(), code, drawVectorMap, placeholder);
     }
 
     $("#world-map").fadeOut( 200, "linear", complete );
 }
 
 function onRegionClick(e, code){
+    $("#worldMapBtn").fadeIn();
     var regionData = regionsMap[code];
     if (regionData) {
         renderMap(code.toLowerCase());
@@ -76,7 +81,8 @@ function showWorldMap(){
         $(placeholder(key)).fadeOut();
     }
     $("#world-map").fadeIn();
-    drawWorldMap($('#fund-selection').val())
+    $("#worldMapBtn").fadeOut();
+    drawWorldMap(selectedFund())
 }
 
 function drawWorldMap(fundID){
@@ -121,7 +127,7 @@ function drawVectorMap(mapID, mapName, data, worldMap) {
 
 function setObserver() {
     $( "#fund-selection" ).change(function() {
-        drawWorldMap(this.value);
+        drawWorldMap(selectedFund());
     });
 }
 

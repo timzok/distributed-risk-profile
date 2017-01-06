@@ -1,22 +1,113 @@
 [
   {
-    "fc-bp-id": "MIG-DLR-MH336",
-    "fc-residence-code": "IM",
-    "fc-name": "ETT RARAAT ERRERRAREERAT ERTE ET RAR TERERET",
+    "fc-bp-id": "BP161228605984636ceae3",
+    "fc-residence-code": "LU",
+    "fc-name": "BPENH Test D",
+    "fc-nature": "L",
+    "fc-type": "01"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-b442",
+    "fc-residence-code": "LU",
+    "fc-name": "RTEARRRREAR RARTERT R.A.",
+    "fc-nature": "L",
+    "fc-type": "01"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-CP136",
+    "fc-residence-code": "IT",
+    "fc-name": "RRR RARERAR RERAREREER RERRERER RETAR",
+    "fc-nature": "L",
+    "fc-type": "01"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-b50",
+    "fc-residence-code": "SE",
+    "fc-name": "RTER RARAAT TARTR ERRTARTE AR",
+    "fc-nature": "L",
+    "fc-type": "02"
+  },
+  {
+    "fc-bp-id": "BP16051955475287334284",
+    "fc-residence-code": "AF",
+    "fc-name": "John John",
+    "fc-nature": "N",
+    "fc-type": "12"
+  },
+  {
+    "fc-bp-id": "20120510639166322C18F65CB4",
+    "fc-residence-code": "SG",
+    "fc-name": "ETT RARAAT ERRERRAREERAT ERTE ET RAR TERERET RERTARERE RRARRT",
     "fc-nature": "L",
     "fc-type": "03"
   },
   {
-    "fc-bp-id": "BP14011361087103347221",
-    "fc-residence-code": "MT",
-    "fc-name": "RERRE RARRETA TERERET",
+    "fc-bp-id": "BP131218MIG52466202309",
+    "fc-residence-code": "IT",
+    "fc-name": "TAARE RARERRE",
+    "fc-nature": "N",
+    "fc-type": "12"
+  },
+  {
+    "fc-bp-id": "BP15052753301096446dac",
+    "fc-residence-code": "AD",
+    "fc-name": "ARRETARARRER TERERATR R.A.",
     "fc-nature": "L",
-    "fc-type": "02"
+    "fc-type": "03"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-HKM170",
+    "fc-residence-code": "LU",
+    "fc-name": "ARR (TARERREART) RA",
+    "fc-nature": "L",
+    "fc-type": "01"
+  },
+  {
+    "fc-bp-id": "BP151007MIG34791731001",
+    "fc-residence-code": "CA",
+    "fc-name": "TRET TATR",
+    "fc-nature": "N",
+    "fc-type": "12"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-CP112",
+    "fc-residence-code": "IT",
+    "fc-name": "RARRA RETTA TETTERT R.R.A.",
+    "fc-nature": "L",
+    "fc-type": "01"
   },
   {
     "fc-bp-id": "BP131017MIG49557427137",
     "fc-residence-code": "GB",
     "fc-name": "TARTRERRTE EER REREREER TRT",
+    "fc-nature": "L",
+    "fc-type": "02"
+  },
+  {
+    "fc-bp-id": "BP140319546297953aa8aa",
+    "fc-residence-code": "SE",
+    "fc-name": "ERRERERET RERRTETEE RARATERERR RRERTTETR AR",
+    "fc-nature": "L",
+    "fc-type": "02"
+  },
+  {
+    "fc-bp-id": "BP131125MIG61467925819",
+    "fc-residence-code": "LU",
+    "fc-name": "REREERE TERERATE RART & RRARR R.A.",
+    "fc-nature": "L",
+    "fc-type": "01"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-MP7",
+    "fc-residence-code": "LU",
+    "fc-name": "ATTTARTR RART ERRERRAREERAT R.A.",
+    "fc-nature": "L",
+    "fc-type": "02"
+  },
+  {
+    "fc-bp-id": "BP131218MIG52466200267",
+    "fc-residence-code": "SE",
+    "fc-name": "RETETAR TERTRERRERE E RRERETE AR",
     "fc-nature": "L",
     "fc-type": "02"
   }
