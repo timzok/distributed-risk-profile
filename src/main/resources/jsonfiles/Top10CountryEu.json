@@ -9,15 +9,15 @@
          "TotalAssetNumber":2700,
          "Low": {
             "assetValue": 2000,
-            "percentagePerAssetValue": 74
+            "globalAssetValue": 100000
          },
          "Medium": {
             "assetValue": 500,
-            "percentagePerAssetValue": 18.5
+            "globalAssetValue": 50000
          },
          "High": {
             "assetValue": 200,
-            "percentagePerAssetValue": 7.5
+            "globalAssetValue": 500
          }
       },
       {
@@ -26,16 +26,16 @@
          "TotalAssetNumber":141,
          "Low": {
             "assetValue": 25,
-            "percentagePerAssetValue": 17.7
+            "globalAssetValue": 150
          },
          "Medium": {
             "assetValue": 32,
-            "percentagePerAssetValue": 22.7
+            "globalAssetValue": 141
 
          },
          "High": {
             "assetValue": 84,
-            "percentagePerAssetValue": 59.6
+            "globalAssetValue": 500
          }
       },
       {
@@ -44,15 +44,15 @@
          "TotalAssetNumber":656,
          "Low": {
             "assetValue": 564,
-            "percentagePerAssetValue": 86
+            "globalAssetValue": 86
          },
          "Medium": {
             "assetValue": 12,
-            "percentagePerAssetValue": 1.8
+            "globalAssetValue": 1.8
          },
          "High": {
             "assetValue": 80,
-            "percentagePerAssetValue": 12.2
+            "globalAssetValue": 500
          }
       },
       {
@@ -61,15 +61,15 @@
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
-            "percentagePerAssetValue": 51.7
+            "globalAssetValue": 51.7
          },
          "Medium": {
             "assetValue": 147,
-            "percentagePerAssetValue": 47.7
+            "globalAssetValue": 47.7
          },
          "High": {
             "assetValue": 2,
-            "percentagePerAssetValue": 0.6
+            "globalAssetValue": 500
          }
       },
       {
@@ -78,15 +78,15 @@
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
-            "percentagePerAssetValue": 51.7
+            "globalAssetValue": 51.7
          },
          "Medium": {
             "assetValue": 147,
-            "percentagePerAssetValue": 47.7
+            "globalAssetValue": 47.7
          },
          "High": {
             "assetValue": 2,
-            "percentagePerAssetValue": 0.6
+            "globalAssetValue": 500
          }
       },
       {
@@ -95,15 +95,15 @@
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
-            "percentagePerAssetValue": 51.7
+            "globalAssetValue": 51.7
          },
          "Medium": {
             "assetValue": 147,
-            "percentagePerAssetValue": 47.7
+            "globalAssetValue": 47.7
          },
          "High": {
             "assetValue": 2,
-            "percentagePerAssetValue": 0.6
+            "globalAssetValue": 500
          }
       },
       {
@@ -112,15 +112,15 @@
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
-            "percentagePerAssetValue": 51.7
+            "globalAssetValue": 51.7
          },
          "Medium": {
             "assetValue": 147,
-            "percentagePerAssetValue": 47.7
+            "globalAssetValue": 47.7
          },
          "High": {
             "assetValue": 2,
-            "percentagePerAssetValue": 0.6
+            "globalAssetValue": 500
          }
       },
       {
@@ -129,15 +129,15 @@
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
-            "percentagePerAssetValue": 51.7
+            "globalAssetValue": 51.7
          },
          "Medium": {
             "assetValue": 147,
-            "percentagePerAssetValue": 47.7
+            "globalAssetValue": 47.7
          },
          "High": {
             "assetValue": 2,
-            "percentagePerAssetValue": 0.6
+            "globalAssetValue": 500
          }
       },
       {
@@ -146,15 +146,15 @@
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
-            "percentagePerAssetValue": 51.7
+            "globalAssetValue": 51.7
          },
          "Medium": {
             "assetValue": 147,
-            "percentagePerAssetValue": 47.7
+            "globalAssetValue": 47.7
          },
          "High": {
             "assetValue": 2,
-            "percentagePerAssetValue": 0.6
+            "globalAssetValue": 500
          }
       },
       {
@@ -163,15 +163,15 @@
          "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
-            "percentagePerAssetValue": 51.7
+            "globalAssetValue": 51.7
          },
          "Medium": {
             "assetValue": 147,
-            "percentagePerAssetValue": 47.7
+            "globalAssetValue": 47.7
          },
          "High": {
             "assetValue": 2,
-            "percentagePerAssetValue": 0.6
+            "globalAssetValue": 500
          }
       }
    ]
