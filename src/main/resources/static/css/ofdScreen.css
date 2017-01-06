@@ -273,3 +273,15 @@ div.fancy {
 .btn {
     padding:none;
 }
+
+
+#renderFooterIf {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    background-color: #F2f2f2;
+}
+
+#footer_hack {
+    background: none;
+}
+

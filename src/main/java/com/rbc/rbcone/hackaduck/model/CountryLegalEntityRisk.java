@@ -1,5 +1,6 @@
 package com.rbc.rbcone.hackaduck.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -41,5 +42,5 @@ public class CountryLegalEntityRisk {
 	 * The list of the legal entities operating on a specific fund and located
 	 * in a specific country.
 	 */
-	private List<LegalEntity> legalEntities;
+	private List<LegalEntity> legalEntities = new ArrayList<LegalEntity>();
 }
