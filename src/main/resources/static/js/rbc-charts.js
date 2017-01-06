@@ -26,16 +26,24 @@ function drawWorldMapPieCharts(regionData) {
     });
 
 }
-function getAndDisplayTopTen(countryCode) {
-    //$.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
-    $.getJSON( "/jsonfiles/Top10CountryEu.json", function( data ) {
+function getAndDisplayTopTen(regionCode) {
+    $.getJSON( "/api/funds/" + selectedFund() + '/regions/'+ regionCode +'/topcountries/10', function( data ) {
+    //$.getJSON( "/jsonfiles/Top10CountryEu.json", function( data ) {
         countriesMap = data.countries.reduce(function(map, obj) {
             map[obj.countryCode] = obj;
             return map;
         }, {});
-        drawTopTenChart(countriesMap);
+
+        if (countriesMap) {
+            $('#c-topten').show();
+            drawTopTenColumnChart(countriesMap);
+        } else {
+            $('#c-topten').hide();
+        }
+
     });
 };
+
 function drawTopTenChart(countryCode){
 
     $.each( countryCode, function( key, val ) {
@@ -94,7 +102,56 @@ function drawPieChart(chartID, title, l, m, h) {
     });
   };
 
+function drawTopTenColumnChart (countryCode){
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
 
+    function drawChart() {
+
+        var data = new google.visualization.DataTable()
+        data.addColumn('string', 'Countries');
+        data.addColumn('number', 'Asset Value');
+        data.addColumn('number', 'World %');
+
+        $.each( countryCode, function( key, val ) {
+            var r = countryCode[key];
+            data.addRow([r.countryCode, r.high.assetValue, (r.high.assetValue/r.high.globalAssetValue)*100]);
+        });
+
+
+        var options = {
+            //chartArea:{left:20,top:0,width:'100%',height:'100%'},
+            width:900,
+            chart: {
+                title: 'TopTen High risk Countries',
+                subtitle: 'Number of assets on the left, World proportion on the right'
+            },
+            series: {
+                0: { axis: 'assetNum' }, // Bind series 0 to an axis named 'distance'.
+                1: { axis: 'compWorld' } // Bind series 1 to an axis named 'brightness'.
+            },
+            axes: {
+                y: {
+                    assetNum: {label: 'Asset Number'}, // Left y-axis.
+                    compWorld: {side: 'right', label: '%'} // Right y-axis.
+                }
+            },
+            titleTextStyle: { fontSize: 13 },
+                title: 'Risk details for ' + countryCode.countryCode,
+                colors: [ 'red', 'blue', 'blue']
+        };
+        var chart = new google.charts.Bar(document.getElementById('topten'));
+        chart.draw(data, options);
+    }
+
+    // var cID = 'country-topten';
+    // //var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
+    // var chartDiv = "<div id='" + cID + "' style='width: 100%; height: 100%'>"
+    // chartDiv += "</div>"
+    //
+    // $('#topten').append(chartDiv);
+
+}
 
 function drawColumnChart(countryData) {
 
@@ -141,7 +198,7 @@ function drawColumnChart(countryData) {
     google.charts.setOnLoadCallback(drawChart);
 
     var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>"
-        btn += "<i class=\"fa fa-trash\"></i> Remove"
+        btn += "<i class=\"fa fa-trash\"></i> "
         btn += "</a>"
 
     $('#c-' + cID).append(btn)

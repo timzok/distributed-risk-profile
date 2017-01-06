@@ -101,7 +101,7 @@ public class DistributedRiskProfileApplication {
 		//group by g.id, r.rad,f.id
 		
 		businessDataService.feedBusinessDataForRegions();
-		
+		businessDataService.feedBusinessDataForCountries();
 		
 	}
 	

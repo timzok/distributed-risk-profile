@@ -4,4 +4,6 @@ public interface BusinessDataService {
 
 	public void feedBusinessDataForRegions();
 	
+	public void feedBusinessDataForCountries();
+	
 }

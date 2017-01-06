@@ -59,6 +59,7 @@ function onRegionClick(e, code){
     $("#worldMapBtn").fadeIn();
     var regionData = regionsMap[code];
     if (regionData) {
+        getAndDisplayTopTen(code);
         $('#maps-container').addClass("col-md-8");
         $('#maps-container').removeClass("col-md-12");
         $("#country-charts").show();
@@ -77,16 +78,13 @@ function onCountryClick(e, code){
 }
 
 function showWorldMap(){
-    function placeholder(code) {
-        return '#' + code + '-map';
+    function complete() {
+        $("#world-map").fadeIn();
+        $("#worldMapBtn").fadeOut();
+        drawWorldMap(selectedFund())
     }
 
-    for (var key of maps.keys()) {
-        $(placeholder(key)).fadeOut();
-    }
-    $("#world-map").fadeIn();
-    $("#worldMapBtn").fadeOut();
-    drawWorldMap(selectedFund())
+    $(currentMapId).fadeOut(1, 'linear', complete);
 }
 
 function drawWorldMap(fundID){
@@ -98,6 +96,10 @@ function drawWorldMap(fundID){
         drawMap(data);
         drawWorldMapPieCharts(regionsMap);
         $('#country-charts').html(''); //Remove potential displayed column charts
+        $('#c-topten').hide();
+        $("#topten").html('');
+        $("#pepsInformations").html('');
+
     });
 }}
 
