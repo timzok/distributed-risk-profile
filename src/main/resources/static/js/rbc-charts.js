@@ -3,7 +3,7 @@ mapTitles.set("EU", 'Europe');
 mapTitles.set("AF", 'Africa');
 mapTitles.set("AS", 'Asia');
 mapTitles.set("NA", 'North America');
-mapTitles.set("OC", 'Oceania');
+mapTitles.set("OC", 'APAC');
 mapTitles.set("SA", 'South America');
 
 function drawWorldMapPieCharts(regionData) {
@@ -88,7 +88,7 @@ function drawColumnChart(countryData) {
             legend: {position: "none"},
             isStacked: 'percent',
             titleTextStyle: { fontSize: 13 },
-            title: 'Risk details for ' + countryData.countryCode,
+            title: 'Categorisation of ' + countryData.countryCode,
             colors: [ '#aaba0a', '#fca311', '#c71D06']
 
         };

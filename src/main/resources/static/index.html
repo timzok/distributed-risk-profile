@@ -63,73 +63,80 @@
 <div id="ofd_h">
     <div id="ofd-logo">
         <img src="./images/RBCIS_logo.png" alt="RBC I&amp;TS" id="rbcisLogo">
+        Distributed Risk Profil - HEAT MAP
     </div>
-    <div id="ofd-um" style="">
 
+</div>
+
+<div class="blank-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form-inline" style="text-align: left; padding: 20px">
+                    <div class="form-group">
+                        <label for="fund-selection">Select fund to display :</label>
+                        <select id="fund-selection" class="form-control">
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-lg-6">
+                <ul class="legend">
+                    <li><span class="low"></span> Low</li>
+                    <li><span class="medium"></span> Medium</li>
+                    <li><span class="high"></span> High</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
 
+
+
+
 <div class="container">
-    <!-- Filters -->
-    <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline" style="text-align: left; padding: 20px">
-                <div class="form-group">
-                    <label>Select fund to display :</label>
-                       <select id="fund-selection" class="form-control">
-                       </select>
-                </div>
-
-            </form>
-        </div>
-
-        <div class="col-lg-6">
-        <ul class="legend">
-            <li><span class="low"></span> Low</li>
-            <li><span class="medium"></span> Medium</li>
-            <li><span class="high"></span> High</li>
-        </ul>
+    <!-- Region pie charts -->
+    <div class="row fancy" >
+        <h2 class="bodyTitle bodyTitleCustom">Investor risk distribution by region</h2>
+        <div>
+            <table>
+                <tr>
+                    <td><div id="donutchart-AF"></div></td>
+                    <td><div id="donutchart-NA"></div></td>
+                    <td><div id="donutchart-OC"></div></td>
+                    <td><div id="donutchart-AS"></div></td>
+                    <td><div id="donutchart-EU"></div></td>
+                    <td><div id="donutchart-SA"></div></td>
+                </tr>
+            </table>
         </div>
     </div>
+</div>
 
-    <!-- Map and pie charts -->
-    <div class="row">
-        <table>
-            <tr>
-                <td><div id="donutchart-AF"></div></td>
-                <td><div id="donutchart-NA"></div></td>
-                <td><div id="donutchart-OC"></div></td>
-                <td><div id="donutchart-AS"></div></td>
-                <td><div id="donutchart-EU"></div></td>
-                <td><div id="donutchart-SA"></div></td>
-            </tr>
-        </table>
-    </div>
-    <div class="row">
-        <div id="chart_div"></div>
-        <div class="col-md-8">
-            <a id="worldMapBtn" class="btn btn-default pull-right " type="button" onclick="showWorldMap()" style="display:none;">
-                <i class="fa fa-globe" aria-hidden="true"></i> World map
-            </a>
+<div class="container">
+    <!-- World map and bar charts -->
+    <div class="row fancy" >
+        <div>
+            <div class="col-md-8">
+                <a id="worldMapBtn" class="btn btn-default pull-right " type="button" onclick="showWorldMap()" style="display:none;">
+                    <i class="fa fa-globe" aria-hidden="true"></i> World map
+                </a>
 
-            <div id="world-map" style="width: auto; height: 500px"></div>
-            <div id="eu-map" style="width: auto; height: 500px; display:none;"></div>
-            <div id="af-map" style="width: auto; height: 500px; display:none;"></div>
-            <div id="na-map" style="width: auto; height: 500px; display:none;"></div>
-            <div id="oc-map" style="width: auto; height: 500px; display:none;"></div>
-            <div id="as-map" style="width: auto; height: 500px; display:none;"></div>
-            <div id="sa-map" style="width: auto; height: 500px; display:none;"></div>
+                <div id="world-map" style="width: auto; height: 500px"></div>
+                <div id="eu-map" style="width: auto; height: 500px; display:none;"></div>
+                <div id="af-map" style="width: auto; height: 500px; display:none;"></div>
+                <div id="na-map" style="width: auto; height: 500px; display:none;"></div>
+                <div id="oc-map" style="width: auto; height: 500px; display:none;"></div>
+                <div id="as-map" style="width: auto; height: 500px; display:none;"></div>
+                <div id="sa-map" style="width: auto; height: 500px; display:none;"></div>
+            </div>
+
+            <div class="col-md-4" id="country-charts">
+
+            </div>
         </div>
-        <div class="col-md-4" id="country-charts">
-
-        </div>
-    </div>
-
-    <!-- Bar charts for selected countries -->
-    <div class="row">
-        <div class="col-md-2"><div id="country-a" style="width: 100%; height: 100%;"></div></div>
-        <div class="col-md-2"><div id="country-b" style="width: 100%; height: 100%;"></div></div>
     </div>
 </div>
 
