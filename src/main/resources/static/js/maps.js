@@ -97,9 +97,9 @@ function drawWorldMap(fundID){
         drawWorldMapPieCharts(regionsMap);
         $('#country-charts').html(''); //Remove potential displayed column charts
         $('#c-topten').hide();
-        $("#topten").html('');
-        $("#pepsInformations").hide('');
-        $("#pepsInformations").html('');
+        $('#topten').html('');
+        //$('#pepsInformation').hide('');
+        $('#pepsInformation').html('');
 
     });
 }}

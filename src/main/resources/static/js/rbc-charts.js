@@ -122,6 +122,11 @@ function drawTopTenColumnChart (countryCode){
         var options = {
             //chartArea:{left:20,top:0,width:'100%',height:'100%'},
             width:900,
+            animation:{
+                startup:true,
+                duration:10000,
+                easing:'out'
+            },
             chart: {
                 title: 'TopTen High risk Countries',
                 subtitle: 'Number of assets on the left, World proportion on the right'
@@ -207,46 +212,75 @@ function drawColumnChart(countryData) {
 function getAndDisplayPeps(countryCode,riskLevel){
     //$.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/" + riskLevel, function( data ) {
     $.getJSON( "/jsonfiles/Peps.json" , function( data ) {
+        $('#pepsInformation').html('');
+        $('#investorInformation').html('');
+        //$('#investorInformation').html('');
         displayPepsInfo(data);
-        $("#pepsInformations").show('');
+        $('#pepsInformations').show('');
+        //$('#investorInformation').show('');
     });
 };
 
 function displayPepsInfo(pepsDataForRisk) {
 
-    google.charts.load('current', {'packages':['table']});
-    google.charts.setOnLoadCallback(drawTable);
-    $('#pepsInformations').html('');
-    function drawTable() {
+
+    //$('#pepsInformations').html('');
+
+    // function drawTable() {
         pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
             var cID = 'legal-entity-' + legalEntity.name;
-            //var tableDiv  = "<div id='c-" + cID + "' style=\"position:absolute\">"
-            var tableDiv = "<div id='" + cID + "' style='width: 100%; height: 100%'>" +
-                "<h1 class='myTitle'>" + legalEntity.name+ "</h1>" +
-                "<h2 class='myTitle2'>(" +legalEntity.type + " - " +legalEntity.nature +")</h2>"
-            tableDiv += "</div>"
-            tableDiv += "<div id='d-" + cID + "' style='width: 100%; height: 100%'>"
-            tableDiv += "</div>"
-            $('#pepsInformations').append(tableDiv);
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Fisrt Name');
-            data.addColumn('string', 'Last Name');
-            data.addColumn('string', 'Role');
-            data.addColumn('string', 'Country');
-            data.addColumn('string', 'Nationality');
-            legalEntity.peps.forEach(function (pep) {
-                data.addRow(
-                    [pep.firstName,  pep.lastName, pep.role,
-                        pep.country,pep.country]);
-            });
-            var table = new google.visualization.Table(document.getElementById('d-'+cID));
-
-            table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+            var tableDiv ="<blockquote onclick='displayPepsDetailInfo(\""+legalEntity.name+"\")'><Table> <tr> <TD align='left'><Strong>" + legalEntity.name+ "</strong></TD><TR>"
+            +" <TD>"+ legalEntity.type+"</TD></TR><TR>"+
+            "<TD>" + legalEntity.nature+"</TD></TR></blockquote>";
+            $('#investorInformation').append(tableDiv);
+            localStorage.setItem(legalEntity.name, JSON.stringify(pepsDataForRisk));
+            //displayPepsDetailInfo(pepsDataForRisk,legalEntity.name);
+            // var data = new google.visualization.DataTable();
+            // data.addColumn('string', 'Fisrt Name',{style: 'font-style:bold; font-size:22px;'});
+            // data.addColumn('string', 'Last Name',{style: 'font-style:bold; font-size:22px;'});
+            // data.addColumn('string', 'Role',{style: 'font-style:bold; font-size:22px;'});
+            // data.addColumn('string', 'Country',{style: 'font-style:bold; font-size:22px;'});
+            // data.addColumn('string', 'Nationality',{style: 'font-style:bold; font-size:22px;'});
+            // legalEntity.peps.forEach(function (pep) {
+            //     data.addRow(
+            //         [pep.firstName,  pep.lastName, pep.role,
+            //             pep.country,pep.country]);
+            // });
+            // var table = new google.visualization.Table(document.getElementById('d-'+cID));
+            // data.setProperty()
+            // table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
        });
 
+    // }
+}
+function displayPepsDetailInfo(legalEntityName){
+    var pepsDataForRisk = JSON.parse(localStorage.getItem(legalEntityName));
+    //console.log('retrievedObject: ', JSON.parse(pepsDataForRisk));
+    google.charts.load('current', {'packages':['table']});
+    google.charts.setOnLoadCallback(drawTable);
+
+    function drawTable() {
+        pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
+            if (legalEntity.name == legalEntityName) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Fisrt Name', {style: 'font-style:bold; font-size:22px;'});
+                data.addColumn('string', 'Last Name', {style: 'font-style:bold; font-size:22px;'});
+                data.addColumn('string', 'Role', {style: 'font-style:bold; font-size:22px;'});
+                data.addColumn('string', 'Country', {style: 'font-style:bold; font-size:22px;'});
+                data.addColumn('string', 'Nationality', {style: 'font-style:bold; font-size:22px;'});
+                legalEntity.peps.forEach(function (pep) {
+                    data.addRow(
+                        [pep.firstName, pep.lastName, pep.role,
+                            pep.country, pep.country]);
+                });
+                var table = new google.visualization.Table(document.getElementById('pepsInformation'));
+                table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+                $('#pepsInformation').show('');
+            }
+        });
     }
 }
-
 function loadPieCharts() {
     drawPieChart('donutchart-NA', 'North America', 666, 1234, 235);
     drawPieChart('donutchart-EU', 'Europe', 123, 543, 34);
