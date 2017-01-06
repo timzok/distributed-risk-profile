@@ -208,6 +208,7 @@ function getAndDisplayPeps(countryCode,riskLevel){
     //$.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/" + riskLevel, function( data ) {
     $.getJSON( "/jsonfiles/Peps.json" , function( data ) {
         displayPepsInfo(data);
+        $("#pepsInformations").show('');
     });
 };
 
