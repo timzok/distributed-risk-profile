@@ -59,6 +59,7 @@ function onRegionClick(e, code){
     $("#worldMapBtn").fadeIn();
     var regionData = regionsMap[code];
     if (regionData) {
+        getAndDisplayTopTen(code);
         $('#maps-container').addClass("col-md-8");
         $('#maps-container').removeClass("col-md-12");
         $("#country-charts").show();
