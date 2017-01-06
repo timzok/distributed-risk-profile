@@ -117,6 +117,7 @@ function drawVectorMap(mapID, mapName, data, worldMap) {
         $("#maps-container").addClass("col-md-12");
         $("#maps-container").removeClass("col-md-8");
         $("#country-charts").hide();
+
     } else {
         $('#maps-container').addClass("col-md-8");
         $('#maps-container').removeClass("col-md-12");

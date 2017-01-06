@@ -285,19 +285,20 @@ div.fancy {
     background: none;
 }
 
-table {
-    background: #FFF;
-}
 
-table th {
+table.google-visualization-table-table th {
     background-color: #002144;
     color: #FFD129;
     text-align: left;
 }
 
-table td {
+table.google-visualization-table-table td {
     text-align: left;
     color: #3D3D3D;
+}
+
+table.google-visualization-table-table th.gradient  {
+    background-image: none; !important
 }
 
 
