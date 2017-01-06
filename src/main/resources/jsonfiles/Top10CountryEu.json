@@ -6,6 +6,7 @@
       {
          "CountryCode": "LU",
 		 "CountryName": "Luxembourg",
+         "TotalAssetNumber":2700,
          "Low": {
             "assetValue": 2000,
             "percentagePerAssetValue": 74
@@ -22,6 +23,7 @@
       {
          "CountryCode": "FR",
 		 "CountryName": "France",
+         "TotalAssetNumber":141,
          "Low": {
             "assetValue": 25,
             "percentagePerAssetValue": 17.7
@@ -39,6 +41,7 @@
       {
          "CountryCode": "BE",
 		 "CountryName": "Belgium",
+         "TotalAssetNumber":656,
          "Low": {
             "assetValue": 564,
             "percentagePerAssetValue": 86
@@ -55,6 +58,7 @@
       {
          "CountryCode": "LT",
 		 "CountryName": "Lituanie",
+         "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
             "percentagePerAssetValue": 51.7
@@ -71,6 +75,7 @@
       {
          "CountryCode": "UA",
 		 "CountryName": "Ukraine",
+         "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
             "percentagePerAssetValue": 51.7
@@ -87,6 +92,7 @@
       {
          "CountryCode": "DE",
 		 "CountryName": "Germany",
+         "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
             "percentagePerAssetValue": 51.7
@@ -103,6 +109,7 @@
       {
          "CountryCode": "HR",
 		 "CountryName": "Croatie",
+         "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
             "percentagePerAssetValue": 51.7
@@ -119,6 +126,7 @@
       {
          "CountryCode": "PL",
 		 "CountryName": "Pologne",
+         "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
             "percentagePerAssetValue": 51.7
@@ -135,6 +143,7 @@
       {
          "CountryCode": "SE",
 		 "CountryName": "Sweden",
+         "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
             "percentagePerAssetValue": 51.7
@@ -151,6 +160,7 @@
       {
          "CountryCode": "SI",
 		 "CountryName": "Slovenia",
+         "TotalAssetNumber":308,
          "Low": {
             "assetValue": 159,
             "percentagePerAssetValue": 51.7

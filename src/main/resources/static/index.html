@@ -110,14 +110,19 @@
             <div id="sa-map" style="width: auto; height: 600px; display:none;"></div>
         </div>
         <div class="col-md-4" id="country-charts">
-            <!-- <button onClick="getAndDrawColumnChart('FR')" >Bar</button> -->
+            <button onClick="getAndDrawColumnChart('FR')" >Bar</button>
         </div>
     </div>
 
     <!-- Bar charts for selected countries -->
     <div class="row">
-        <div class="col-md-2"><div id="country-a" style="width: 100%; height: 100%;"></div></div>
-        <div class="col-md-2"><div id="country-b" style="width: 100%; height: 100%;"></div></div>
+        <div class="col-md-12" >
+            <!--<button onClick="getAndDisplayTopTen('FR')" >Peps</button></div>-->
+        <div class="col-md-12"><table><tr><div id="topten" style="width: 100%; height: 100%;"></div></tr></table></div>
+        <div class="col-md-12" >
+            <!--<button onClick="getAndDisplayPeps('FR','LOW')" >Peps</button>-->
+        </div>
+        <div class="col-md-12"><div id="pepsInformations" style="width: 100%; height: 100%;"></div></div>
     </div>
 </div>
 

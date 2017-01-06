@@ -652,3 +652,21 @@ table.tableNoBorder
     color: #000000;
     font-weight:normal;
 }
+.myTitle {
+    font-size: 2.4rem;
+    line-height: 2.5rem;
+    letter-spacing: 0;
+    font-weight: 300;
+    color: #212121;
+    text-transform: inherit;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.myTitle2 {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+    letter-spacing: 0.01rem;
+    font-weight: 400;
+    color: #212121;
+    text-align: center;
+}
