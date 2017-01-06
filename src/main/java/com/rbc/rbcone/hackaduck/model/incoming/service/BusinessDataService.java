@@ -1,6 +1,6 @@
 package com.rbc.rbcone.hackaduck.model.incoming.service;
 
-public interface RegionService {
+public interface BusinessDataService {
 
 	public void feedBusinessDataForRegions();
 	

@@ -1,5 +1,6 @@
 package com.rbc.rbcone.hackaduck.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -34,5 +35,5 @@ public class LegalEntity {
 	/**
 	 * The persons that are in relationship with this legal entity.
 	 */
-	private List<Peps> peps;
+	private List<Peps> peps = new ArrayList<Peps>();
 }
