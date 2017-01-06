@@ -54,18 +54,18 @@ public class RiskProfileResource {
 		}
     	
    	return localFunds;
+    
     }
 
     
     @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public RegionsRisk getRegionRiskList(@PathVariable("fundId") String aFundId) {
     	
-    	/*RegionsRisk rslt = new RegionsRisk();
+    	RegionsRisk rslt = new RegionsRisk();
     	rslt.setFundId(aFundId);
     	rslt.setFundName("toto");
 
 		System.out.println("Before exec");
-		
 		// select f.id as fundId, f.name, g.name as regionId, r.rad, sum(r.asset_Value), count(distinct e.id) 
 		// from country c, region g, sara_legal_fund f, sara_entity e, sara_relation r 
 		// where f.id = ? and r.lf_id = f.id and r.bp_id = e.id 
@@ -114,9 +114,9 @@ public class RiskProfileResource {
 			region.getMedium().setGlobalAssetValue(globalAssetValueMediumCategory);
 			region.getHigh().setGlobalAssetValue(globalAssetValueHighCategory);
 		}		
-		*/
+		
 
-    	LegalFund targetFund = findLegalFund(aFundId);
+    	/*LegalFund targetFund = findLegalFund(aFundId);
     	RegionsRisk rslt = new RegionsRisk();
     	rslt.setFundId(aFundId);
     	rslt.setFundName(targetFund.getName());
@@ -146,16 +146,8 @@ public class RiskProfileResource {
     		
     	}
     	rslt.setRegions(finalRegions);
-    	/*if ("Fund1".equals(aFundId)) {
-        	    	} else {
-     		//AF/AS/EU/NA/OC/SA
-           	regions.add(createRegionRisk("AS", new Risk((int)(2000 * Math.random()), 74, 74), new Risk(500,  18.5, 18.5), new Risk(200,  7.5, 7.5)));
-        	regions.add(createRegionRisk("OC", new Risk((int)(25   * Math.random()), 17.7, 17.7), new Risk(32,  22.7, 22.7), new Risk(84,  59.5, 59.5)));
-        	regions.add(createRegionRisk("EU", new Risk((int)(564  * Math.random()), 86, 86), new Risk(12,  1.8, 1.8), new Risk(80,  12.2, 12.2)));
-        	regions.add(createRegionRisk("SA", new Risk((int)(159  * Math.random()), 51.7, 51.7), new Risk(147,  47.7, 47.7), new Risk(2,  0.6, 0.6)));
-    	}*/
-    	//rslt.setRegions(regions);
-  	
+    	*/
+    	
         return rslt;
     }
     

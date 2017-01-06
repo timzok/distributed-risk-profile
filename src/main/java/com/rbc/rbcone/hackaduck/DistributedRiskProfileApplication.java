@@ -30,6 +30,7 @@ import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraEntityRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraLegalFundRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraPepsRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraRelationRepository;
+import com.rbc.rbcone.hackaduck.model.incoming.service.RegionService;
 
 @SpringBootApplication
 public class DistributedRiskProfileApplication {
@@ -48,6 +49,9 @@ public class DistributedRiskProfileApplication {
 	
 	@Autowired
 	private RegionRepository regionRepo;
+	
+	@Autowired 
+	private RegionService regionService;
 		
 	private static final Logger log = LoggerFactory.getLogger(DistributedRiskProfileApplication.class);
 	
@@ -89,6 +93,15 @@ public class DistributedRiskProfileApplication {
 		TypeReference<List<SaraRelation>> saraRelationType = new TypeReference<List<SaraRelation>>() {};
 		List<SaraRelation> saraRelation = mapper.readValue(this.getClass().getResourceAsStream("/ttRelationEntLF.json"),saraRelationType);
 		saraRelationRepo.save(saraRelation);
+		
+		// making a new db table for the relation of all regions
+		//select f.id as fundId, f.name, g.name as regionId, r.rad, sum(r.asset_Value), count(distinct e.id)
+		//from country c, region g, sara_legal_fund f, sara_entity e, sara_relation r
+		// where r.lf_id = f.id and r.bp_id = e.id and e.residence_code = c.type and c.region_id = g.id 
+		//group by g.id, r.rad,f.id
+		
+		regionService.feedBusinessDataForRegions();
+		
 		
 	}
 	
