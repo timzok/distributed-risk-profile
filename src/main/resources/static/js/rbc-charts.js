@@ -153,7 +153,7 @@ function displayPepsInfo(pepsDataForRisk) {
             var cID = 'legal-entity-' + legalEntity.name;
             //var tableDiv  = "<div id='c-" + cID + "' style=\"position:absolute\">"
             var tableDiv = "<div id='" + cID + "' style='width: 100%; height: 100%'>" +
-                "<h1  class='myTitle'>" + legalEntity.name+ "</h1>" +
+                "<h1 class='myTitle'>" + legalEntity.name+ "</h1>" +
                 "<h2 class='myTitle2'>(" +legalEntity.type + " - " +legalEntity.nature +")</h2>"
             tableDiv += "</div>"
             tableDiv += "<div id='d-" + cID + "' style='width: 100%; height: 100%'>"
