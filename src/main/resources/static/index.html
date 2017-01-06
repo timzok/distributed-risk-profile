@@ -5,7 +5,8 @@
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/rbcdScreen.css" media="all">
     <link rel="stylesheet" type="text/css" href="./css/ofdScreen.css" media="all">
-
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <!-- JVectorMap -->
     <link rel="stylesheet" media="all" href="./css/jquery-jvectormap.css"/>
     <script src="./js/jquery.js"></script>
@@ -97,9 +98,9 @@
     </div>
     <div class="row">
         <div class="col-md-8">
-            <button class="btn btn-default pull-right" type="button" onclick="showWorldMap()">
-                <<
-            </button>
+            <a id="worldMapBtn" class="btn btn-default pull-right " type="button" onclick="showWorldMap()" style="display:none;">
+                <i class="fa fa-globe" aria-hidden="true"></i> World map
+            </a>
 
             <div id="world-map" style="width: auto; height: 600px"></div>
             <div id="eu-map" style="width: auto; height: 600px; display:none;"></div>
@@ -175,7 +176,7 @@
 
     $(setObserver());
     $(loadFundDropdown());
-    $(drawWorldMap('1'));
+    $(drawWorldMap(selectedFund()));
 
 </script>
 
