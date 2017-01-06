@@ -9,6 +9,8 @@ function onTipShow(e, el, code){
             " low: " + regionData.low.assetValue +
             " %, medium:" + regionData.medium.assetValue +
             "%, high:" + regionData.high.assetValue +"% ");
+    } else {
+        e.preventDefault();
     }
 }
 
@@ -20,6 +22,8 @@ function onCountryTipShow(e, el, code){
             " low: " + coutryData.low.assetValue +
             " %, medium:" + coutryData.medium.assetValue +
             "%, high:" + coutryData.high.assetValue +"% ");
+    } else {
+        e.preventDefault();
     }
 }
 
@@ -52,6 +56,7 @@ function renderMap(code){
 }
 
 function onRegionClick(e, code){
+    $("#worldMapBtn").fadeIn();
     var regionData = regionsMap[code];
     if (regionData) {
         renderMap(code.toLowerCase());
@@ -76,6 +81,7 @@ function showWorldMap(){
         $(placeholder(key)).fadeOut();
     }
     $("#world-map").fadeIn();
+    $("#worldMapBtn").fadeOut();
     drawWorldMap(selectedFund())
 }
 
