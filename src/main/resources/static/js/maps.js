@@ -127,7 +127,7 @@ function drawVectorMap(mapID, mapName, data, worldMap) {
 
 function setObserver() {
     $( "#fund-selection" ).change(function() {
-        drawWorldMap(selectedFund());
+        showWorldMap();
     });
 }
 
