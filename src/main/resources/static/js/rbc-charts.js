@@ -133,18 +133,18 @@ function drawTopTenColumnChart (countryCode){
                 title: 'Risk details for ' + countryCode.countryCode,
                 colors: [ 'red', 'blue', 'blue']
         };
-        var chart = new google.charts.Bar(document.getElementById('country-topten'));
+        var chart = new google.charts.Bar(document.getElementById('topten'));
         chart.draw(data, options);
     }
 
     //google.charts.load('current', {'packages':['bar', 'corechart']});
 
-    var cID = 'country-topten';
-    //var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
-    var chartDiv = "<div id='" + cID + "' style='width: 100%; height: 100%'>"
-    chartDiv += "</div>"
-
-    $('#topten').append(chartDiv);
+    // var cID = 'country-topten';
+    // //var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
+    // var chartDiv = "<div id='" + cID + "' style='width: 100%; height: 100%'>"
+    // chartDiv += "</div>"
+    //
+    // $('#topten').append(chartDiv);
 
 }
 
