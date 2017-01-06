@@ -11,11 +11,15 @@ import com.rbc.rbcone.hackaduck.model.RegionRisk;
 import com.rbc.rbcone.hackaduck.model.RegionsRisk;
 import com.rbc.rbcone.hackaduck.model.Risk;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraLegalFund;
+import com.rbc.rbcone.hackaduck.model.incoming.SaraPeps;
+import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraEntityRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraLegalFundRepository;
+import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraPepsRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraRelationRepository;
 import com.rbc.rbcone.hackaduck.model.Peps;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +47,10 @@ public class RiskProfileResource {
     private SaraLegalFundRepository saraLegalFundRepo;
     @Autowired
     private SaraRelationRepository saraRelationRepo;
+    @Autowired
+    private SaraPepsRepository saraPepsRepo;
+    @Autowired
+    private SaraEntityRepository saraEntityRepo;
     
     public RiskProfileResource() {
     	if (IS_MOCKED) {
@@ -350,20 +358,56 @@ public class RiskProfileResource {
 
     @RequestMapping(value = "/funds/{fundId}/countries/{countryId}/legalEntities/rads/{rad}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public CountryLegalEntityRisk getLegalEntityPeps(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId, @PathVariable("rad") String aRiskCategory) {
-        // Mocked data
-    	LegalFund targetFund = findLegalFund(aFundId);
-    	CountryLegalEntityRisk rslt = new CountryLegalEntityRisk();
-    	rslt.setFundId(targetFund.getId());
-    	rslt.setFundName(targetFund.getName());
-    	rslt.setCountryCode(aCountryId);
-    	rslt.setRad(aRiskCategory);
-    	
-    	ArrayList<LegalEntity> entities = new ArrayList<LegalEntity>();
-    	entities.add(new LegalEntity("LegalEntity1", "Other Financial Institution", "Legal", Arrays.asList(new Peps("Toto", "Van Der Meulen", "Administrator", "LU"), new Peps("Titi","Dooren","ShareHolder","BE"))));
-    	entities.add(new LegalEntity("LegalEntity2", "Other Financial Institution", "Legal", Arrays.asList(new Peps("Tutu","Vonckens","ShareHolder","FR"))));
-    	
-    	rslt.setLegalEntities(entities);
-        return rslt;
+    	if (IS_MOCKED) {
+	        // Mocked data
+	    	LegalFund targetFund = findLegalFund(aFundId);
+	    	CountryLegalEntityRisk rslt = new CountryLegalEntityRisk();
+	    	rslt.setFundId(targetFund.getId());
+	    	rslt.setFundName(targetFund.getName());
+	    	rslt.setCountryCode(aCountryId);
+	    	rslt.setRad(aRiskCategory);
+	    	
+	    	ArrayList<LegalEntity> entities = new ArrayList<LegalEntity>();
+	    	entities.add(new LegalEntity("LegalEntity1", "Other Financial Institution", "Legal", Arrays.asList(new Peps("Toto", "Van Der Meulen", "Administrator", "LU"), new Peps("Titi","Dooren","ShareHolder","BE"))));
+	    	entities.add(new LegalEntity("LegalEntity2", "Other Financial Institution", "Legal", Arrays.asList(new Peps("Tutu","Vonckens","ShareHolder","FR"))));
+	    	
+	    	rslt.setLegalEntities(entities);
+	        return rslt;
+    	} else {
+	    	CountryLegalEntityRisk rslt = new CountryLegalEntityRisk();
+	    	rslt.setCountryCode(aCountryId);
+	    	rslt.setRad(aRiskCategory);
+	    	
+	    	SaraLegalFund legalFund = saraLegalFundRepo.findOne(aFundId);
+	    	rslt.setFundId(legalFund.getId());
+	    	rslt.setFundName(legalFund.getName());
+	    	
+    		List<SaraPeps> saraPepsList = saraPepsRepo.findPepsByFundAndCountryAndRiskCategory(aFundId, aCountryId, aRiskCategory);
+    		List<Object[]> saraEntityList = saraEntityRepo.findByFundAndDomicilationAndRiskCategory(aFundId, aCountryId, aRiskCategory);
+
+    		HashMap<String, LegalEntity> legalEntityIdToLegalEntityMap = new HashMap<String, LegalEntity>();
+    		String legalEntityId = null; LegalEntity legalEntity = null; String relationId = null;
+    		
+    		for (Object[] saraEntityRsRow : saraEntityList) {
+    			legalEntityId = (String)saraEntityRsRow[0];
+    			legalEntity = legalEntityIdToLegalEntityMap.get(legalEntityId);
+    			
+    			if (legalEntity==null) {
+    				legalEntity = new LegalEntity((String)saraEntityRsRow[1], (String)saraEntityRsRow[4], (String)saraEntityRsRow[2], new ArrayList<Peps>());
+    				rslt.getLegalEntities().add(legalEntity);
+    				legalEntityIdToLegalEntityMap.put(legalEntityId, legalEntity);
+    			}
+    			
+    			relationId = (String)saraEntityRsRow[5];
+    			for (SaraPeps saraPeps : saraPepsList) {
+    				if (relationId.equals(saraPeps.getRelationId())) {
+    					legalEntity.getPeps().add(new Peps(saraPeps.getFirstName(), saraPeps.getLastName(), saraPeps.getRole(), saraPeps.getCountry()));
+    				}
+    			}
+    		}
+    		
+    		return rslt;
+    	}
     }
     
 
