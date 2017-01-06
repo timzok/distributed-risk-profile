@@ -34,9 +34,16 @@ function getAndDisplayTopTen(regionCode) {
             return map;
         }, {});
 
-        drawTopTenColumnChart(countriesMap)
+        if (countriesMap) {
+            $('#c-topten').show();
+            drawTopTenColumnChart(countriesMap);
+        } else {
+            $('#c-topten').hide();
+        }
+
     });
 };
+
 function drawTopTenChart(countryCode){
 
     $.each( countryCode, function( key, val ) {
@@ -98,14 +105,14 @@ function drawPieChart(chartID, title, l, m, h) {
 function drawTopTenColumnChart (countryCode){
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
+
     function drawChart() {
 
-        //var data = new google.visualization.arrayToDataTable([
         var data = new google.visualization.DataTable()
         data.addColumn('string', 'Countries');
         data.addColumn('number', 'Asset Value');
         data.addColumn('number', 'World %');
-        //data.addRow(['Country', 'Asset Value', '% of World',]);
+
         $.each( countryCode, function( key, val ) {
             var r = countryCode[key];
             data.addRow([r.countryCode, r.high.assetValue, (r.high.assetValue/r.high.globalAssetValue)*100]);
@@ -136,8 +143,6 @@ function drawTopTenColumnChart (countryCode){
         var chart = new google.charts.Bar(document.getElementById('topten'));
         chart.draw(data, options);
     }
-
-    //google.charts.load('current', {'packages':['bar', 'corechart']});
 
     // var cID = 'country-topten';
     // //var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
