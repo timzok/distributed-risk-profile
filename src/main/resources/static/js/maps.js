@@ -59,6 +59,7 @@ function onRegionClick(e, code){
     $("#worldMapBtn").fadeIn();
     var regionData = regionsMap[code];
     if (regionData) {
+        getAndDisplayTopTen(code);
         $('#maps-container').addClass("col-md-8");
         $('#maps-container').removeClass("col-md-12");
         $("#country-charts").show();
@@ -95,6 +96,11 @@ function drawWorldMap(fundID){
         drawMap(data);
         drawWorldMapPieCharts(regionsMap);
         $('#country-charts').html(''); //Remove potential displayed column charts
+        $('#c-topten').hide();
+        $("#topten").html('');
+        $("#pepsInformations").hide('');
+        $("#pepsInformations").html('');
+
     });
 }}
 
@@ -111,6 +117,7 @@ function drawVectorMap(mapID, mapName, data, worldMap) {
         $("#maps-container").addClass("col-md-12");
         $("#maps-container").removeClass("col-md-8");
         $("#country-charts").hide();
+
     } else {
         $('#maps-container').addClass("col-md-8");
         $('#maps-container').removeClass("col-md-12");
@@ -131,6 +138,7 @@ function drawVectorMap(mapID, mapName, data, worldMap) {
                 values:  data
             }]
         },
+        zoomOnScroll:false,
         onRegionTipShow : worldMap ? onTipShow : onCountryTipShow,
         onRegionClick : worldMap ? onRegionClick : onCountryClick
     });

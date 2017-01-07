@@ -26,17 +26,24 @@ function drawWorldMapPieCharts(regionData) {
     });
 
 }
-function getAndDisplayTopTen(countryCode) {
-    //$.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
-    $.getJSON( "/jsonfiles/Top10CountryEu.json", function( data ) {
+function getAndDisplayTopTen(regionCode) {
+    $.getJSON( "/api/funds/" + selectedFund() + '/regions/'+ regionCode +'/topcountries/10', function( data ) {
+    //$.getJSON( "/jsonfiles/Top10CountryEu.json", function( data ) {
         countriesMap = data.countries.reduce(function(map, obj) {
             map[obj.countryCode] = obj;
             return map;
         }, {});
-        //drawTopTenChart(countriesMap);
-        drawTopTenColumnChart(countriesMap)
+
+        if (countriesMap) {
+            $('#c-topten').show();
+            drawTopTenColumnChart(countriesMap);
+        } else {
+            $('#c-topten').hide();
+        }
+
     });
 };
+
 function drawTopTenChart(countryCode){
 
     $.each( countryCode, function( key, val ) {
@@ -98,25 +105,26 @@ function drawPieChart(chartID, title, l, m, h) {
 function drawTopTenColumnChart (countryCode){
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
+
     function drawChart() {
 
-        //var data = new google.visualization.arrayToDataTable([
         var data = new google.visualization.DataTable()
         data.addColumn('string', 'Countries');
         data.addColumn('number', 'Asset Value');
-        data.addColumn('number', '% of World');
-        //data.addRow(['Country', 'Asset Value', '% of World',]);
+        data.addColumn('number', 'World %');
+
         $.each( countryCode, function( key, val ) {
             var r = countryCode[key];
-            data.addRow([r.countryCode, r.High.assetValue, (r.High.assetValue/r.High.globalAssetValue)*100]);
+            data.addRow([r.countryCode, r.high.assetValue, (r.high.assetValue/r.high.globalAssetValue)*100]);
         });
 
 
         var options = {
-width:900,
+            //chartArea:{left:20,top:0,width:'100%',height:'100%'},
+            width:900,
             chart: {
                 title: 'TopTen High risk Countries',
-                subtitle: 'Number of assets on the left, Propotion regarinf the world'
+                subtitle: 'Number of assets on the left, World proportion on the right'
             },
             series: {
                 0: { axis: 'assetNum' }, // Bind series 0 to an axis named 'distance'.
@@ -132,32 +140,17 @@ width:900,
                 title: 'Risk details for ' + countryCode.countryCode,
                 colors: [ 'red', 'blue', 'blue']
         };
-        // var options = {
-        //     legend: {position: "none"},
-        //     //isStacked: 'percent',
-        //     titleTextStyle: { fontSize: 13 },
-        //     title: 'Risk details for ' + countryCode.countryCode,
-        //     colors: [ '#aaba0a', '#fca311', '#c71D06']
-        //
-        // };
-
-        var chart = new google.charts.Bar(document.getElementById('country-chart-' + countryCode.countryCode));
+        var chart = new google.charts.Bar(document.getElementById('topten'));
         chart.draw(data, options);
     }
 
-    google.charts.load('current', {'packages':['bar', 'corechart']});
+    // var cID = 'country-topten';
+    // //var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
+    // var chartDiv = "<div id='" + cID + "' style='width: 100%; height: 100%'>"
+    // chartDiv += "</div>"
+    //
+    // $('#topten').append(chartDiv);
 
-    var cID = 'country-chart-' + countryCode.countryCode;
-    var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
-    chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
-    chartDiv += "</div>"
-
-    $('#country-charts').append(chartDiv);
-
-
-    google.charts.setOnLoadCallback(drawChart);
-
-    $('#c-' + cID).append("<button onClick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>Remove</button>")
 }
 
 function drawColumnChart(countryData) {
@@ -204,24 +197,39 @@ function drawColumnChart(countryData) {
 
     google.charts.setOnLoadCallback(drawChart);
 
-    var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>"
-        btn += "<i class=\"fa fa-trash\"></i> "
-        btn += "</a>"
+    var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>";
+        btn += "<i class=\"fa fa-trash\"></i> ";
+        btn += "</a>";
 
-    $('#c-' + cID).append(btn)
+    $('#c-' + cID).append(btn);
 }
 
 function getAndDisplayPeps(countryCode,riskLevel){
-    //$.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/" + riskLevel, function( data ) {
-    $.getJSON( "/jsonfiles/Peps.json" , function( data ) {
+
+    var csvUrl = "/api/funds/" + selectedFund() + "/countries/" + countryCode + "/legalEntitiesExport/rads/" + riskLevel;
+
+    //$.getJSON( "/jsonfiles/Peps.json" , function( data ) {
+    $.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/legalEntities/rads/" + riskLevel, function( data ) {
         displayPepsInfo(data);
+        $("#pepsInformations").show('');
+
+        var btn  = "<a class='btn btn-default' type='button' href='" + csvUrl + "' style='position:absolute; top:0; right:0'>";
+        btn += "<i class='fa fa-file'>Export to CSV</i>";
+        btn += "</a>";
+
+        $('#pepsInformations').append(btn);
+
     });
 };
+
 
 function displayPepsInfo(pepsDataForRisk) {
 
     google.charts.load('current', {'packages':['table']});
     google.charts.setOnLoadCallback(drawTable);
+    $('#pepsInformations').html('');
+
+
 
     function drawTable() {
         pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
