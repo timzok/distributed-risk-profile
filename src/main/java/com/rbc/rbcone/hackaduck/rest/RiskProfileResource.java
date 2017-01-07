@@ -10,6 +10,7 @@ import com.rbc.rbcone.hackaduck.model.LegalFund;
 import com.rbc.rbcone.hackaduck.model.RegionRisk;
 import com.rbc.rbcone.hackaduck.model.RegionsRisk;
 import com.rbc.rbcone.hackaduck.model.Risk;
+import com.rbc.rbcone.hackaduck.model.incoming.RegionRiskDB;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraLegalFund;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraPeps;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraEntityRepository;
@@ -39,7 +40,7 @@ public class RiskProfileResource {
 	// Mocked funds
     private ArrayList<LegalFund> funds = new ArrayList<LegalFund>();
 	
-    private static final boolean IS_MOCKED = true;
+    private static final boolean IS_MOCKED = false;
     private HashMap<String, Double[]> fundIdToGlobalAssetPerRiskCategorykMap = new HashMap<String, Double[]>();
     
     
@@ -73,6 +74,61 @@ public class RiskProfileResource {
     	}
     }
 
+    @RequestMapping(value = "/funds2/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
+    public RegionsRisk getRegionRiskList2(@PathVariable("fundId") String aFundId) {
+    	
+    	RegionsRisk rslt = new RegionsRisk();
+		// LEM / MATETAM RATET / NA  / H / 0,0 / 1
+
+    	// through the service layer
+    	List<RegionRiskDB> = saraRelationRepo.findRegionLevelRelationByFundId(aFundId);
+    	
+    	
+    	Object[] rsRows = saraRelationRepo.findRegionLevelRelations(aFundId);
+		
+		for (int i=0; i<rsRows.length;i++) {
+			Object[] rsRow = (Object[])rsRows[i];
+			
+			if (i==0) {
+				rslt.setFundId((String)rsRow[0]); //LEM
+				rslt.setFundName((String)rsRow[1]); //MATETAM RATET
+			}
+			
+			String regionCode = (String)rsRow[2]; //NA
+			RegionRisk regionRisk = rslt.getRegionRisk(regionCode);
+			if (regionRisk==null) {
+				regionRisk = new RegionRisk();
+				regionRisk.setRegionCode(regionCode);
+				rslt.getRegions().add(regionRisk);
+			}
+			
+			String riskCategory = (String)rsRow[3]; //H
+			Risk risk = new Risk(((BigInteger)rsRow[5]).intValue(), (double)rsRow[4], 0d);		 //1 - 0,0	
+			regionRisk.setRisk(risk, riskCategory);
+		}
+
+		double globalAssetValueLowCategory = 0.0d;
+		double globalAssetValueMediumCategory = 0.0d;
+		double globalAssetValueHighCategory = 0.0d;
+		
+		for (RegionRisk region : rslt.getRegions()) {
+			region.fillMissingRisks();
+			
+			globalAssetValueLowCategory += region.getLow().getAssetValue();
+			globalAssetValueMediumCategory += region.getMedium().getAssetValue();
+			globalAssetValueHighCategory += region.getHigh().getAssetValue();
+		}
+		
+		fundIdToGlobalAssetPerRiskCategorykMap.put(aFundId, new Double[]{globalAssetValueLowCategory, globalAssetValueMediumCategory, globalAssetValueHighCategory});
+		
+		for (RegionRisk region : rslt.getRegions()) {
+			region.getLow().setGlobalAssetValue(globalAssetValueLowCategory);
+			region.getMedium().setGlobalAssetValue(globalAssetValueMediumCategory);
+			region.getHigh().setGlobalAssetValue(globalAssetValueHighCategory);
+		}
+		return rslt;    	
+    }
+    
     
     @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public RegionsRisk getRegionRiskList(@PathVariable("fundId") String aFundId) {
