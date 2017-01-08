@@ -92,7 +92,7 @@ public class RiskProfileResource {
 		// LEM / MATETAM RATET / NA  / H / 0,0 / 1
 
     	// through the service layer
-    	List<RegionRiskDB> = saraRelationRepo.findRegionLevelRelationByFundId(aFundId);
+    	//List<RegionRiskDB> = saraRelationRepo.findRegionLevelRelationByFundId(aFundId);
     	
     	
     	Object[] rsRows = saraRelationRepo.findRegionLevelRelations(aFundId);
