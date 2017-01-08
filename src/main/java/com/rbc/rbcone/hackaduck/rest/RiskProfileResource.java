@@ -411,8 +411,8 @@ public class RiskProfileResource {
 	    	rslt.setRad(aRiskCategory);
 	    	
 	    	ArrayList<LegalEntity> entities = new ArrayList<LegalEntity>();
-	    	entities.add(new LegalEntity("LegalEntity1", "Other Financial Institution", "Legal", Arrays.asList(new Peps("Toto", "Van Der Meulen", "Administrator", "LU"), new Peps("Titi","Dooren","ShareHolder","BE"))));
-	    	entities.add(new LegalEntity("LegalEntity2", "Other Financial Institution", "Legal", Arrays.asList(new Peps("Tutu","Vonckens","ShareHolder","FR"))));
+	    	entities.add(new LegalEntity("LegalEntity1-"+aRiskCategory, "Other Financial Institution", "Legal", Arrays.asList(new Peps("Toto-" + aCountryId, "Van Der Meulen", "Administrator", "LU"), new Peps("Toto-" + aCountryId, "Van Der Meulen", "Administrator", "LU"),new Peps("Toto-" + aCountryId, "Van Der Meulen", "Administrator", "LU"),new Peps("Toto-" + aCountryId, "Van Der Meulen", "Administrator", "LU"),new Peps("Toto-" + aCountryId, "Van Der Meulen", "Administrator", "LU"),new Peps("Toto-" + aCountryId, "Van Der Meulen", "Administrator", "LU"),new Peps("Toto-" + aCountryId, "Van Der Meulen", "Administrator", "LU"),new Peps("Titi","Dooren","ShareHolder","BE"))));
+	    	entities.add(new LegalEntity("LegalEntity2-"+aRiskCategory, "Other Financial Institution", "Legal", Arrays.asList(new Peps("Tutu","Vonckens","ShareHolder","FR"))));
 	    	
 	    	rslt.setLegalEntities(entities);
 	        return rslt;

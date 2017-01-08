@@ -217,11 +217,12 @@ function getAndDisplayPeps(countryCode,riskLevel){
     $.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/legalEntities/rads/" + riskLevel, function( data ) {
     //$.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/" + riskLevel, function( data ) {
     //$.getJSON( "/jsonfiles/Peps.json" , function( data ) {
-        $('#pepsInformation').html('');
+        //$('#pepsInformation').html('');
+        $("#pepsInformations").show('');
         $('#investorInformation').html('');
         //$('#investorInformation').html('');
         displayPepsInfo(data);
-        $("#pepsInformations").show('');
+
     });
 };
 
@@ -229,14 +230,20 @@ function displayPepsInfo(pepsDataForRisk) {
 
 
     //$('#pepsInformations').html('');
-
+    var tableDiv ="<table width='100%'>"
     // function drawTable() {
         pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
             var cID = 'legal-entity-' + legalEntity.name;
-            var tableDiv ="<blockquote onclick='displayPepsDetailInfo(\""+legalEntity.name+"\")'><Table> <tr> <TD align='left'><Strong>" + legalEntity.name+ "</strong></TD><TR>"
-            +" <TD>"+ legalEntity.type+"</TD></TR><TR>"+
-            "<TD>" + legalEntity.nature+"</TD></TR></blockquote>";
-            $('#investorInformation').append(tableDiv);
+             tableDiv +="<TR><TD class='centertd20'>" +
+                            "<div class='blockquote' onclick='displayPepsDetailInfo(\""+legalEntity.name+"\")'>" +
+                                "<Table> <tr> <TD align='left' class='tdcards'><Strong>" + legalEntity.name+ "</strong></TD><TR>"
+                                +" <TD class='tdcards'>"+ legalEntity.type+"</TD></TR><TR>"+
+                                  "<TD class='tdcards'>" + legalEntity.nature+"</TD></TR></Table>" +
+                            "</div>" +
+                          "</td><TD class='centertd80'>"
+            tableDiv +="<div id='pepsInformation-"+legalEntity.name+"'>&nbsp;</div></TD></TR>"
+            // var otherpart = "<div id='pepsInformation-"+legalEntity.name+"'>&nbsp;</div></TD>"
+            // $('#investorInformation').append(otherpart);
             localStorage.setItem(legalEntity.name, JSON.stringify(pepsDataForRisk));
             //displayPepsDetailInfo(pepsDataForRisk,legalEntity.name);
             // var data = new google.visualization.DataTable();
@@ -254,35 +261,43 @@ function displayPepsInfo(pepsDataForRisk) {
             // data.setProperty()
             // table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
        });
-
+    tableDiv +="</table>"
+    $('#investorInformation').append(tableDiv);
     // }
 }
 function displayPepsDetailInfo(legalEntityName){
-    var pepsDataForRisk = JSON.parse(localStorage.getItem(legalEntityName));
-    //console.log('retrievedObject: ', JSON.parse(pepsDataForRisk));
-    google.charts.load('current', {'packages':['table']});
-    google.charts.setOnLoadCallback(drawTable);
+    var alreadyDisplay = localStorage.getItem(legalEntityName+"-active");
+    if("TRUE"==alreadyDisplay){
+        localStorage.setItem(legalEntityName+"-active", "FALSE");
+        $('#pepsInformation-'+legalEntityName).html('');
+    } else {
+            var pepsDataForRisk = JSON.parse(localStorage.getItem(legalEntityName));
+            //console.log('retrievedObject: ', JSON.parse(pepsDataForRisk));
+            google.charts.load('current', {'packages':['table']});
+            google.charts.setOnLoadCallback(drawTable);
 
-    function drawTable() {
-        pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
-            if (legalEntity.name == legalEntityName) {
+            function drawTable() {
+                pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
+                    if (legalEntity.name == legalEntityName) {
 
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Fisrt Name', {style: 'font-style:bold; font-size:22px;'});
-                data.addColumn('string', 'Last Name', {style: 'font-style:bold; font-size:22px;'});
-                data.addColumn('string', 'Role', {style: 'font-style:bold; font-size:22px;'});
-                data.addColumn('string', 'Country', {style: 'font-style:bold; font-size:22px;'});
-                data.addColumn('string', 'Nationality', {style: 'font-style:bold; font-size:22px;'});
-                legalEntity.peps.forEach(function (pep) {
-                    data.addRow(
-                        [pep.firstName, pep.lastName, pep.role,
-                            pep.country, pep.country]);
-                });
-                var table = new google.visualization.Table(document.getElementById('pepsInformation'));
-                table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
-                $('#pepsInformation').show('');
-            }
-        });
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Fisrt Name', {style: 'font-style:bold; font-size:22px;'});
+                    data.addColumn('string', 'Last Name', {style: 'font-style:bold; font-size:22px;'});
+                    data.addColumn('string', 'Role', {style: 'font-style:bold; font-size:22px;'});
+                    data.addColumn('string', 'Country', {style: 'font-style:bold; font-size:22px;'});
+                    data.addColumn('string', 'Nationality', {style: 'font-style:bold; font-size:22px;'});
+                    legalEntity.peps.forEach(function (pep) {
+                        data.addRow(
+                            [pep.firstName, pep.lastName, pep.role,
+                                pep.country, pep.country]);
+                    });
+                    var table = new google.visualization.Table(document.getElementById('pepsInformation-'+legalEntity.name));
+                    table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+                    //$('#pepsInformation').show('');
+                }
+            });
+        }
+        localStorage.setItem(legalEntityName+"-active", "TRUE");
     }
 }
 function loadPieCharts() {
