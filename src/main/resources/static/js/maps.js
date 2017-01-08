@@ -123,11 +123,11 @@ function drawVectorMap(mapID, mapName, data, worldMap) {
         $('#maps-container').removeClass("col-md-12");
         $("#country-charts").show();
     }
-
     $(mapID + " div.jvectormap-container").remove();
     $(mapID).vectorMap({
         map: mapName,
         backgroundColor: 'transparent',
+        //backgroundColor: '#d0e7f7',
         series: {
             regions: [{
                 scale: {
@@ -141,7 +141,9 @@ function drawVectorMap(mapID, mapName, data, worldMap) {
         zoomOnScroll:false,
         onRegionTipShow : worldMap ? onTipShow : onCountryTipShow,
         onRegionClick : worldMap ? onRegionClick : onCountryClick
+
     });
+
 
 }
 
