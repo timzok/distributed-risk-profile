@@ -20,6 +20,7 @@ public class GlobalControllerExceptionHandler {
 	@ResponseStatus(code=HttpStatus.BAD_REQUEST)
 	public ErrorDetails handleUnknownObjectException(UnknownObjectException anException, HttpServletRequest aRequest) {
 		ErrorDetails errorDetails = new ErrorDetails("Bad Request Error", anException.getMessage(), HttpStatus.BAD_REQUEST.value());
+		anException.printStackTrace();
 		return errorDetails;
 	}
 	
@@ -27,6 +28,7 @@ public class GlobalControllerExceptionHandler {
 	@ResponseStatus(code=HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorDetails handleThrowable(Throwable anException, HttpServletRequest aRequest) {
 		ErrorDetails errorDetails = new ErrorDetails("Internal Server Error", "An unexpected error occurred. Error is of type " + anException.getClass().getSimpleName(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+		anException.printStackTrace();
 		return errorDetails;
 	}
 }
