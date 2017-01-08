@@ -74,8 +74,8 @@ function drawPieChart(chartID, title, l, m, h) {
          ]);
 
          var options = {
-             legend: {position: "none"},
-           title: title,
+           legend: {position: "none"},
+             title: title,
            width: 150,
            height: 150,
            titleTextStyle: { fontSize: 13 },
@@ -88,6 +88,46 @@ function drawPieChart(chartID, title, l, m, h) {
 
          var chart = new google.visualization.PieChart(document.getElementById(chartID));
          chart.draw(data, options);
+           // var counter = 0;
+           //
+           // var handler = setInterval(function(){
+           //     counter = counter + 0.1
+           //     options = {
+           //         legend: {position: "none"},
+           //         title: title,
+           //         width: 150,
+           //         height: 150,
+           //         titleTextStyle: { fontSize: 13 },
+           //         pieHole: 0.6,
+           //         colors: [ '#aaba0a', '#fca311', 'c71D06'],
+           //         pieSliceText: 'none',
+           //         backgroundColor: 'none',
+           //         chartArea: {left:10, top:40, 'width': '100%', 'height': '100%'},
+           //         slices: { 1: {offset: counter},
+           //             2: {offset: counter},
+           //             3: {offset: counter},
+           //         }
+           //     };
+           //     chart.draw(data, options);
+           //
+           //     if (counter > 0.3) clearInterval(handler);
+           // }, 200);
+           // initial value
+           var percent = 0;
+            // start the animation loop
+           var handler = setInterval(function(){
+               // values increment
+               percent += 1;
+               // apply new values
+               data.setValue(0, 1, percent);
+               data.setValue(1, 1, 100 - percent);
+               // update the pie
+               chart.draw(data, options);
+               // check if we have reached the desired value
+               if (percent > 74)
+               // stop the loop
+                   clearInterval(handler);
+           }, 15);
        }
  }
 
@@ -147,14 +187,22 @@ function drawTopTenColumnChart (countryCode){
         };
         var chart = new google.charts.Bar(document.getElementById('topten'));
         chart.draw(data, options);
+        var percent = 0;
+        // start the animation loop
+        var handler = setInterval(function(){
+            // values increment
+            percent += 1;
+            // apply new values
+            data.setValue(0, 1, percent);
+            data.setValue(1, 1, 100 - percent);
+            // update the pie
+            chart.draw(data, options);
+            // check if we have reached the desired value
+            if (percent > 74)
+            // stop the loop
+                clearInterval(handler);
+        }, 15);
     }
-
-    // var cID = 'country-topten';
-    // //var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
-    // var chartDiv = "<div id='" + cID + "' style='width: 100%; height: 100%'>"
-    // chartDiv += "</div>"
-    //
-    // $('#topten').append(chartDiv);
 
 }
 
@@ -188,6 +236,23 @@ function drawColumnChart(countryData) {
         });
 
         chart.draw(data, options);
+        // initial value
+        var percent = 0;
+        // start the animation loop
+        var handler = setInterval(function(){
+            // values increment
+            percent += 1;
+            // apply new values
+            data.setValue(0, 1, percent);
+            data.setValue(1, 1, 100 - percent);
+            // update the pie
+            chart.draw(data, options);
+            // check if we have reached the desired value
+            if (percent > 74)
+            // stop the loop
+                clearInterval(handler);
+        }, 15);
+
     }
 
     google.charts.load('current', {'packages':['bar', 'corechart']});
