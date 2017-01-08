@@ -14,6 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Peps {
 	/**
+	 * Peps unique identifier.
+	 */
+	private String id;
+
+	/**
 	 * The person first name.
 	 */
 	private String firstName;
