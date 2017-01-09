@@ -235,25 +235,26 @@ function drawColumnChart(countryData) {
         });
 
         //chart.draw(data, options);
-
+        // divided variable
+        var numberOfSplitPart = 50;
         // initial value
         var percentInvestor  = 0;
         var percentInvestor2  = 0;
         var countInvestor = countryData.low.investorCount+countryData.medium.investorCount+countryData.high.investorCount;
-        var incInvestor = countryData.low.investorCount/100;
-        var incInvestor2 = (countInvestor-countryData.high.investorCount)/100;
+        var incInvestor = countryData.low.investorCount/numberOfSplitPart;
+        var incInvestor2 = (countInvestor-countryData.high.investorCount)/numberOfSplitPart;
 
         var percentCountry  = 0;
         var percentCountry2  = 0;
         var countCountry = countryData.low.assetValue+countryData.medium.assetValue+countryData.high.assetValue;
-        var incCountry = countryData.low.assetValue/100;
-        var incCountry2 = (countCountry-countryData.high.assetValue)/100;
+        var incCountry = countryData.low.assetValue/numberOfSplitPart;
+        var incCountry2 = (countCountry-countryData.high.assetValue)/numberOfSplitPart;
 
         var percentWorld  = 0;
         var percentWorld2  = 0;
         var countWorld = countryData.low.globalAssetValue+countryData.medium.globalAssetValue+countryData.high.globalAssetValue;
-        var incWorld = countryData.low.globalAssetValue/100;
-        var incWorld2 = (countWorld-countryData.high.globalAssetValue)/100;
+        var incWorld = countryData.low.globalAssetValue/numberOfSplitPart;
+        var incWorld2 = (countWorld-countryData.high.globalAssetValue)/numberOfSplitPart;
 
         // start the animation
         var countnum=0;
@@ -287,7 +288,7 @@ function drawColumnChart(countryData) {
             // update the pie
             chart.draw(data, options);
             // check if we have reached the desired value
-            if (countnum > 100) {
+            if (countnum > numberOfSplitPart) {
                 // stop the loop
                 data.setValue(0, 1, countryData.low.investorCount);
                 data.setValue(0, 2, countryData.medium.investorCount);
@@ -364,24 +365,7 @@ function displayPepsInfo(pepsDataForRisk) {
                             "</div>" +
                           "</td><TD class='centertd80'>"
             tableDiv +="<div id='pepsInformation-"+legalEntity.name+"'>&nbsp;</div></TD></TR>"
-            // var otherpart = "<div id='pepsInformation-"+legalEntity.name+"'>&nbsp;</div></TD>"
-            // $('#investorInformation').append(otherpart);
-            localStorage.setItem(legalEntity.name, JSON.stringify(pepsDataForRisk));
-            //displayPepsDetailInfo(pepsDataForRisk,legalEntity.name);
-            // var data = new google.visualization.DataTable();
-            // data.addColumn('string', 'Fisrt Name',{style: 'font-style:bold; font-size:22px;'});
-            // data.addColumn('string', 'Last Name',{style: 'font-style:bold; font-size:22px;'});
-            // data.addColumn('string', 'Role',{style: 'font-style:bold; font-size:22px;'});
-            // data.addColumn('string', 'Country',{style: 'font-style:bold; font-size:22px;'});
-            // data.addColumn('string', 'Nationality',{style: 'font-style:bold; font-size:22px;'});
-            // legalEntity.peps.forEach(function (pep) {
-            //     data.addRow(
-            //         [pep.firstName,  pep.lastName, pep.role,
-            //             pep.country,pep.country]);
-            // });
-            // var table = new google.visualization.Table(document.getElementById('d-'+cID));
-            // data.setProperty()
-            // table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+             localStorage.setItem(legalEntity.name, JSON.stringify(pepsDataForRisk));
        });
     tableDiv +="</table>"
     $('#investorInformation').append(tableDiv);
@@ -414,7 +398,12 @@ function displayPepsDetailInfo(legalEntityName){
                                 pep.country, pep.country]);
                     });
                     var table = new google.visualization.Table(document.getElementById('pepsInformation-'+legalEntity.name));
-                    table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+                        var options = {
+                            showRowNumber: true,
+                            width: '100%',
+                            height: '100%',
+                        };
+                    table.draw(data, options);
                     //$('#pepsInformation').show('');
                 }
             });

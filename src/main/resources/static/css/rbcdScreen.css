@@ -653,7 +653,7 @@ table.tableNoBorder
 }
 .blockquote{
     width: 90%;
-    border-radius: 25px;
+    border-radius: 5px;
     cursor:pointer;
     display:block;
     background: #002144;
@@ -670,7 +670,7 @@ table.tableNoBorder
     text-align: justify;
 
     /*Borders - (Optional)*/
-    -webkit-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 2px 4px 0px #DFDFDF;
     border-left: 0px solid #4253f4;
     border-right: 0px solid #4253f4;
 
