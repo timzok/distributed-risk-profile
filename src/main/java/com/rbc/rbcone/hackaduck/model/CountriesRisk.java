@@ -36,7 +36,7 @@ public class CountriesRisk {
     /**
      * Risk information for each country.
      */
-	private List<CountryRisk> countries = new ArrayList<CountryRisk>();
+	private List<CountryRisk> countries = new ArrayList<>();
 
 	
 	public CountryRisk getCountryRisk(String aCountryCode) {
