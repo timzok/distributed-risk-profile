@@ -513,7 +513,42 @@ function drawDonutChart(elemId, title, lowRisk, mediumRisk, highRisk) {
          };
 
          var chart = new google.visualization.PieChart(document.getElementById(elemId));
-         chart.draw(data, options);
+
+         //add animation
+		 //clone the original data
+		 var dataAnimated = data.clone();
+		 // Add random column chooser
+		   var myArray = [0, 1, 2];
+		   var rand = Math.floor(Math.random() * myArray.length);
+           var rowOne = myArray[rand];
+           myArray.splice(rand, 1);
+           var rowTwo = myArray[Math.floor(Math.random() * myArray.length)];
+		 //Division layer
+		 var splitNumber=50;
+         // initial value
+         var countnum = 0;
+         // start the animation loop
+         var handler = setInterval(function(){
+         	// values increment
+             countnum += 1
+
+            // apply new values;
+            dataAnimated.setValue(rowOne, 1, data.getValue(rowOne, 1)/(splitNumber-countnum));
+            dataAnimated.setValue(rowTwo, 1, data.getValue(rowTwo, 1)/(splitNumber-countnum));
+            // update the pie
+            chart.draw(dataAnimated, options);
+            // check if we have reached the desired value
+            if (countnum == splitNumber-1) {
+                // stop the loop
+                chart.draw(data, options);
+                clearInterval(handler)
+            }
+           }, 10)
+
+
+           //chart.draw(data, options);
+
+
        }
  }
 
