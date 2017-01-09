@@ -255,7 +255,8 @@ function drawColumnChart(countryData) {
         var incWorld = countryData.low.globalAssetValue/100;
         var incWorld2 = (countWorld-countryData.high.globalAssetValue)/100;
 
-        // start the animation loop
+        // start the animation
+        var countnum=0;
         var handler = setInterval(function(){
             // values increment
             countnum += 1
