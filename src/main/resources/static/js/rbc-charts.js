@@ -150,7 +150,7 @@ function drawTopTenColumnChart (countryCode){
             var r = countryCode[key];
             data.addRow([r.countryCode, r.high.assetValue, (r.high.assetValue/r.high.globalAssetValue)*100]);
         });
-
+        var data2 = data.clone();
 
         var options = {
             //chartArea:{left:20,top:0,width:'100%',height:'100%'},
@@ -179,35 +179,24 @@ function drawTopTenColumnChart (countryCode){
                 colors: [ 'red', 'blue', 'blue']
         };
         var chart = new google.charts.Bar(document.getElementById('topten'));
-        // chart.draw(data, options);
+        chart.draw(data, options);
 
-        // initial value
-        var percent  = 0;
-        var percent2  = 0;
         var countnum = 0;
-        var initialValue = data.getValue(0,1)
-        var initialValue2 = data.getValue(0,2)
-        //calculate in %
-        var count = initialValue+initialValue2;
-        //increment
-        var inc1 = initialValue/100
-        var inc2 = (count-initialValue2)/100;
         // start the animation loop
         var handler = setInterval(function(){
             // values increment
             countnum += 1
-            percent += inc1
-            percent2 += inc2
             // apply new values;
-            data.setValue(0, 1, percent);
-            data.setValue(0, 2, count-percent2);
+            var dataNum;
+            for (dataNum = 0; dataNum < data2.getNumberOfRows(); dataNum+=2) {
+                data2.setValue(dataNum, 1, data.getValue(dataNum,1)/(100-countnum));
+                data2.setValue(dataNum, 2, data.getValue(dataNum,2)/(countnum));
+            }
             // update the pie
-            chart.draw(data, options);
+            chart.draw(data2, options);
             // check if we have reached the desired value
-            if (countnum > 100) {
+            if (countnum == 99) {
                 // stop the loop
-                data.setValue(0, 1, initialValue);
-                data.setValue(0, 2, initialValue2);
                 chart.draw(data, options);
                 clearInterval(handler)
             }
