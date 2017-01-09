@@ -43,6 +43,7 @@ var global = {
 		this.worldwideRisk.medium = 0;
 		this.worldwideRisk.high = 0;
 		this.resetRegion();
+
 	},
 	resetRegion : function() {
     	this.detailLevel.regionCode = null;
@@ -95,6 +96,7 @@ function clearWorldMapPieCharts(removeUpToDetailLevel) {
 			break;
 		}
 	}
+
 }
 
 /**
@@ -106,7 +108,9 @@ function clearWorldMapPieCharts(removeUpToDetailLevel) {
 function updateWorldData(regionData) {
 	// Clear the UI up to the 'world' level included
 	clearWorldMapPieCharts('world');
+
 	// Reset the global data container
+	global.resetWorld();
 	global.resetWorld();
 	// Reference the new region risk data in the new global data container
 	global.setRegionData(regionData);
@@ -170,6 +174,7 @@ function drawPieCharts() {
 				    	drawPieCharts();
 				    	// Refresh the colorization of the countries in the map
 				    	colorizeRegion(currentRegionCode, false);
+                        resizeWorldMap();
 				    	// Update the map: zoom out to redisplay the world map
 				    	zoomAnimate(currentRegionCode, 'world');
 				    });
