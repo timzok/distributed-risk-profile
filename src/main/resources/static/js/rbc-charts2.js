@@ -7,13 +7,13 @@ mapTitles.set("OC", 'APAC');
 mapTitles.set("SA", 'South America');
 
 var mapZoom = {
-	world: {scale: 1.4, offsetX: 43, offsetY: 0, detailLevel: 'world'},
-	EU: {scale: 2.65, offsetX: -280, offsetY: -50, detailLevel: 'region'}, 	
-	NA: {scale: 2.8, offsetX: 20, offsetY: -70, detailLevel: 'region'}, 	
-	SA: {scale: 4, offsetX: -180, offsetY: -265, detailLevel: 'region'}, 	
-	AS: {scale: 4, offsetX: -370, offsetY: -160, detailLevel: 'region'}, 	
-	AF: {scale: 3.5, offsetX: -270, offsetY: -210, detailLevel: 'region'}, 	
-	OC: {scale: 5, offsetX: -500, offsetY: -280, detailLevel: 'region'}
+	world: {scale: 1, offsetX: 43, offsetY: 0, detailLevel: 'world'},
+	EU: {scale: 2, offsetX: -280, offsetY: -50, detailLevel: 'region'},
+	NA: {scale: 2, offsetX: 20, offsetY: -70, detailLevel: 'region'},
+	SA: {scale: 2, offsetX: -180, offsetY: -265, detailLevel: 'region'},
+	AS: {scale: 2, offsetX: -370, offsetY: -160, detailLevel: 'region'},
+	AF: {scale: 2, offsetX: -270, offsetY: -210, detailLevel: 'region'},
+	OC: {scale: 2, offsetX: -500, offsetY: -280, detailLevel: 'region'}
 }
 
 var detailLevels = ['world', 'region', 'top10', 'country'];	// attention: these constants are used as CSS classes in the html code
