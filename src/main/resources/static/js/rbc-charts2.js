@@ -509,6 +509,7 @@ function drawDonutChart(elemId, title, lowRisk, mediumRisk, highRisk) {
          ]);
 
          var options = {
+             tooltip:{ textStyle:{ fontSize: 13 },ignoreBounds:false},
            legend: {position: "none"},
            pieHole: 0.4,
              colors: [ '#aaba0a', '#fca311', '#c71D06'],
@@ -517,7 +518,11 @@ function drawDonutChart(elemId, title, lowRisk, mediumRisk, highRisk) {
  		   backgroundColor: { fill:'transparent' },
 		   chartArea:{left:'auto',top:'auto', right:'auto',width:"80%",height:"80%"}
          };
-
+         // Format Data
+           var datanum;
+           for (dataNum = 0; dataNum < data.getNumberOfRows(); dataNum+=1) {
+               data.setFormattedValue(dataNum, 1,abbreviateNumber(data.getValue(dataNum,1)));
+           }
          var chart = new google.visualization.PieChart(document.getElementById(elemId));
 
          //add animation
@@ -1347,4 +1352,21 @@ function displayPepsDetailInfo(legalEntityName,fromClick){
         }
         localStorage.setItem(legalEntityName+"-active", "TRUE");
     }
+}
+
+function abbreviateNumber(value) {
+    var newValue = value;
+    if (value >= 1000) {
+        var suffixes = ["", "K", "M", "B","T"];
+        var suffixNum = Math.floor( (""+value).length/3 );
+        var shortValue = '';
+        for (var precision = 2; precision >= 1; precision--) {
+            shortValue = parseFloat( (suffixNum != 0 ? (value / Math.pow(1000,suffixNum) ) : value).toPrecision(precision));
+            var dotLessShortValue = (shortValue + '').replace(/[^a-zA-Z 0-9]+/g,'');
+            if (dotLessShortValue.length <= 2) { break; }
+        }
+        if (shortValue % 1 != 0)  shortNum = shortValue.toFixed(1);
+        newValue = shortValue+suffixes[suffixNum];
+    }
+    return newValue;
 }
