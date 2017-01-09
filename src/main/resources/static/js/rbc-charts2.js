@@ -697,7 +697,7 @@ function drawTopTenColumnChart(){
                     compWorld: {side: 'right', label: '%'} // Right y-axis.
                 }
             },
-             	colors: [ 'red', 'blue', 'blue']
+             	colors: [ '#FFD129', '#002144', '#002144']
         };
                
         var chart = new google.charts.Bar(document.getElementById('donutchart-TOP10'));
@@ -713,7 +713,7 @@ function drawTopTenColumnChart(){
             countnum += 1
             // apply new values;
             var dataNum;
-            for (dataNum = 0; dataNum < dataAnimated.getNumberOfRows(); dataNum+=2) {
+            for (dataNum = 0; dataNum < dataAnimated.getNumberOfRows(); dataNum+=1) {
                 dataAnimated.setValue(dataNum, 1, data.getValue(dataNum,1)/(splitNumber-countnum));
                 dataAnimated.setValue(dataNum, 2, data.getValue(dataNum,2)/(splitNumber-countnum));
             }
