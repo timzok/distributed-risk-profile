@@ -122,14 +122,21 @@ function drawWorldMap(fundID){
             map[obj.regionCode] = obj;
             return map;
         }, {});
-        drawMap(data);
-        updateWorldData(regionsMap);
-        bindEvents();
+
+        if (data.regions.length > 0) {
+            drawMap(data);
+            updateWorldData(regionsMap);
+            bindEvents();
+        } else {
+            //alert('Empty fund');
+        }
+
         $('#country-charts').html(''); //Remove potential displayed column charts
         $('#c-topten').hide();
         $("#topten").html('');
         $("#pepsInformations").hide('');
         $("#pepsInformations").html('');
+
     });
 }}
 

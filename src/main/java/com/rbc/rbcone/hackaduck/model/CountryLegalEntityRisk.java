@@ -36,6 +36,7 @@ public class CountryLegalEntityRisk {
 	/**
 	 * The risk category: L (Low), M (Medium), H (High).
 	 */
+	//TODO here you should use enum
 	private String rad;
 	
 	/**
