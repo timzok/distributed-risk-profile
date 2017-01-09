@@ -1,51 +1,29 @@
 package com.rbc.rbcone.hackaduck.rest;
 
 import com.rbc.rbcone.hackaduck.exception.UnknownObjectException;
-import com.rbc.rbcone.hackaduck.model.AbstractEntityRisk;
-import com.rbc.rbcone.hackaduck.model.CountriesRisk;
-import com.rbc.rbcone.hackaduck.model.CountryDetailRisk;
-import com.rbc.rbcone.hackaduck.model.CountryLegalEntityRisk;
-import com.rbc.rbcone.hackaduck.model.CountryRisk;
-import com.rbc.rbcone.hackaduck.model.LegalEntity;
-import com.rbc.rbcone.hackaduck.model.LegalFund;
-import com.rbc.rbcone.hackaduck.model.MockGenerator;
-import com.rbc.rbcone.hackaduck.model.RegionRisk;
-import com.rbc.rbcone.hackaduck.model.RegionsRisk;
-import com.rbc.rbcone.hackaduck.model.Risk;
-import com.rbc.rbcone.hackaduck.model.incoming.RegionRiskDB;
+import com.rbc.rbcone.hackaduck.model.*;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraLegalFund;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraPeps;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraEntityRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraLegalFundRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraPepsRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraRelationRepository;
-import com.rbc.rbcone.hackaduck.model.Peps;
-import com.rbc.rbcone.hackaduck.model.RegionAndCountriesRisk;
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.QuoteMode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
