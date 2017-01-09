@@ -123,7 +123,6 @@ public class BusinessDataServiceImpl implements BusinessDataService {
 			rsltList.add(rslt);
 		}
 		
-		System.out.println("FINAL SIZE:" + rsltList.size());
 		countryRiskRepository.save(rsltList);
 	
 	}
