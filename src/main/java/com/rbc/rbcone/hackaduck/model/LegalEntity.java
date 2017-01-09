@@ -18,6 +18,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LegalEntity {
 	/**
+	 * Legal entity unique identifier.
+	 */
+	private String id;
+	
+	/**
 	 * The legal entity name.
 	 */
 	private String name;

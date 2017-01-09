@@ -1,5 +1,4 @@
 #globalNavMenuContainer{z-index:899;position:relative;}
-
 table.tableNoBorder td {border:none; vertical-align: top; padding-left:5px; padding-right:5px;}
 table.tableNoBorderVAlignBottom td {border:none; vertical-align: bottom; padding-left:5px; padding-right:5px; padding-top:2px; padding-bottom:2px;}
 table.outerBorder {border: 1px; border-style: solid; border-color: #C9C9C9; }
@@ -652,21 +651,77 @@ table.tableNoBorder
     color: #000000;
     font-weight:normal;
 }
-.myTitle {
-    font-size: 2.4rem;
-    line-height: 2.5rem;
-    letter-spacing: 0;
-    font-weight: 300;
-    color: #212121;
-    text-transform: inherit;
-    margin-bottom: 1rem;
-    text-align: center;
+.blockquote{
+    width: 90%;
+    border-radius: 25px;
+    cursor:pointer;
+    display:block;
+    background: #002144;
+    /*background: linear-gradient(rgba(100%, 100%, 100%, 0.55), rgba(100%, 100%, 100%, 0.65));*/
+    padding: 10px 10px 10px 20px;
+    margin: 0 0 20px;
+    position: relative;
+
+    /*Font*/
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.2;
+    color: #666;
+    text-align: justify;
+
+    /*Borders - (Optional)*/
+    -webkit-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.75);
+    border-left: 0px solid #4253f4;
+    border-right: 0px solid #4253f4;
+
+    /*!*Box Shadow - (Optional)*!*/
+    /*-moz-box-shadow: 2px 2px 15px #ccc;*/
+    /*-webkit-box-shadow: 2px 2px 15px #ccc;*/
+    /*box-shadow: 2px 2px 15px #ccc;*/
 }
-.myTitle2 {
-    font-size: 1.5rem;
-    line-height: 1.6rem;
-    letter-spacing: 0.01rem;
-    font-weight: 400;
-    color: #212121;
-    text-align: center;
+
+.blockquote::before{
+
+    /*Font*/
+    font-family: "Open Sans",sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+    color: #999;
+
+    /*Positioning*/
+    position: absolute;
+    left: 10px;
+    top:5px;
+}
+
+.blockquote::after{
+    /*Reset to make sure*/
+    content: "";
+}
+
+.blockquote a{
+    text-decoration: none;
+    background: #eee;
+    cursor: pointer;
+    padding: 0 3px;
+    color: #c76c0c;
+}
+
+.blockquote a:hover{
+    color: #666;
+}
+
+.blockquote em{
+    font-style: italic;
+}
+.centertd20{
+    width: 20% ;
+    vertical-align: middle;
+}
+.centertd80{
+     width: 80% ;
+     vertical-align: middle;
+ }
+.tdcards{
+    color:#FFD129;
 }
