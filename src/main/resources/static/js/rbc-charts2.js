@@ -1085,7 +1085,7 @@ function _zoomAnimateHelper(startZoomKey, endZoomKey) {
 	var offsetYStep = (endOffsetY - startOffsetY)/steps;
 	
 	mapCurrentDetailLevel = mapZoom[endZoomKey].detailLevel;
-	var mapElem = document.getElementById("world");
+	var mapElem = document.querySelector(".jvectormap-container g");
 	for (var i=0; i<steps; i++) {
 		animate(i, startScale + (scaleStep*i), startOffsetX + (offsetXStep*i), startOffsetY + (offsetYStep*i), mapElem);
 	}
@@ -1094,7 +1094,7 @@ function _zoomAnimateHelper(startZoomKey, endZoomKey) {
 
 function zoomStatic(zoomKey) {
 	var zoomData = mapZoom[zoomKey];
-	var mapElem = document.getElementById("world");
+	var mapElem = document.querySelector(".jvectormap-container g");
 	mapCurrentDetailLevel = zoomData.detailLevel;
 	mapElem.setAttribute("transform", "translate(" + zoomData.offsetX + "," + zoomData.offsetY + ") scale(" + zoomData.scale + " " + zoomData.scale + ")");
 }
