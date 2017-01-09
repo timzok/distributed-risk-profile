@@ -362,30 +362,40 @@ function displayPepsInfo(pepsDataForRisk) {
 
 
     //$('#pepsInformations').html('');
-    var tableDiv ="<table width='100%'>"
+    var tableDiv = ""
+    //$('#investorInformation').append("<table width='100%'>");
     // function drawTable() {
         pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
             var cID = 'legal-entity-' + legalEntity.name;
-             tableDiv +="<TR><TD class='centertd20'>" +
-                            "<div class='blockquote' onclick='displayPepsDetailInfo(\""+legalEntity.name+"\")'>" +
+            tableDiv +="<TR><TD class='centertd20'>" +
+                            "<div class='blockquote' onclick='displayPepsDetailInfo(\""+legalEntity.name+"\",\"true\")'>" +
                                 "<Table> <tr> <TD align='left' class='tdcards'><Strong>" + legalEntity.name+ "</strong></TD><TR>"
                                 +" <TD class='tdcards'>"+ legalEntity.type+"</TD></TR><TR>"+
                                   "<TD class='tdcards'>" + legalEntity.nature+"</TD></TR></Table>" +
                             "</div>" +
                           "</td><TD class='centertd80'>"
             tableDiv +="<div id='pepsInformation-"+legalEntity.name+"'>&nbsp;</div></TD></TR>"
+            $('#investorInformation').append(tableDiv);
+            tableDiv="";
              localStorage.setItem(legalEntity.name, JSON.stringify(pepsDataForRisk));
-       });
-    tableDiv +="</table>"
-    $('#investorInformation').append(tableDiv);
+            displayPepsDetailInfo(legalEntity.name,"false");
+       })
+
     // }
 }
-function displayPepsDetailInfo(legalEntityName){
+function displayPepsDetailInfo(legalEntityName,fromClick){
     var alreadyDisplay = localStorage.getItem(legalEntityName+"-active");
-    if("TRUE"==alreadyDisplay){
+    if("TRUE"==alreadyDisplay & "true"==fromClick){
         localStorage.setItem(legalEntityName+"-active", "FALSE");
-        $('#pepsInformation-'+legalEntityName).html('');
-    } else {
+        $('#pepsInformation-'+legalEntityName).hide('');
+    } else if ("true"==fromClick){
+        $('#pepsInformation-'+legalEntityName).show('');
+        localStorage.setItem(legalEntityName+"-active", "TRUE");
+    }
+    else {
+        $('#pepsInformation-'+legalEntityName).append("<DIV id='pepsInformationHeader"+legalEntityName+"' class='blockquote2'>" +
+            "<Strong>" + legalEntityName+ "</strong></DIV>" +
+            "<DIV id='pepsInformationContent"+legalEntityName+"'></DIV>")
             var pepsDataForRisk = JSON.parse(localStorage.getItem(legalEntityName));
             //console.log('retrievedObject: ', JSON.parse(pepsDataForRisk));
             google.charts.load('current', {'packages':['table']});
@@ -406,7 +416,7 @@ function displayPepsDetailInfo(legalEntityName){
                             [pep.firstName, pep.lastName, pep.role,
                                 pep.country, pep.country]);
                     });
-                    var table = new google.visualization.Table(document.getElementById('pepsInformation-'+legalEntity.name));
+                    var table = new google.visualization.Table(document.getElementById('pepsInformationContent'+legalEntity.name));
                         var options = {
                             showRowNumber: true,
                             width: '100%',
