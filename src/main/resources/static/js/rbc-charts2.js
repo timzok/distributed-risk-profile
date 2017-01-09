@@ -730,21 +730,100 @@ function drawColumnChart(countryData) {
 
         google.visualization.events.addListener(chart, 'select', function(e) {
             var selectedItem = chart.getSelection()[0];
-            var countryCode = chart.ga.id.replace("country-chart-", "");
-            var columnIndex = selectedItem.column;
-            var riskMap = {"0": "low", "1": "medium", "2": "high"};
-            getAndDisplayPeps(countryCode, riskMap[columnIndex]);
+            if (selectedItem) {
+                var countryCode = chart.ga.id.replace("country-chart-", "");
+                var columnIndex = selectedItem.column;
+                var riskMap = {"0": "low", "1": "medium", "2": "high"};
+                getAndDisplayPeps(countryCode, riskMap[columnIndex]);
+            }
+
         });
 
-        chart.draw(data, options);
+        //chart.draw(data, options);
+        // divided variable
+        var numberOfSplitPart = 50;
+        // initial value
+        var percentInvestor  = 0;
+        var percentInvestor2  = 0;
+        var countInvestor = countryData.low.investorCount+countryData.medium.investorCount+countryData.high.investorCount;
+        var incInvestor = countryData.low.investorCount/numberOfSplitPart;
+        var incInvestor2 = (countInvestor-countryData.high.investorCount)/numberOfSplitPart;
+
+        var percentCountry  = 0;
+        var percentCountry2  = 0;
+        var countCountry = countryData.low.assetValue+countryData.medium.assetValue+countryData.high.assetValue;
+        var incCountry = countryData.low.assetValue/numberOfSplitPart;
+        var incCountry2 = (countCountry-countryData.high.assetValue)/numberOfSplitPart;
+
+        var percentWorld  = 0;
+        var percentWorld2  = 0;
+        var countWorld = countryData.low.globalAssetValue+countryData.medium.globalAssetValue+countryData.high.globalAssetValue;
+        var incWorld = countryData.low.globalAssetValue/numberOfSplitPart;
+        var incWorld2 = (countWorld-countryData.high.globalAssetValue)/numberOfSplitPart;
+
+        // start the animation
+        var countnum=0;
+        var handler = setInterval(function(){
+            // values increment
+            countnum += 1
+            //Investor
+            percentInvestor += incInvestor
+            percentInvestor2 += incInvestor2
+            // apply new values;
+            data.setValue(0, 1, percentInvestor);
+            data.setValue(0, 2, countryData.medium.investorCount);
+            data.setValue(0, 3, countInvestor-percentInvestor2);
+
+            //Country
+            percentCountry += incCountry
+            percentCountry2 += incCountry2
+            // apply new values;
+            data.setValue(1, 1, percentCountry);
+            data.setValue(1, 2, countryData.medium.assetValue);
+            data.setValue(1, 3, countCountry-percentCountry2);
+
+            //World
+            percentWorld += incWorld
+            percentWorld2 += incWorld2
+            // apply new values;
+            data.setValue(2, 1, percentWorld);
+            data.setValue(2, 2, countryData.medium.globalAssetValue);
+            data.setValue(2, 3, countWorld-percentWorld2);
+
+            // update the pie
+            chart.draw(data, options);
+            // check if we have reached the desired value
+            if (countnum > numberOfSplitPart) {
+                // stop the loop
+                data.setValue(0, 1, countryData.low.investorCount);
+                data.setValue(0, 2, countryData.medium.investorCount);
+                data.setValue(0, 3, countryData.high.investorCount);
+
+                //Country
+
+                data.setValue(1, 1, countryData.low.assetValue);
+                data.setValue(1, 2, countryData.medium.assetValue);
+                data.setValue(1, 3, countryData.high.assetValue);
+
+                //World
+
+                data.setValue(2, 1, countryData.low.globalAssetValue);
+                data.setValue(2, 2, countryData.medium.globalAssetValue);
+                data.setValue(2, 3, countryData.high.globalAssetValue);
+
+                chart.draw(data, options);
+                clearInterval(handler)
+            }
+        }, 10)
+
     }
 
     google.charts.load('current', {'packages':['bar', 'corechart']});
 
     var cID = 'country-chart-' + countryData.countryCode;
     var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
-        chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
-        chartDiv += "</div>"
+    chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
+    chartDiv += "</div>"
 
     $('#country-charts').append(chartDiv);
 
@@ -752,8 +831,8 @@ function drawColumnChart(countryData) {
     google.charts.setOnLoadCallback(drawChart);
 
     var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>";
-        btn += "<i class=\"fa fa-trash\"></i> ";
-        btn += "</a>";
+    btn += "<i class=\"fa fa-trash\"></i> ";
+    btn += "</a>";
 
     $('#c-' + cID).append(btn);
 }
