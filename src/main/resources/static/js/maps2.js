@@ -141,8 +141,14 @@ function drawWorldMap(fundID){
     });
 }}
 
-function drawMap(regionData) {
+function drawMap(data) {
+    var regionColors = {};
 
+    data.regions.forEach(function (region) {
+        regionData[region.regionCode].forEach(function(country) {
+            regionColors[country] = 2;
+        })
+    });
     $('#world-map').html('');
     $('#world-map').vectorMap({
         map: 'world_mill',
@@ -154,7 +160,7 @@ function drawMap(regionData) {
                     '2': '#002144'
                 },
                 attribute: 'fill',
-                values:  regionData
+                values:  regionColors
             }]
         },
         zoomOnScroll: false,
@@ -171,15 +177,6 @@ function setObserver() {
     $( "#fund-selection" ).change(function() {
         $(drawWorldMap(selectedFund()));
     });
-}
-
-function getWorldData(regionData) {
-var regionsList = { };
-$.each( regionData.regions, function( key, val ) {
-    regionsList[val.regionCode] = 2;
-  });
-
-  return regionsList;
 }
 
 function resizeWorldMap(reduce) {

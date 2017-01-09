@@ -1059,26 +1059,17 @@ mapTitles.forEach(function(value, key){
 var mapCurrentDetailLevel = 'world';
 
 function extractRegion(elem) {
-	var elemClasses = elem.getAttribute("class");
-	if (elemClasses!=null) {
-		for (var i=0; i<regions.length; i++) {
-			if (elemClasses.indexOf(regions[i]+" ")>-1) {
-				return regions[i];
-			}
-		}
+	var countryCode = elem.dataset.code;
+	var regionData = countryData[countryCode];
+	if (regionData) {
+		return regionData.region;
 	}
 	return null;
 }
 
 function extractCountry(elem) {
-	var elemClasses = elem.getAttribute("class");
-	if (elemClasses!=null) {
-		var pos = elemClasses.indexOf("country-");
-		if (pos>-1) {
-			return elemClasses.substring(pos+8, pos+10); 
-		}
-	}
-	return null;
+	var countryCode = elem.dataset.code;
+	return countryCode || null;
 }
 
 function colorizeAllRegions() {
@@ -1093,37 +1084,49 @@ function colorizeRegion(regionCode, isMouseOver) {
 
 		if (isSelectedRegion) {
 			// Case : the user selected this region
-			jQuery("." + regionCode).each(function(index, elem){
-				elem.classList.remove("mapRegionData");
-				elem.classList.add("mapRegionDataSelected");
-				elem.classList.remove("mapRegionNoData");
-				elem.classList.remove("mapRegionMouseOver");
+			regionData[regionCode].forEach(function(countryCode){
+				var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
+				if (elem) {
+					elem.classList.remove("mapRegionData");
+					elem.classList.add("mapRegionDataSelected");
+					elem.classList.remove("mapRegionNoData");
+					elem.classList.remove("mapRegionMouseOver");
+				}
 			});
 		} else {
 			if (global.hasRiskDataForRegion(regionCode)) {
 				// Case : the user did not selected this region but risk data is available for that region
-				jQuery("." + regionCode).each(function(index, elem){
-					elem.classList.add("mapRegionData");
-					elem.classList.remove("mapRegionDataSelected");
-					elem.classList.remove("mapRegionNoData");
-					elem.classList.remove("mapRegionMouseOver");
+				regionData[regionCode].forEach(function(countryCode){
+					var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
+					if (elem) {
+						elem.classList.add("mapRegionData");
+						elem.classList.remove("mapRegionDataSelected");
+						elem.classList.remove("mapRegionNoData");
+						elem.classList.remove("mapRegionMouseOver");
+					}
 				});
 			} else {
 				// Case : the user did not selected this region and no risk data is available for that region
-				jQuery("." + regionCode).each(function(index, elem){
-					elem.classList.remove("mapRegionData");
-					elem.classList.remove("mapRegionDataSelected");
-					elem.classList.add("mapRegionNoData");
-					elem.classList.remove("mapRegionMouseOver");
+				regionData[regionCode].forEach(function(countryCode){
+					var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
+					if (elem) {
+						elem.classList.remove("mapRegionData");
+						elem.classList.remove("mapRegionDataSelected");
+						elem.classList.add("mapRegionNoData");
+						elem.classList.remove("mapRegionMouseOver");
+					}
 				});
 			}
 		}
 	} else {
-		jQuery("." + regionCode).each(function(index, elem){
-			elem.classList.remove("mapRegionData");
-			elem.classList.remove("mapRegionDataSelected");
-			elem.classList.remove("mapRegionNoData");
-			elem.classList.add("mapRegionMouseOver");
+		regionData[regionCode].forEach(function(countryCode){
+			var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
+			if (elem) {
+				elem.classList.remove("mapRegionData");
+				elem.classList.remove("mapRegionDataSelected");
+				elem.classList.remove("mapRegionNoData");
+				elem.classList.add("mapRegionMouseOver");
+			}
 		});
 	}	
 }
