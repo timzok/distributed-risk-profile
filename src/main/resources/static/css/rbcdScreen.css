@@ -679,7 +679,34 @@ table.tableNoBorder
     /*-webkit-box-shadow: 2px 2px 15px #ccc;*/
     /*box-shadow: 2px 2px 15px #ccc;*/
 }
+.blockquote2{
+    width: 100%;
+    border-radius: 5px;
+    cursor:pointer;
+    display:block;
+    background: #002144;
+    /*background: linear-gradient(rgba(100%, 100%, 100%, 0.55), rgba(100%, 100%, 100%, 0.65));*/
+    padding: 5px 5px 5px 30px;
+    margin: 0 0 20px;
+    position: relative;
 
+    /*Font*/
+    font-family: Georgia, serif;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #FFD129;
+    text-align: justify;
+
+    /*Borders - (Optional)*/
+    -webkit-box-shadow: 0px 2px 4px 0px #DFDFDF;
+    border-left: 0px solid #4253f4;
+    border-right: 0px solid #4253f4;
+
+    /*!*Box Shadow - (Optional)*!*/
+    /*-moz-box-shadow: 2px 2px 15px #ccc;*/
+    /*-webkit-box-shadow: 2px 2px 15px #ccc;*/
+    /*box-shadow: 2px 2px 15px #ccc;*/
+}
 .blockquote::before{
 
     /*Font*/
@@ -716,7 +743,7 @@ table.tableNoBorder
 }
 .centertd20{
     width: 20% ;
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 .centertd80{
      width: 80% ;
