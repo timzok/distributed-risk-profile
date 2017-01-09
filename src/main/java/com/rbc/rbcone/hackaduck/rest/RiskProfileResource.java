@@ -241,7 +241,7 @@ public class RiskProfileResource {
        	
     		RegionAndCountriesRisk targetRegionCountriesRiskList = null;
     		for (RegionAndCountriesRisk regionAndCountriesRisks : regionAndCountriesRisksList) {
-    			if (regionAndCountriesRisks.getRegionRisk().getRegionCode().equals(aRegionId)) {
+    			if (regionAndCountriesRisks.getRegionRisk().getRegionCode().equalsIgnoreCase(aRegionId)) {
     				targetRegionCountriesRiskList = regionAndCountriesRisks;
     				break;
     			}
