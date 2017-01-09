@@ -105,6 +105,19 @@ $.each( regionData.regions, function( key, val ) {
   return regionsList;
 }
 
+function resizeWorldMap(reduce) {
+    if (reduce) {
+        $('#maps-container').addClass("col-md-8");
+        $('#maps-container').removeClass("col-md-12");
+        $("#country-charts").show();
+    } else {
+        $("#maps-container").addClass("col-md-12");
+        $("#maps-container").removeClass("col-md-8");
+        $("#country-charts").hide();
+
+    }
+}
+
 function getCountriesDataAndDrawMap(fundID, code, callback, placeholder) {
     return $.getJSON( "/api/funds/" + fundID + "/regions/" + code + "/countries", function( data ) {
         var countriesList = {};
@@ -118,3 +131,18 @@ function getCountriesDataAndDrawMap(fundID, code, callback, placeholder) {
         callback(placeholder, maps.get(code), countriesList);
     });
 }
+
+function onCountryClick(e, code){
+    var coutryData = countriesMap[code];
+    if (coutryData) {
+        resizeWorldMap(true);
+        getAndDrawColumnChart(code);
+    }
+}
+
+function getAndDrawColumnChart(countryCode) {
+    //$.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
+    $.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode , function( data ) {
+        drawColumnChart(data);
+    });
+};

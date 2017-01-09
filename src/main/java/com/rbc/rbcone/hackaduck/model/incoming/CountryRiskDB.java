@@ -1,15 +1,12 @@
 package com.rbc.rbcone.hackaduck.model.incoming;
 
-import java.util.List;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.rbc.rbcone.hackaduck.model.RegionRisk;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,7 +28,8 @@ public class CountryRiskDB {
 	public String countryCode;
 	public String countryName;
 	public String rad;
-	public int regionId;
+	public String regionId;
+	//public String regionCode;
 	public double sumAssetValue;
 	public int countEntity;
 	
