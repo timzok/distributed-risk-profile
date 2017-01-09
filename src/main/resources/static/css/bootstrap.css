@@ -24,9 +24,9 @@
 .legend li { float: left; margin-right: 10px; }
 .legend span { border: 1px solid #ccc; float: left; width: 15px; height: 15px; margin: 2px; }
 /* your colors */
-.legend .low { background-color: #aaba0a; }
-.legend .medium { background-color: #fca311; }
-.legend .high { background-color: #c71D06; }
+.legend .low { background-color: #FCA311; }
+.legend .medium { background-color: #6AADE4; }
+.legend .high { background-color: #006AC3; }
 
 
 
