@@ -188,6 +188,7 @@ function resizeWorldMap(reduce) {
         $("#maps-container").addClass("col-md-12");
         $("#maps-container").removeClass("col-md-8");
         $("#country-charts").hide();
+        $("#country-charts").html('');
 
     }
 }
