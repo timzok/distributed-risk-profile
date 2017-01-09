@@ -131,6 +131,7 @@ function drawWorldMap(fundID){
             //alert('Empty fund');
         }
 
+        $(resizeWorldMap());
         $('#country-charts').html(''); //Remove potential displayed column charts
         $('#c-topten').hide();
         $("#topten").html('');
@@ -141,6 +142,8 @@ function drawWorldMap(fundID){
 }}
 
 function drawMap(regionData) {
+
+    $('#world-map').html('');
     $('#world-map').vectorMap({
         map: 'world_mill',
         backgroundColor: 'transparent',

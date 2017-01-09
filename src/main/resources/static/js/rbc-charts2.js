@@ -440,6 +440,7 @@ function getAndDisplayTopTen() {
         global.data.top10 = countriesMap;
         // Refresh the UI
         drawPieCharts();
+        //resizeWorldMap(true).
     });
 };
 
