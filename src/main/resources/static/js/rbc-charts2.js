@@ -583,7 +583,9 @@ function drawOuterDonutChart(elemId, title, lowRisk, globalLowRisk, mediumRisk, 
 		   chartArea:{left:'auto',top:'auto', right:'auto',width:"80%",height:"80%"}
          };
 
-         var chart = new google.visualization.PieChart(containerElem);
+         var chart = new google.visualization.PieChart(containerElem)
+
+
          chart.draw(data, options);
        }
 	}
@@ -644,9 +646,16 @@ function drawTopTenColumnChart(){
         data.addColumn('string', 'Countries');
         data.addColumn('number', 'Asset Value');
         data.addColumn('number', 'World %');
-
+		var highAssetValue=0;
+		var highPercent=0;
         $.each(global.data.top10, function(countryCode, top10Data) {
             data.addRow([countryCode, top10Data.high.assetValue, (top10Data.high.assetValue/top10Data.high.globalAssetValue)*100]);
+            if(highAssetValue<top10Data.high.assetValue){
+                highAssetValue = top10Data.high.assetValue;
+			}
+			if(highPercent<(top10Data.high.assetValue/top10Data.high.globalAssetValue)*100){
+                highPercent = (top10Data.high.assetValue/top10Data.high.globalAssetValue)*100;
+			}
         });
 
 
@@ -676,6 +685,7 @@ function drawTopTenColumnChart(){
                 0: { axis: 'assetNum', visibleInLegend:false }, // Bind series 0 to an axis named 'distance'.
                 1: { axis: 'compWorld', visibleInLegend: false } // Bind series 1 to an axis named 'brightness'.
             },
+            hAxes:{1:{maxValue:highPercent},2:{maxValue:highAssetValue}},
             axes: {
                 y: {
                     assetNum: {label: 'Asset in EUR'}, // Left y-axis.
@@ -686,7 +696,32 @@ function drawTopTenColumnChart(){
         };
                
         var chart = new google.charts.Bar(document.getElementById('donutchart-TOP10'));
-        chart.draw(data, options);
+
+        // add animation
+		var splitNumber = 50;
+		// clone the object
+        var dataAnimated = data.clone();
+        var countnum = 0;
+        // start the animation loop
+        var handler = setInterval(function(){
+            // values increment
+            countnum += 1
+            // apply new values;
+            var dataNum;
+            for (dataNum = 0; dataNum < dataAnimated.getNumberOfRows(); dataNum+=2) {
+                dataAnimated.setValue(dataNum, 1, data.getValue(dataNum,1)/(splitNumber-countnum));
+                dataAnimated.setValue(dataNum, 2, data.getValue(dataNum,2)/(splitNumber-countnum));
+            }
+            // update the pie
+            chart.draw(dataAnimated, options);
+            // check if we have reached the desired value
+            if (countnum == splitNumber-1) {
+                // stop the loop
+                chart.draw(data, options);
+                clearInterval(handler)
+            }
+        }, 10)
+        //chart.draw(data, options);
         
         // Find in the chart all the X axis data (so the countries that compose the top 10) and for each of them add a button that a user can press to obtain country data
         // This operation is done asynchronously because google chart is not yet rendered
@@ -1251,7 +1286,8 @@ function displayPepsInfo(pepsDataForRisk) {
     var tableDiv = ""
     //$('#investorInformation').append("<table width='100%'>");
     // function drawTable() {
-    pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
+	var count = 0;
+    pepsDataForRisk.legalEntities.slice(0,20).forEach(function (legalEntity) {
         var cID = 'legal-entity-' + legalEntity.name;
         tableDiv +="<TR><TD class='centertd20'>" +
             "<div class='blockquote' onclick='displayPepsDetailInfo(\""+legalEntity.name+"\",\"true\")'>" +
@@ -1260,11 +1296,13 @@ function displayPepsInfo(pepsDataForRisk) {
             "<TD class='tdcards'>" + legalEntity.nature+"</TD></TR></Table>" +
             "</div>" +
             "</td><TD class='centertd80'>"
-        tableDiv +="<div id='pepsInformation-"+legalEntity.name+"'>&nbsp;</div></TD></TR>"
+        tableDiv +="<div id='pepsInformation-"+(legalEntity.name).replace(/\s+/g, '')+"'>&nbsp;</div></TD></TR>"
         $('#investorInformation').append(tableDiv);
         tableDiv="";
-        localStorage.setItem(legalEntity.name, JSON.stringify(pepsDataForRisk));
+        localStorage.setItem(legalEntity.name, JSON.stringify(legalEntity));
         displayPepsDetailInfo(legalEntity.name,"false");
+        count++
+
     })
 
     // }
@@ -1279,17 +1317,13 @@ function displayPepsDetailInfo(legalEntityName,fromClick){
         localStorage.setItem(legalEntityName+"-active", "TRUE");
     }
     else {
-        $('#pepsInformation-'+legalEntityName).append("<DIV id='pepsInformationHeader"+legalEntityName+"' class='blockquote2'>" +
+        $('#pepsInformation-'+legalEntityName.replace(/\s+/g, '')).append("<DIV id='pepsInformationHeader"+legalEntityName.replace(/\s+/g, '')+"' class='blockquote2'>" +
             "<Strong>" + legalEntityName+ "</strong></DIV>" +
-            "<DIV id='pepsInformationContent"+legalEntityName+"'></DIV>")
-        var pepsDataForRisk = JSON.parse(localStorage.getItem(legalEntityName));
-        //console.log('retrievedObject: ', JSON.parse(pepsDataForRisk));
+            "<DIV id='pepsInformationContent"+legalEntityName.replace(/\s+/g, '')+"'></DIV>");
+        var legalEntity = JSON.parse(localStorage.getItem(legalEntityName));
         google.charts.load('current', {'packages':['table']});
         google.charts.setOnLoadCallback(drawTable);
-
         function drawTable() {
-            pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
-                if (legalEntity.name == legalEntityName) {
 
                     var data = new google.visualization.DataTable();
                     data.addColumn('string', 'Fisrt Name', {style: 'font-style:bold; font-size:22px;'});
@@ -1302,7 +1336,7 @@ function displayPepsDetailInfo(legalEntityName,fromClick){
                             [pep.firstName, pep.lastName, pep.role,
                                 pep.country, pep.country]);
                     });
-                    var table = new google.visualization.Table(document.getElementById('pepsInformationContent'+legalEntity.name));
+                    var table = new google.visualization.Table(document.getElementById('pepsInformationContent' + (legalEntity.name).replace(/\s+/g, '')));
                     var options = {
                         showRowNumber: true,
                         width: '100%',
@@ -1310,8 +1344,6 @@ function displayPepsDetailInfo(legalEntityName,fromClick){
                     };
                     table.draw(data, options);
                     //$('#pepsInformation').show('');
-                }
-            });
         }
         localStorage.setItem(legalEntityName+"-active", "TRUE");
     }
