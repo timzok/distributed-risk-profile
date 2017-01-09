@@ -1265,20 +1265,15 @@ function getAndDisplayPeps(countryCode,riskLevel){
 
     var csvUrl = "/api/funds/" + selectedFund() + "/countries/" + countryCode + "/legalEntitiesExport/rads/" + riskLevel;
 
-    //$.getJSON( "/jsonfiles/Peps.json" , function( data ) {
     $.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/legalEntities/rads/" + riskLevel, function( data ) {
-        //$.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/" + riskLevel, function( data ) {
-        //$.getJSON( "/jsonfiles/Peps.json" , function( data ) {
-        //$('#pepsInformation').html('');
 
         displayPepsInfo(data);
 
-        var btn  = "<a class='btn btn-default btn-small' type='button' href='" + csvUrl + "' style='position:absolute; top:10px; right:10px'>";
-        btn += "<i class='fa fa-file'></i>to CSV";
+        var btn  = "<a class='btn btn-default btn-small' type='button' href='" + csvUrl + "' style='position:absolute; top:20px; right:20px'>";
+        btn += "<i class='fa fa-file'></i> to CSV";
         btn += "</a>";
 
-
-        $('#pepsInformations').append(btn);
+        $('#pepsList').append(btn);
 
     });
 };
