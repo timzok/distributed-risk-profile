@@ -3,7 +3,7 @@ mapTitles.set("EU", 'Europe');
 mapTitles.set("AF", 'Africa');
 mapTitles.set("AS", 'Asia');
 mapTitles.set("NA", 'North America');
-mapTitles.set("OC", 'APAC');
+mapTitles.set("OC", 'Oceania');
 mapTitles.set("SA", 'South America');
 
 function drawWorldMapPieCharts(regionData) {
@@ -343,8 +343,14 @@ function getAndDisplayPeps(countryCode,riskLevel){
         //$('#pepsInformation').html('');
         $("#pepsInformations").show('');
         $('#investorInformation').html('');
-        //$('#investorInformation').html('');
         displayPepsInfo(data);
+
+        var btn  = "<a class='btn btn-default btn-small' type='button' href='" + csvUrl + "' style='position:absolute; top:10px; right:10px'>";
+        btn += "<i class='fa fa-file'></i>to CSV";
+        btn += "</a>";
+
+
+        $('#pepsInformations').append(btn);
 
     });
 };
