@@ -1270,8 +1270,7 @@ function getAndDisplayPeps(countryCode,riskLevel){
         //$.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/" + riskLevel, function( data ) {
         //$.getJSON( "/jsonfiles/Peps.json" , function( data ) {
         //$('#pepsInformation').html('');
-        $("#pepsInformations").show('');
-        $('#investorInformation').html('');
+
         displayPepsInfo(data);
 
         var btn  = "<a class='btn btn-default btn-small' type='button' href='" + csvUrl + "' style='position:absolute; top:10px; right:10px'>";
@@ -1286,30 +1285,32 @@ function getAndDisplayPeps(countryCode,riskLevel){
 
 function displayPepsInfo(pepsDataForRisk) {
 
-    //$('#pepsInformations').html('');
-    var tableDiv = ""
-    //$('#investorInformation').append("<table width='100%'>");
-    // function drawTable() {
-	var count = 0;
-    pepsDataForRisk.legalEntities.slice(0,20).forEach(function (legalEntity) {
-        var cID = 'legal-entity-' + legalEntity.name;
-        tableDiv +="<TR><TD class='centertd20'>" +
-            "<div class='blockquote' onclick='displayPepsDetailInfo(\""+legalEntity.name+"\",\"true\")'>" +
-            "<Table> <tr> <TD align='left' class='tdcards'><Strong>" + legalEntity.name+ "</strong></TD><TR>"
-            +" <TD class='tdcards'>"+ legalEntity.type+"</TD></TR><TR>"+
-            "<TD class='tdcards'>" + legalEntity.nature+"</TD></TR></Table>" +
-            "</div>" +
-            "</td><TD class='centertd80'>"
-        tableDiv +="<div id='pepsInformation-"+(legalEntity.name).replace(/\s+/g, '')+"'>&nbsp;</div></TD></TR>"
-        $('#investorInformation').append(tableDiv);
-        tableDiv="";
-        localStorage.setItem(legalEntity.name, JSON.stringify(legalEntity));
-        displayPepsDetailInfo(legalEntity.name,"false");
-        count++
+    if (pepsDataForRisk.legalEntities.length <= 0 ) {
+        $("#c-pepsInformations").hide();
+        $('#investorInformation').html('');
+    } else {
+        var tableDiv = ""
+        var count = 0;
+        pepsDataForRisk.legalEntities.slice(0,20).forEach(function (legalEntity) {
+            var cID = 'legal-entity-' + legalEntity.name;
+            tableDiv +="<TR><TD class='centertd20'>" +
+                "<div class='blockquote' onclick='displayPepsDetailInfo(\""+legalEntity.name+"\",\"true\")'>" +
+                "<Table> <tr> <TD align='left' class='tdcards'><Strong>" + legalEntity.name+ "</strong></TD><TR>"
+                +" <TD class='tdcards'>"+ legalEntity.type+"</TD></TR><TR>"+
+                "<TD class='tdcards'>" + legalEntity.nature+"</TD></TR></Table>" +
+                "</div>" +
+                "</td><TD class='centertd80'>"
+            tableDiv +="<div id='pepsInformation-"+(legalEntity.name).replace(/\s+/g, '')+"'>&nbsp;</div></TD></TR>"
+            $('#investorInformation').append(tableDiv);
+            tableDiv="";
+            localStorage.setItem(legalEntity.name, JSON.stringify(legalEntity));
+            displayPepsDetailInfo(legalEntity.name,"false");
+            count++
 
-    })
+        })
+        $("#c-pepsInformations").show();
+    }
 
-    // }
 }
 function displayPepsDetailInfo(legalEntityName,fromClick){
     var alreadyDisplay = localStorage.getItem(legalEntityName+"-active");

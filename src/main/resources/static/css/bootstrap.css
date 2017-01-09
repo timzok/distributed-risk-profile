@@ -5,8 +5,8 @@
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 .jvectormap-region {
-    stroke: white;
-    stroke-width: 0.1;
+    stroke: #002144;
+    stroke-width: 0.2;
 }
 
 .jvectormap-container {

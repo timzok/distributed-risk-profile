@@ -127,16 +127,16 @@ function drawWorldMap(fundID){
             drawMap(data);
             updateWorldData(regionsMap);
             bindEvents();
+            $("#pepsInformations").show('');
         } else {
-            //alert('Empty fund');
+            $("#pepsInformations").hide('');
+            $("#pepsInformations").html('');
         }
 
         $(resizeWorldMap());
         $('#country-charts').html(''); //Remove potential displayed column charts
         $('#c-topten').hide();
         $("#topten").html('');
-        $("#pepsInformations").hide('');
-        $("#pepsInformations").html('');
 
     });
 }}
@@ -157,7 +157,7 @@ function drawMap(data) {
             regions: [{
                 scale: {
                     '1': '#D0DCE9',
-                    '2': '#006AC3'
+                    '2': '#002144' //#006AC3 - Mike: relace color, not enough contrast when having white regions
                 },
                 attribute: 'fill',
                 values:  regionColors
