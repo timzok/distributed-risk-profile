@@ -13,17 +13,19 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class RegionRiskDB {
+public class SaraEntityDB {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	public int id;
-	
-	public String fundId;
-	public String fundName;
-	public String regionId;
+
+	public String saraEntityId;		// fc-bp-id
+	public String residenceCode;	// fc-residence-code
+	public String name;				// fc-name
+	public String nature;			// fc-nature
+	public String type;	
+	public String relationId;
+	public String saraFundId;
 	public String rad;
-	public double sumAssetValue;
-	public int countEntity;
 	
 }

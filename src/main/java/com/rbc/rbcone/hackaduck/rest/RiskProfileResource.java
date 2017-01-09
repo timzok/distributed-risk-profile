@@ -11,20 +11,23 @@ import com.rbc.rbcone.hackaduck.model.LegalFund;
 import com.rbc.rbcone.hackaduck.model.RegionRisk;
 import com.rbc.rbcone.hackaduck.model.RegionsRisk;
 import com.rbc.rbcone.hackaduck.model.Risk;
+import com.rbc.rbcone.hackaduck.model.incoming.CountryRiskDB;
 import com.rbc.rbcone.hackaduck.model.incoming.RegionRiskDB;
+import com.rbc.rbcone.hackaduck.model.incoming.SaraEntityDB;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraLegalFund;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraPeps;
-import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraEntityRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraLegalFundRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraPepsRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.repository.SaraRelationRepository;
+import com.rbc.rbcone.hackaduck.model.incoming.service.BusinessDataService;
 import com.rbc.rbcone.hackaduck.model.Peps;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.QuoteMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,20 +43,18 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api")
 public class RiskProfileResource {
 	// Mocked funds
-    private ArrayList<LegalFund> funds = new ArrayList<LegalFund>();
+    
+	private static final Logger log = LoggerFactory.getLogger(RiskProfileResource.class);
+	private ArrayList<LegalFund> funds = new ArrayList<LegalFund>();
 	
     private static final boolean IS_MOCKED = false;
     private HashMap<String, Double[]> fundIdToGlobalAssetPerRiskCategorykMap = new HashMap<String, Double[]>();
-    
     
     @Autowired
     private SaraLegalFundRepository saraLegalFundRepo;
@@ -61,8 +62,9 @@ public class RiskProfileResource {
     private SaraRelationRepository saraRelationRepo;
     @Autowired
     private SaraPepsRepository saraPepsRepo;
-    @Autowired
-    private SaraEntityRepository saraEntityRepo;
+    
+    @Autowired 
+	private BusinessDataService businessDataService;
     
     public RiskProfileResource() {
     	if (IS_MOCKED) {
@@ -74,6 +76,9 @@ public class RiskProfileResource {
 	
     @RequestMapping(value = "/funds", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public List<LegalFund> getFundList() {
+    	
+    	log.info("getFundsList()");
+    	
     	if (IS_MOCKED) {
     		return funds;
     	} else {
@@ -85,27 +90,35 @@ public class RiskProfileResource {
     	}
     }
 
-    @RequestMapping(value = "/funds2/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public RegionsRisk getRegionRiskList2(@PathVariable("fundId") String aFundId) {
+    /**
+     * 
+     * @param aFundId
+     * @return a RegionsRisk
+     * 
+     * Compared to the deprecated one: Same business logic implemented by Dimitri / Only mapped to an entity containing an aggregation in order to avoid multiple select.
+     */
+   @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
+    public RegionsRisk getRegionRiskList(@PathVariable("fundId") String aFundId) {
     	
+	   log.info("getRegionRiskList:" + "fund id: " + aFundId);
+	   
     	RegionsRisk rslt = new RegionsRisk();
 		// LEM / MATETAM RATET / NA  / H / 0,0 / 1
-
     	// through the service layer
-    	List<RegionRiskDB> = saraRelationRepo.findRegionLevelRelationByFundId(aFundId);
+    	List<RegionRiskDB> riskRegionDbLisg = businessDataService.findRegionLevelRelationByFundId(aFundId);
     	
+    	boolean first = true;
     	
-    	Object[] rsRows = saraRelationRepo.findRegionLevelRelations(aFundId);
-		
-		for (int i=0; i<rsRows.length;i++) {
-			Object[] rsRow = (Object[])rsRows[i];
+    	for (RegionRiskDB currentRiskRegion: riskRegionDbLisg) {
 			
-			if (i==0) {
-				rslt.setFundId((String)rsRow[0]); //LEM
-				rslt.setFundName((String)rsRow[1]); //MATETAM RATET
+			if (first) {
+				rslt.setFundId(currentRiskRegion.getFundId()); //LEM
+				rslt.setFundName(currentRiskRegion.getFundName()); //MATETAM RATET
+				first = false;
 			}
 			
-			String regionCode = (String)rsRow[2]; //NA
+			String regionCode = currentRiskRegion.getRegionId(); //NA
+			
 			RegionRisk regionRisk = rslt.getRegionRisk(regionCode);
 			if (regionRisk==null) {
 				regionRisk = new RegionRisk();
@@ -113,8 +126,8 @@ public class RiskProfileResource {
 				rslt.getRegions().add(regionRisk);
 			}
 			
-			String riskCategory = (String)rsRow[3]; //H
-			Risk risk = new Risk(((BigInteger)rsRow[5]).intValue(), (double)rsRow[4], 0d);		 //1 - 0,0	
+			String riskCategory = currentRiskRegion.getRad(); //H
+			Risk risk = new Risk(currentRiskRegion.getCountEntity(), currentRiskRegion.getSumAssetValue(), 0d);		 //1 - 0,0	
 			regionRisk.setRisk(risk, riskCategory);
 		}
 
@@ -140,9 +153,9 @@ public class RiskProfileResource {
 		return rslt;    	
     }
     
-    
-    @RequestMapping(value = "/funds/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public RegionsRisk getRegionRiskList(@PathVariable("fundId") String aFundId) {
+   	@Deprecated 
+    @RequestMapping(value = "/funds2/{fundId}/regions", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
+    public RegionsRisk getRegionRiskList2(@PathVariable("fundId") String aFundId) {
     	if (IS_MOCKED) {
         	LegalFund targetFund = findLegalFund(aFundId);
         	RegionsRisk rslt = new RegionsRisk();
@@ -240,7 +253,8 @@ public class RiskProfileResource {
 			return rslt;
     	}		
     }
-    
+
+   	@Deprecated
     private int calculateUniqueRandom(List<Integer> existingList)
     {
     	int randomI = (int)(Math.random() * (5)) + 1;
@@ -254,7 +268,75 @@ public class RiskProfileResource {
     }
 
     @RequestMapping(value = "/funds/{fundId}/regions/{regionId}/countries", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public CountriesRisk getCountriesRiskList(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionId) {
+    public CountriesRisk getCountriesRiskList(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionCode) {
+    
+    	//Region id is the code here, not the real regionId. 
+    	
+    	log.info("getCountriesRiskList:" + "fund id: " + aFundId + " region id: "+aRegionCode);
+    	
+    	CountriesRisk rslt = new CountriesRisk();
+
+	
+		List<CountryRiskDB> counryRiskDbList = businessDataService.findCountryRiskByFundAndRegion(aFundId, aRegionCode);
+		
+		boolean first = true;
+		
+		for (CountryRiskDB countryRiskDB: counryRiskDbList){
+		
+			if (first) {
+				rslt.setRegionCode(aRegionCode);
+				rslt.setFundId(aFundId);
+				rslt.setFundName(countryRiskDB.getFundName());
+				first=false;
+			}
+
+			String countryCode = countryRiskDB.getCountryCode();
+			CountryRisk countryRisk = rslt.getCountryRisk(countryCode);
+			
+			if (countryRisk==null) {
+				countryRisk = new CountryRisk();
+				countryRisk.setCountryCode(countryCode);
+				countryRisk.setCountryName(countryRiskDB.getCountryName());
+				rslt.getCountries().add(countryRisk);
+			}
+
+			String riskCategory = countryRiskDB.getRad();
+			Risk risk = new Risk(countryRiskDB.getCountEntity(), countryRiskDB.getSumAssetValue(), 0d);	
+			countryRisk.setRisk(risk, riskCategory);
+		}
+	
+		double globalAssetValueLowCategory = 0.0d;
+		double globalAssetValueMediumCategory = 0.0d;
+		double globalAssetValueHighCategory = 0.0d;
+		
+		for (CountryRisk country : rslt.getCountries()) {
+			country.fillMissingRisks();
+			
+			globalAssetValueLowCategory += country.getLow().getAssetValue();
+			globalAssetValueMediumCategory += country.getMedium().getAssetValue();
+			globalAssetValueHighCategory += country.getHigh().getAssetValue();
+		}
+		
+		
+		fundIdToGlobalAssetPerRiskCategorykMap.put(aFundId, new Double[]{globalAssetValueLowCategory, globalAssetValueMediumCategory, globalAssetValueHighCategory});
+
+		
+		Double[] globalAssetPerRiskCategory = fundIdToGlobalAssetPerRiskCategorykMap.get(aFundId);
+		for (CountryRisk country : rslt.getCountries()) {
+			
+			country.fillMissingRisks();
+			
+			country.getLow().setGlobalAssetValue(globalAssetPerRiskCategory[0]);
+			country.getMedium().setGlobalAssetValue(globalAssetPerRiskCategory[1]);
+			country.getHigh().setGlobalAssetValue(globalAssetPerRiskCategory[2]);
+		}
+		return rslt;
+    	
+    }
+   	
+    @Deprecated
+    @RequestMapping(value = "/funds2/{fundId}/regions/{regionId}/countries", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
+    public CountriesRisk getCountriesRiskList2(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionId) {
     	if (IS_MOCKED) {
         	// Mocked data
         	LegalFund targetFund = findLegalFund(aFundId);
@@ -280,6 +362,7 @@ public class RiskProfileResource {
     	} else {
 			CountriesRisk rslt = new CountriesRisk();
 			rslt.setRegionCode(aRegionId);
+			rslt.setFundId(aFundId);
 		
 			// select f.id as fundId, f.name, c.type as countryCode, c.label as countryName, r.rad, sum(r.asset_Value), count(distinct e.id) 
 			// from country c, region g, sara_legal_fund f, sara_entity e, sara_relation r 
@@ -291,7 +374,7 @@ public class RiskProfileResource {
 				Object[] rsRow = (Object[])rsRows[i];
 				
 				if (i==0) {
-					rslt.setFundId((String)rsRow[0]);
+					
 					rslt.setFundName((String)rsRow[1]);
 				}
 				
@@ -309,9 +392,25 @@ public class RiskProfileResource {
 				countryRisk.setRisk(risk, riskCategory);
 			}
 		
-			Double[] globalAssetPerRiskCategory = fundIdToGlobalAssetPerRiskCategorykMap.get(aFundId);
+			double globalAssetValueLowCategory = 0.0d;
+			double globalAssetValueMediumCategory = 0.0d;
+			double globalAssetValueHighCategory = 0.0d;
 			
 			for (CountryRisk country : rslt.getCountries()) {
+				country.fillMissingRisks();
+				
+				globalAssetValueLowCategory += country.getLow().getAssetValue();
+				globalAssetValueMediumCategory += country.getMedium().getAssetValue();
+				globalAssetValueHighCategory += country.getHigh().getAssetValue();
+			}
+			
+			
+			fundIdToGlobalAssetPerRiskCategorykMap.put(aFundId, new Double[]{globalAssetValueLowCategory, globalAssetValueMediumCategory, globalAssetValueHighCategory});
+
+			
+			Double[] globalAssetPerRiskCategory = fundIdToGlobalAssetPerRiskCategorykMap.get(aFundId);
+			for (CountryRisk country : rslt.getCountries()) {
+				
 				country.fillMissingRisks();
 				
 				country.getLow().setGlobalAssetValue(globalAssetPerRiskCategory[0]);
@@ -323,10 +422,71 @@ public class RiskProfileResource {
     }
 
     @RequestMapping(value = "/funds/{fundId}/regions/{regionId}/topcountries/{topCount}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
-    public CountriesRisk getTopCountriesRiskList(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionId, @PathVariable("topCount") int aTopCount) {
+    public CountriesRisk getTopCountriesRiskList(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionCode, @PathVariable("topCount") int aTopCount) {
+    	
+       	log.info("getTopCountriesRiskList:" + "fund id: " + aFundId + " region id: "+aRegionCode +"--"+aTopCount);
+
+    	
+    	//compared to getCountriesRiskList, the goal is to retrieve all top X High risk countries for wished fund and region
+    	// 3 parameters: nb of values requested + fundId + regionCode
+    	CountriesRisk rslt = new CountriesRisk();
+
+	
+		List<CountryRiskDB> countryRiskDbList = businessDataService.findTopXCountryRiskByFundAndRegion(aFundId, aRegionCode,aTopCount);
+    	
+		boolean first = true;
+		
+		for (CountryRiskDB countryRiskDB: countryRiskDbList)
+		{
+		
+			if (first){
+				rslt.setRegionCode(aRegionCode);
+				rslt.setFundId(aFundId);
+				rslt.setFundName(countryRiskDB.getFundName());
+				first=false;
+			}
+			
+			String countryCode = countryRiskDB.getCountryCode();
+			CountryRisk countryRisk = rslt.getCountryRisk(countryCode);
+			
+			if (countryRisk==null) {
+				countryRisk = new CountryRisk();
+				countryRisk.setCountryCode(countryCode);
+				countryRisk.setCountryName(countryRiskDB.getCountryName());
+				rslt.getCountries().add(countryRisk);
+			}
+			
+			Risk risk = new Risk(countryRiskDB.getCountEntity(),countryRiskDB.getSumAssetValue(), 0d);	
+			countryRisk.setRisk(risk, AbstractEntityRisk.HIGH_RISK_CATEGORY);
+		}
+		
+		double globalAssetValueHighCategory = 0.0d;
+		
+		for (CountryRisk country : rslt.getCountries()) {
+			
+			country.fillHighRisk();
+			
+			//globalAssetValueLowCategory += country.getLow().getAssetValue();
+			//globalAssetValueMediumCategory += country.getMedium().getAssetValue();
+			globalAssetValueHighCategory += country.getHigh().getAssetValue();
+		}
+		fundIdToGlobalAssetPerRiskCategorykMap.put(aFundId, new Double[]{ globalAssetValueHighCategory});
+
+		Double[] globalAssetPerRiskCategory = fundIdToGlobalAssetPerRiskCategorykMap.get(aFundId);
+		
+		for (CountryRisk country : rslt.getCountries()) {
+			country.getHigh().setGlobalAssetValue(globalAssetPerRiskCategory[0]);
+		}
+		return rslt;
+    	
+    }
+    
+    @Deprecated
+    @RequestMapping(value = "/funds2/{fundId}/regions/{regionId}/topcountries/{topCount}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
+    public CountriesRisk getTopCountriesRiskList2(@PathVariable("fundId") String aFundId, @PathVariable("regionId") String aRegionId, @PathVariable("topCount") int aTopCount) {
     	if (IS_MOCKED) {
             // Mocked data
-        	CountriesRisk rslt = getCountriesRiskList(aFundId, aRegionId);
+        	CountriesRisk rslt = getCountriesRiskList2(aFundId, aRegionId);
         	List<CountryRisk> countryRisk = rslt.getCountries();
         	int endIndex = Math.min(countryRisk.size(), aTopCount);
         	rslt.setCountries(countryRisk.subList(0, endIndex));
@@ -363,11 +523,21 @@ public class RiskProfileResource {
 				Risk risk = new Risk(((BigInteger)rsRow[5]).intValue(), (double)rsRow[4], 0d);	
 				countryRisk.setRisk(risk, AbstractEntityRisk.HIGH_RISK_CATEGORY);
 			}
-	
+			
+			double globalAssetValueHighCategory = 0.0d;
+			
+			for (CountryRisk country : rslt.getCountries()) {
+				
+				country.fillHighRisk();
+				
+				globalAssetValueHighCategory += country.getHigh().getAssetValue();
+			}
+			fundIdToGlobalAssetPerRiskCategorykMap.put(aFundId, new Double[]{ globalAssetValueHighCategory});
+
 			Double[] globalAssetPerRiskCategory = fundIdToGlobalAssetPerRiskCategorykMap.get(aFundId);
 			
 			for (CountryRisk country : rslt.getCountries()) {
-				country.getHigh().setGlobalAssetValue(globalAssetPerRiskCategory[2]);
+				country.getHigh().setGlobalAssetValue(globalAssetPerRiskCategory[0]);
 			}
 			return rslt;
     	} 
@@ -375,6 +545,58 @@ public class RiskProfileResource {
 
     @RequestMapping(value = "/funds/{fundId}/countries/{countryId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
     public CountryDetailRisk getCountryRisk(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId) {
+    	
+      	log.info("getCountryRisk:" + "fund id: " + aFundId + " country id: "+aCountryId);
+
+    	
+    	CountryDetailRisk rslt = new CountryDetailRisk();
+
+     	List<CountryRiskDB> counryRiskDbList = businessDataService.findCountryRiskByFundAndCountry(aFundId, aCountryId);
+
+    	boolean first = true;
+    	
+     	for (CountryRiskDB countryRisk: counryRiskDbList){
+    		
+        	if (first){
+       			rslt.setFundId(countryRisk.getFundId());
+				rslt.setFundName(countryRisk.getFundName());
+	        	rslt.setCountryCode(countryRisk.getCountryCode());
+	        	rslt.setCountryName(countryRisk.getCountryName());
+    			first=false;
+    		}
+    		
+    		String riskCategory = countryRisk.getRad();
+			Risk risk = new Risk(countryRisk.getCountEntity(), countryRisk.getSumAssetValue(), 0d);	
+			rslt.setRisk(risk, riskCategory);
+    		
+    	}
+    	
+     	double globalAssetValueLowCategory = 0.0d;
+		double globalAssetValueMediumCategory = 0.0d;
+		double globalAssetValueHighCategory = 0.0d;
+
+		rslt.fillMissingRisks();
+ 		globalAssetValueLowCategory = rslt.getLow().getAssetValue();
+ 		globalAssetValueMediumCategory = rslt.getMedium().getAssetValue();
+ 		globalAssetValueHighCategory = rslt.getHigh().getAssetValue();
+		
+    
+		fundIdToGlobalAssetPerRiskCategorykMap.put(aFundId, new Double[]{ globalAssetValueLowCategory, globalAssetValueMediumCategory, globalAssetValueHighCategory});
+
+		
+		Double[] globalAssetPerRiskCategory = fundIdToGlobalAssetPerRiskCategorykMap.get(aFundId);
+	
+		rslt.fillMissingRisks();
+		rslt.getLow().setGlobalAssetValue(globalAssetPerRiskCategory[0]);
+		rslt.getMedium().setGlobalAssetValue(globalAssetPerRiskCategory[1]);
+		rslt.getHigh().setGlobalAssetValue(globalAssetPerRiskCategory[2]);
+ 		return rslt;
+    	
+    }
+    
+    @Deprecated
+    @RequestMapping(value = "/funds2/{fundId}/countries/{countryId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8"})
+    public CountryDetailRisk getCountryRisk2(@PathVariable("fundId") String aFundId, @PathVariable("countryId") String aCountryId) {
     	if (IS_MOCKED) {
         	// Mocked data
         	LegalFund targetFund = findLegalFund(aFundId);
@@ -410,15 +632,27 @@ public class RiskProfileResource {
     			Risk risk = new Risk(((BigInteger)rsRow[7]).intValue(), (double)rsRow[6], 0d);	
     			rslt.setRisk(risk, riskCategory);
     		}
-
-    		Double[] globalAssetPerRiskCategory = fundIdToGlobalAssetPerRiskCategorykMap.get(aFundId);
     		
+    		double globalAssetValueLowCategory = 0.0d;
+    		double globalAssetValueMediumCategory = 0.0d;
+    		double globalAssetValueHighCategory = 0.0d;
+
+    		rslt.fillMissingRisks();
+     		globalAssetValueLowCategory += rslt.getLow().getAssetValue();
+     		globalAssetValueMediumCategory += rslt.getMedium().getAssetValue();
+     		globalAssetValueHighCategory += rslt.getHigh().getAssetValue();
+    		
+        
+    		fundIdToGlobalAssetPerRiskCategorykMap.put(aFundId, new Double[]{ globalAssetValueLowCategory, globalAssetValueMediumCategory, globalAssetValueHighCategory});
+
+    		
+    		Double[] globalAssetPerRiskCategory = fundIdToGlobalAssetPerRiskCategorykMap.get(aFundId);
+    	
     		rslt.fillMissingRisks();
     		rslt.getLow().setGlobalAssetValue(globalAssetPerRiskCategory[0]);
     		rslt.getMedium().setGlobalAssetValue(globalAssetPerRiskCategory[1]);
     		rslt.getHigh().setGlobalAssetValue(globalAssetPerRiskCategory[2]);
-    		
-    		return rslt;
+     		return rslt;
     	}
     }
 
@@ -485,22 +719,25 @@ public class RiskProfileResource {
 	    	rslt.setFundName(legalFund.getName());
 	    	
     		List<SaraPeps> saraPepsList = saraPepsRepo.findPepsByFundAndCountryAndRiskCategory(aFundId, aCountryId, aRiskCategory);
-    		List<Object[]> saraEntityList = saraEntityRepo.findByFundAndDomicilationAndRiskCategory(aFundId, aCountryId, aRiskCategory);
+    		List<SaraEntityDB> saraEntityList = businessDataService.findByFundAndDomicilationAndRiskCategory(aFundId, aCountryId, aRiskCategory);
+    				//List<Object[]> saraEntityList = .findByFundAndDomicilationAndRiskCategory(aFundId, aCountryId, aRiskCategory);
 
     		HashMap<String, LegalEntity> legalEntityIdToLegalEntityMap = new HashMap<String, LegalEntity>();
-    		String legalEntityId = null; LegalEntity legalEntity = null; String relationId = null;
+    		String legalEntityId = null; 
+    		LegalEntity legalEntity = null; 
+    		String relationId = null;
     		
-    		for (Object[] saraEntityRsRow : saraEntityList) {
-    			legalEntityId = (String)saraEntityRsRow[0];
+    		for (SaraEntityDB saraEntityDB : saraEntityList) {
+    			legalEntityId = saraEntityDB.getSaraEntityId(); 
     			legalEntity = legalEntityIdToLegalEntityMap.get(legalEntityId);
     			
     			if (legalEntity==null) {
-    				legalEntity = new LegalEntity((String)saraEntityRsRow[1], (String)saraEntityRsRow[4], (String)saraEntityRsRow[2], new ArrayList<Peps>());
+    				legalEntity = new LegalEntity(saraEntityDB.getName(), saraEntityDB.getType(), saraEntityDB.getNature(), new ArrayList<Peps>());
     				rslt.getLegalEntities().add(legalEntity);
     				legalEntityIdToLegalEntityMap.put(legalEntityId, legalEntity);
     			}
     			
-    			relationId = (String)saraEntityRsRow[5];
+    			relationId = saraEntityDB.getRelationId();
     			for (SaraPeps saraPeps : saraPepsList) {
     				if (relationId.equals(saraPeps.getRelationId())) {
     					legalEntity.getPeps().add(new Peps(saraPeps.getFirstName(), saraPeps.getLastName(), saraPeps.getRole(), saraPeps.getCountry()));

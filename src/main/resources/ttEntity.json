@@ -1,128 +1,233 @@
 [
   {
-    "fc-bp-id": "BP161228605984636ceae3",
-    "fc-residence-code": "LU",
-    "fc-name": "BPaNH Tast D",
-    "fc-nature": "Legal Entity",
-    "fc-type": "Bank"
-  },
-  {
-    "fc-bp-id": "MIG-DLR-b442",
-    "fc-residence-code": "LU",
-    "fc-name": "RTaeRRRRaeR ReRTaRT R.e.",
-    "fc-nature": "Legal Entity",
-    "fc-type": "Bank"
-  },
-  {
-    "fc-bp-id": "MIG-DLR-CP136",
-    "fc-residence-code": "IT",
-    "fc-name": "RRR ReRaReR RaReRaRaaR RaRRaRaR RaTeR",
-    "fc-nature": "Legal Entity",
-    "fc-type": "Bank"
-  },
-  {
-    "fc-bp-id": "MIG-DLR-b50",
-    "fc-residence-code": "SE",
-    "fc-name": "RTaR ReReeT TeRTR aRRTeRTa eR",
-    "fc-nature": "Legal Entity",
-    "fc-type": "Other Financial Institution"
-  },
-  {
     "fc-bp-id": "BP13112156697846307bf9",
     "fc-residence-code": "NL",
-    "fc-name": "eRTRae RaRTRaRRaTaRaRTaR R.R",
+    "fc-name": "V.N negnirekezrevgroZ aemhcA",
     "fc-nature": "Legal Entity",
     "fc-type": "Other Financial Institution"
   },
   {
-    "fc-bp-id": "BP131017MIG49557427137",
-    "fc-residence-code": "GB",
-    "fc-name": "TeRTRaRRTa aaR RaRaRaaR TRT",
+    "fc-bp-id": "BP160823629624696ccb55",
+    "fc-residence-code": "NL",
+    "fc-name": "htworG tessA itluM dnuF seigetartS llA oceboR",
     "fc-nature": "Legal Entity",
-    "fc-type": "Other Financial Institution"
+    "fc-type": "Investment Fund"
   },
   {
     "fc-bp-id": "MIG-DLR-RL442",
     "fc-residence-code": "CL",
-    "fc-name": "TeRReaR RaeT R.e. RaRRaTaRe Ta RaTRe",
+    "fc-name": "asloB eD aroderroC .A.S laiV niarraL",
     "fc-nature": "Legal Entity",
     "fc-type": "Other Financial Institution"
   },
   {
-    "fc-bp-id": "MIG-DLR-b442",
-    "fc-residence-code": "LU",
-    "fc-name": "RTaeRRRRaeR ReRTaRT R.e.",
+    "fc-bp-id": "20120410378973818A80F746DF",
+    "fc-residence-code": "NL",
+    "fc-name": "peorG oceboR negnimenleeD gnithcitS",
     "fc-nature": "Legal Entity",
-    "fc-type": "Bank"
+    "fc-type": "Foundation\/Association"
   },
   {
     "fc-bp-id": "BP131017MIG49557441367",
     "fc-residence-code": "NL",
-    "fc-name": "RRaRTRaRT TaaRaTaR RaRRaaaRTaRT",
-    "fc-nature": "Legal Entity",
-    "fc-type": "Other Financial Institution"
-  },
-  {
-    "fc-bp-id": "#MIGBOLE-57",
-    "fc-residence-code": "GB",
-    "fc-name": "#aRRa--TRe-TRe999999",
+    "fc-name": "dnofneoisneP nekenieH gnithcitS",
     "fc-nature": "Legal Entity",
     "fc-type": "Other Financial Institution"
   },
   {
     "fc-bp-id": "MIG-DLR-b432",
     "fc-residence-code": "LU",
-    "fc-name": "RRR ReRaReR RaReRaRaaR RaRRaRaR TeRaRRaeRT",
+    "fc-name": "gruobmexuL secivreS seitiruceS sabiraP pnB",
     "fc-nature": "Legal Entity",
     "fc-type": "Bank"
-  },
-  {
-    "fc-bp-id": "BP150923600748783377af",
-    "fc-residence-code": "AI",
-    "fc-name": "ReReTaaR RaaRRa aTaRaaR",
-    "fc-nature": "Natural Person",
-    "fc-type": "Individual"
-  },
-  {
-    "fc-bp-id": "MIG-DLR-a385",
-    "fc-residence-code": "DE",
-    "fc-name": "RaRRaRRReRT eT",
-    "fc-nature": "Legal Entity",
-    "fc-type": "Bank"
-  },
-  {
-    "fc-bp-id": "BP131002MIG41616774311",
-    "fc-residence-code": "LU",
-    "fc-name": "RRR aRRaRRaR RaRRaRaR R.e.\/TTaReT TeRT RTeRTaRR",
-    "fc-nature": "Legal Entity",
-    "fc-type": "Other Financial Institution"
-  },
-  {
-    "fc-bp-id": "MIG-DLR-a1752",
-    "fc-residence-code": "IE",
-    "fc-name": "TeRRe ReRaRT TaTa eRReReRRa TaRaRaT",
-    "fc-nature": "Legal Entity",
-    "fc-type": "Insurance Company"
-  },
-  {
-    "fc-bp-id": "BP150923400703653377af",
-    "fc-residence-code": "MM",
-    "fc-name": "RTaTaRRa eRTaTaTaR",
-    "fc-nature": "Natural Person",
-    "fc-type": "Individual"
   },
   {
     "fc-bp-id": "BP131017MIG49557427137",
-    "fc-residence-code": "GB",
-    "fc-name": "TeRTRaRRTa aaR RaRaRaaR TRT",
+    "fc-residence-code": "BE",
+    "fc-name": "dtL seenimoN coE elttesdnuF",
     "fc-nature": "Legal Entity",
     "fc-type": "Other Financial Institution"
   },
   {
-    "fc-bp-id": "BP131125MIG61467925819",
-    "fc-residence-code": "LU",
-    "fc-name": "RaRaaRa TaRaReTa ReRT & RReRR R.e.",
+    "fc-bp-id": "BP131017MIG49557445443",
+    "fc-residence-code": "CH",
+    "fc-name": "aS eévirP eriacnaB noinU",
     "fc-nature": "Legal Entity",
     "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-PPL14",
+    "fc-residence-code": "NL",
+    "fc-name": "egnahcxE kcotS",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Other Financial Institution"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-b440",
+    "fc-residence-code": "LU",
+    "fc-name": "gruobmexuL knaB siecaC",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "BP131017MIG49557441363",
+    "fc-residence-code": "NL",
+    "fc-name": "eltirP gnithcitS",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Other Financial Institution"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-a884",
+    "fc-residence-code": "CH",
+    "fc-name": "AS eiC & reidO drabmoL knaB",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-b442",
+    "fc-residence-code": "LU",
+    "fc-name": ".A.S gniknaB maertsraelC",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "BP131002MIG41616775337",
+    "fc-residence-code": "NL",
+    "fc-name": "tceriD oceboR orignetceffE gnithcitS",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Other Financial Institution"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-PPL13",
+    "fc-residence-code": "NL",
+    "fc-name": "tsurT GGS origsreggeleB gnithcitS",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Other Financial Institution"
+  },
+  {
+    "fc-bp-id": "BP131024MIG50853486367",
+    "fc-residence-code": "CH",
+    "fc-name": "aS knaB etouqssiwS",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "BP131017MIG49557435267",
+    "fc-residence-code": "ES",
+    "fc-name": ".U.A.S añapsE secivreS rotsevnI cbR",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Other Financial Institution"
+  },
+  {
+    "fc-bp-id": "BP131017MIG49557424087",
+    "fc-residence-code": "NL",
+    "fc-name": "lanoitanretnI knabobaR sA gnidarT )dnalredeN knabobaR( A.B knabneelnereoB-nesieffiaR elartneC evitarepooC",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "201203295892689835616DF46A",
+    "fc-residence-code": "NL",
+    "fc-name": "einulaateM",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Foundation\/Association"
+  },
+  {
+    "fc-bp-id": "BP131002MIG41616765121",
+    "fc-residence-code": "GB",
+    "fc-name": "dtL seenimoN tsurtroN",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Other Financial Institution"
+  },
+  {
+    "fc-bp-id": "BP161228605984636ceae3",
+    "fc-residence-code": "LU",
+    "fc-name": "D tseT HNEPB",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-MP106",
+    "fc-residence-code": "LU",
+    "fc-name": "tnuoccA sremotsuC roF LIB",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-b440",
+    "fc-residence-code": "LU",
+    "fc-name": "gruobmexuL knaB siecaC",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "BP131017MIG49557427137",
+    "fc-residence-code": "BE",
+    "fc-name": "dtL seenimoN coE elttesdnuF",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Other Financial Institution"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-b442",
+    "fc-residence-code": "LU",
+    "fc-name": ".A.S gniknaB maertsraelC",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-CP136",
+    "fc-residence-code": "IT",
+    "fc-name": "naliM secivreS seitiruceS sabiraP pnB",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "BP16051955475287334284",
+    "fc-residence-code": "AF",
+    "fc-name": "nhoJ nhoJ",
+    "fc-nature": "Natural Person",
+    "fc-type": "Individual"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-zzz44",
+    "fc-residence-code": "US",
+    "fc-name": "1 ylnO tseT roF",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Technical entity"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-FM414",
+    "fc-residence-code": "IT",
+    "fc-name": "ailatI elasruccuS - hbmG lanoitanretnI knaB teertS etatS",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-b432",
+    "fc-residence-code": "LU",
+    "fc-name": "gruobmexuL secivreS seitiruceS sabiraP pnB",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "BP140319546297953aa8aa",
+    "fc-residence-code": "SE",
+    "fc-name": "BA mlohkcotS tnemeganaM oiloftroP dezimitpO",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Other Financial Institution"
+  },
+  {
+    "fc-bp-id": "MIG-DLR-a1660",
+    "fc-residence-code": "FR",
+    "fc-name": "ecnarF knaB siecaC",
+    "fc-nature": "Legal Entity",
+    "fc-type": "Bank"
+  },
+  {
+    "fc-bp-id": "BP131028MIG66448863801",
+    "fc-residence-code": "SE",
+    "fc-name": "mlohkE folO-sliN",
+    "fc-nature": "Natural Person",
+    "fc-type": "Individual"
   }
 ]

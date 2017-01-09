@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rbc.rbcone.hackaduck.model.country.Country;
 import com.rbc.rbcone.hackaduck.model.country.Region;
-import com.rbc.rbcone.hackaduck.model.country.repository.CountryRepository;
 import com.rbc.rbcone.hackaduck.model.country.repository.RegionRepository;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraEntity;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraLegalFund;
@@ -81,19 +80,19 @@ public class DistributedRiskProfileApplication {
 		TypeReference<List<SaraEntity>> mapType = new TypeReference<List<SaraEntity>>() {};
 		List<SaraEntity> saraEntity = mapper.readValue(this.getClass().getResourceAsStream("/ttEntity.json"),mapType);
 		saraEntityRepo.save(saraEntity);
-		
+		log.info("TTENTITY.JSON loaded");
 		TypeReference<List<SaraPeps>> pepsType = new TypeReference<List<SaraPeps>>() {};
 		List<SaraPeps> peps = mapper.readValue(this.getClass().getResourceAsStream("/ttPeps.json"),pepsType);
 		saraPepsRepo.save(peps);
-		
+		log.info("TTPEPS.JSON loaded");
 		TypeReference<List<SaraLegalFund>> saraLegalFundType = new TypeReference<List<SaraLegalFund>>() {};
 		List<SaraLegalFund> saraLegalFunds = mapper.readValue(this.getClass().getResourceAsStream("/ttLegalFund.json"),saraLegalFundType);
 		saraLegalFundRepo.save(saraLegalFunds);
-	
+		log.info("TTLEGALFUND.JSON loaded");
 		TypeReference<List<SaraRelation>> saraRelationType = new TypeReference<List<SaraRelation>>() {};
 		List<SaraRelation> saraRelation = mapper.readValue(this.getClass().getResourceAsStream("/ttRelationEntLF.json"),saraRelationType);
 		saraRelationRepo.save(saraRelation);
-		
+		log.info("TTRELATIOnENTITY.JSON loaded");
 		// making a new db table for the relation of all regions
 		//select f.id as fundId, f.name, g.name as regionId, r.rad, sum(r.asset_Value), count(distinct e.id)
 		//from country c, region g, sara_legal_fund f, sara_entity e, sara_relation r
@@ -102,6 +101,7 @@ public class DistributedRiskProfileApplication {
 		
 		businessDataService.feedBusinessDataForRegions();
 		businessDataService.feedBusinessDataForCountries();
+		businessDataService.feedBusinessDataForSaraEntities();
 		
 	}
 	

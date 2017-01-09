@@ -42,6 +42,14 @@ public abstract class AbstractEntityRisk {
 		} 
 	}
 	
+	public void fillHighRisk(){
+		
+		if (high==null) {
+			high = new Risk(0, 0, 0);
+		} 
+		
+	}
+	
 	public void fillMissingRisks() {
 		if (low==null) {
 			low = new Risk(0, 0, 0);
