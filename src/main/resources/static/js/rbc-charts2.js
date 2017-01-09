@@ -8,7 +8,7 @@ mapTitles.set("SA", 'South America');
 
 var mapZoom = {
 	world: {scale: 1, offsetX: 43, offsetY: 0, detailLevel: 'world'},
-	EU: {scale: 2, offsetX: -280, offsetY: -50, detailLevel: 'region'},
+	EU: {scale: 1.5, offsetX: -280, offsetY: -50, detailLevel: 'region'},
 	NA: {scale: 2, offsetX: 20, offsetY: -70, detailLevel: 'region'},
 	SA: {scale: 2, offsetX: -180, offsetY: -265, detailLevel: 'region'},
 	AS: {scale: 2, offsetX: -370, offsetY: -160, detailLevel: 'region'},
