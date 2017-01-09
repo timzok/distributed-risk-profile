@@ -10,5 +10,11 @@
     "fc-lf-domiciliation": "US",
     "fc-lf-name": "Legal Fund LF000002",
     "fc-region-id": "DEMO"
+  },
+  {
+    "fc-lf-id": "LF000003",
+    "fc-lf-domiciliation": "CA",
+    "fc-lf-name": "Legal Fund LF000003",
+    "fc-region-id": "DEMO"
   }
 ]

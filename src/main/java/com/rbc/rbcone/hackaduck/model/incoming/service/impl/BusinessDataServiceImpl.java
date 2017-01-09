@@ -64,7 +64,6 @@ public class BusinessDataServiceImpl implements BusinessDataService {
 			rsltList.add(rslt);	
 		}
 		
-		System.out.println("FINAL SIZE:" + rsltList.size());
 		regionRiskRepository.save(rsltList);	
 	}
 	
@@ -111,7 +110,7 @@ public class BusinessDataServiceImpl implements BusinessDataService {
 			CountryRiskDB rslt = new CountryRiskDB();
 			Object[] rsRow = (Object[]) rsRows[i];
 			
-			System.out.println(rsRow[0]+"-"+rsRow[1]+"-"+rsRow[2]+"-"+rsRow[3]+"-"+rsRow[4]+"-"+rsRow[5]+"-"+rsRow[6]+"-"+rsRow[7]);
+			//System.out.println(rsRow[0]+"-"+rsRow[1]+"-"+rsRow[2]+"-"+rsRow[3]+"-"+rsRow[4]+"-"+rsRow[5]+"-"+rsRow[6]+"-"+rsRow[7]);
 			
 			rslt.setFundId((String)rsRow[0]);
 			rslt.setFundName((String)rsRow[1]);
