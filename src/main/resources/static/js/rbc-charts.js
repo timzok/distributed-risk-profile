@@ -220,8 +220,13 @@ function getAndDisplayPeps(countryCode,riskLevel){
         //$('#pepsInformation').html('');
         $("#pepsInformations").show('');
         $('#investorInformation').html('');
-        //$('#investorInformation').html('');
         displayPepsInfo(data);
+
+        var btn  = "<a class='btn btn-default' type='button' href='" + csvUrl + "' style='position:absolute; top:20px; right:20px'>";
+        btn += "<i class='fa fa-file'>Export to CSV</i>";
+        btn += "</a>";
+
+        $('#pepsInformations').append(btn);
 
     });
 };
