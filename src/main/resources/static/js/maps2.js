@@ -156,8 +156,8 @@ function drawMap(data) {
         series: {
             regions: [{
                 scale: {
-                    '1': 'FFF',
-                    '2': '#002144'
+                    '1': '#D0DCE9',
+                    '2': '#006AC3'
                 },
                 attribute: 'fill',
                 values:  regionColors
