@@ -513,7 +513,42 @@ function drawDonutChart(elemId, title, lowRisk, mediumRisk, highRisk) {
          };
 
          var chart = new google.visualization.PieChart(document.getElementById(elemId));
-         chart.draw(data, options);
+
+         //add animation
+		 //clone the original data
+		 var dataAnimated = data.clone();
+		 // Add random column chooser
+		   var myArray = [0, 1, 2];
+		   var rand = Math.floor(Math.random() * myArray.length);
+           var rowOne = myArray[rand];
+           myArray.splice(rand, 1);
+           var rowTwo = myArray[Math.floor(Math.random() * myArray.length)];
+		 //Division layer
+		 var splitNumber=50;
+         // initial value
+         var countnum = 0;
+         // start the animation loop
+         var handler = setInterval(function(){
+         	// values increment
+             countnum += 1
+
+            // apply new values;
+            dataAnimated.setValue(rowOne, 1, data.getValue(rowOne, 1)/(splitNumber-countnum));
+            dataAnimated.setValue(rowTwo, 1, data.getValue(rowTwo, 1)/(splitNumber-countnum));
+            // update the pie
+            chart.draw(dataAnimated, options);
+            // check if we have reached the desired value
+            if (countnum == splitNumber-1) {
+                // stop the loop
+                chart.draw(data, options);
+                clearInterval(handler)
+            }
+           }, 10)
+
+
+           //chart.draw(data, options);
+
+
        }
  }
 
@@ -692,7 +727,8 @@ function drawTopTenColumnChart(){
  */
 function countryDetailActionHandlerEvent(countryCode) {
 	getAndDisplayCountryDetails(countryCode);
-	getAndDisplayPeps(countryCode, 'H');
+    getAndDisplayPepsPie(countryCode, 'H');
+    getAndDisplayPeps(countryCode, 'H');
 }
 
 
@@ -730,21 +766,101 @@ function drawColumnChart(countryData) {
 
         google.visualization.events.addListener(chart, 'select', function(e) {
             var selectedItem = chart.getSelection()[0];
-            var countryCode = chart.ga.id.replace("country-chart-", "");
-            var columnIndex = selectedItem.column;
-            var riskMap = {"0": "low", "1": "medium", "2": "high"};
-            getAndDisplayPeps(countryCode, riskMap[columnIndex]);
+            if (selectedItem) {
+                var countryCode = chart.ga.id.replace("country-chart-", "");
+                var columnIndex = selectedItem.column;
+                var riskMap = {"0": "low", "1": "medium", "2": "high"};
+                getAndDisplayPepsPie(countryCode, riskMap[columnIndex]);
+                getAndDisplayPeps(countryCode, riskMap[columnIndex]);
+            }
+
         });
 
-        chart.draw(data, options);
+        //chart.draw(data, options);
+        // divided variable
+        var numberOfSplitPart = 50;
+        // initial value
+        var percentInvestor  = 0;
+        var percentInvestor2  = 0;
+        var countInvestor = countryData.low.investorCount+countryData.medium.investorCount+countryData.high.investorCount;
+        var incInvestor = countryData.low.investorCount/numberOfSplitPart;
+        var incInvestor2 = (countInvestor-countryData.high.investorCount)/numberOfSplitPart;
+
+        var percentCountry  = 0;
+        var percentCountry2  = 0;
+        var countCountry = countryData.low.assetValue+countryData.medium.assetValue+countryData.high.assetValue;
+        var incCountry = countryData.low.assetValue/numberOfSplitPart;
+        var incCountry2 = (countCountry-countryData.high.assetValue)/numberOfSplitPart;
+
+        var percentWorld  = 0;
+        var percentWorld2  = 0;
+        var countWorld = countryData.low.globalAssetValue+countryData.medium.globalAssetValue+countryData.high.globalAssetValue;
+        var incWorld = countryData.low.globalAssetValue/numberOfSplitPart;
+        var incWorld2 = (countWorld-countryData.high.globalAssetValue)/numberOfSplitPart;
+
+        // start the animation
+        var countnum=0;
+        var handler = setInterval(function(){
+            // values increment
+            countnum += 1
+            //Investor
+            percentInvestor += incInvestor
+            percentInvestor2 += incInvestor2
+            // apply new values;
+            data.setValue(0, 1, percentInvestor);
+            data.setValue(0, 2, countryData.medium.investorCount);
+            data.setValue(0, 3, countInvestor-percentInvestor2);
+
+            //Country
+            percentCountry += incCountry
+            percentCountry2 += incCountry2
+            // apply new values;
+            data.setValue(1, 1, percentCountry);
+            data.setValue(1, 2, countryData.medium.assetValue);
+            data.setValue(1, 3, countCountry-percentCountry2);
+
+            //World
+            percentWorld += incWorld
+            percentWorld2 += incWorld2
+            // apply new values;
+            data.setValue(2, 1, percentWorld);
+            data.setValue(2, 2, countryData.medium.globalAssetValue);
+            data.setValue(2, 3, countWorld-percentWorld2);
+
+            // update the pie
+            chart.draw(data, options);
+            // check if we have reached the desired value
+            if (countnum > numberOfSplitPart) {
+                // stop the loop
+                data.setValue(0, 1, countryData.low.investorCount);
+                data.setValue(0, 2, countryData.medium.investorCount);
+                data.setValue(0, 3, countryData.high.investorCount);
+
+                //Country
+
+                data.setValue(1, 1, countryData.low.assetValue);
+                data.setValue(1, 2, countryData.medium.assetValue);
+                data.setValue(1, 3, countryData.high.assetValue);
+
+                //World
+
+                data.setValue(2, 1, countryData.low.globalAssetValue);
+                data.setValue(2, 2, countryData.medium.globalAssetValue);
+                data.setValue(2, 3, countryData.high.globalAssetValue);
+
+                chart.draw(data, options);
+                clearInterval(handler)
+            }
+        }, 10)
+
     }
 
     google.charts.load('current', {'packages':['bar', 'corechart']});
 
     var cID = 'country-chart-' + countryData.countryCode;
     var chartDiv  = "<div id='c-" + cID + "' style=\"position:relative\">"
-        chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
-        chartDiv += "</div>"
+    chartDiv += "<div id='" + cID + "' style='width: 100%; height: 100%'>"
+    chartDiv += "</div>"
 
     $('#country-charts').append(chartDiv);
 
@@ -752,13 +868,13 @@ function drawColumnChart(countryData) {
     google.charts.setOnLoadCallback(drawChart);
 
     var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>";
-        btn += "<i class=\"fa fa-trash\"></i> ";
-        btn += "</a>";
+    btn += "<i class=\"fa fa-trash\"></i> ";
+    btn += "</a>";
 
     $('#c-' + cID).append(btn);
 }
 
-function getAndDisplayPeps(countryCode, riskLevel) {
+function getAndDisplayPepsPie(countryCode, riskLevel) {
     $.getJSON("/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/legalEntities/rads/" + riskLevel, function(data) {
  	   // Reference the obtained data by the global data structure
  	   global.data.peps = data;
@@ -1097,4 +1213,102 @@ function zoomStatic(zoomKey) {
 	var mapElem = document.querySelector(".jvectormap-container g");
 	mapCurrentDetailLevel = zoomData.detailLevel;
 	mapElem.setAttribute("transform", "translate(" + zoomData.offsetX + "," + zoomData.offsetY + ") scale(" + zoomData.scale + " " + zoomData.scale + ")");
+}
+
+
+// Reintegration of the peps
+
+function getAndDisplayPeps(countryCode,riskLevel){
+
+    var csvUrl = "/api/funds/" + selectedFund() + "/countries/" + countryCode + "/legalEntitiesExport/rads/" + riskLevel;
+
+    //$.getJSON( "/jsonfiles/Peps.json" , function( data ) {
+    $.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/legalEntities/rads/" + riskLevel, function( data ) {
+        //$.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode+ "/" + riskLevel, function( data ) {
+        //$.getJSON( "/jsonfiles/Peps.json" , function( data ) {
+        //$('#pepsInformation').html('');
+        $("#pepsInformations").show('');
+        $('#investorInformation').html('');
+        displayPepsInfo(data);
+
+        var btn  = "<a class='btn btn-default btn-small' type='button' href='" + csvUrl + "' style='position:absolute; top:10px; right:10px'>";
+        btn += "<i class='fa fa-file'></i>to CSV";
+        btn += "</a>";
+
+
+        $('#pepsInformations').append(btn);
+
+    });
+};
+
+function displayPepsInfo(pepsDataForRisk) {
+
+    //$('#pepsInformations').html('');
+    var tableDiv = ""
+    //$('#investorInformation').append("<table width='100%'>");
+    // function drawTable() {
+    pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
+        var cID = 'legal-entity-' + legalEntity.name;
+        tableDiv +="<TR><TD class='centertd20'>" +
+            "<div class='blockquote' onclick='displayPepsDetailInfo(\""+legalEntity.name+"\",\"true\")'>" +
+            "<Table> <tr> <TD align='left' class='tdcards'><Strong>" + legalEntity.name+ "</strong></TD><TR>"
+            +" <TD class='tdcards'>"+ legalEntity.type+"</TD></TR><TR>"+
+            "<TD class='tdcards'>" + legalEntity.nature+"</TD></TR></Table>" +
+            "</div>" +
+            "</td><TD class='centertd80'>"
+        tableDiv +="<div id='pepsInformation-"+legalEntity.name+"'>&nbsp;</div></TD></TR>"
+        $('#investorInformation').append(tableDiv);
+        tableDiv="";
+        localStorage.setItem(legalEntity.name, JSON.stringify(pepsDataForRisk));
+        displayPepsDetailInfo(legalEntity.name,"false");
+    })
+
+    // }
+}
+function displayPepsDetailInfo(legalEntityName,fromClick){
+    var alreadyDisplay = localStorage.getItem(legalEntityName+"-active");
+    if("TRUE"==alreadyDisplay & "true"==fromClick){
+        localStorage.setItem(legalEntityName+"-active", "FALSE");
+        $('#pepsInformation-'+legalEntityName).hide('');
+    } else if ("true"==fromClick){
+        $('#pepsInformation-'+legalEntityName).show('');
+        localStorage.setItem(legalEntityName+"-active", "TRUE");
+    }
+    else {
+        $('#pepsInformation-'+legalEntityName).append("<DIV id='pepsInformationHeader"+legalEntityName+"' class='blockquote2'>" +
+            "<Strong>" + legalEntityName+ "</strong></DIV>" +
+            "<DIV id='pepsInformationContent"+legalEntityName+"'></DIV>")
+        var pepsDataForRisk = JSON.parse(localStorage.getItem(legalEntityName));
+        //console.log('retrievedObject: ', JSON.parse(pepsDataForRisk));
+        google.charts.load('current', {'packages':['table']});
+        google.charts.setOnLoadCallback(drawTable);
+
+        function drawTable() {
+            pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
+                if (legalEntity.name == legalEntityName) {
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Fisrt Name', {style: 'font-style:bold; font-size:22px;'});
+                    data.addColumn('string', 'Last Name', {style: 'font-style:bold; font-size:22px;'});
+                    data.addColumn('string', 'Role', {style: 'font-style:bold; font-size:22px;'});
+                    data.addColumn('string', 'Country', {style: 'font-style:bold; font-size:22px;'});
+                    data.addColumn('string', 'Nationality', {style: 'font-style:bold; font-size:22px;'});
+                    legalEntity.peps.forEach(function (pep) {
+                        data.addRow(
+                            [pep.firstName, pep.lastName, pep.role,
+                                pep.country, pep.country]);
+                    });
+                    var table = new google.visualization.Table(document.getElementById('pepsInformationContent'+legalEntity.name));
+                    var options = {
+                        showRowNumber: true,
+                        width: '100%',
+                        height: '100%',
+                    };
+                    table.draw(data, options);
+                    //$('#pepsInformation').show('');
+                }
+            });
+        }
+        localStorage.setItem(legalEntityName+"-active", "TRUE");
+    }
 }

@@ -42,10 +42,78 @@ function renderMap(code){
 function onRegionClick(e, code){
 }
 
-function onCountryClick(e, code){
-}
+function bindEvents(){
+    var currentMouseOverRegion = null;
+    var mouseEventTimeout = new Map();
 
-function showWorldMap(){
+    $("path").click(function(event){
+        var elem = event.target;
+
+        var regionCode = extractRegion(elem);
+        if (regionCode!=null) {
+            if (mapCurrentDetailLevel=='world') {
+                // Case : the current map displays the full world
+                if (currentMouseOverRegion!=null) {
+                    currentMouseOverRegion = null;
+                    regionDetailActionHandlerEvent(regionCode);
+                }
+            } else {
+                // Case : the current map is focusing on a geographical region
+                countryDetailActionHandlerEvent(extractCountry(elem));
+            }
+        }
+    });
+
+    $("path").mouseenter(function(event) {
+        // Case : the user move the mouse over a new country
+        var elem = event.target;
+        var regionCode = extractRegion(elem);
+
+        if ((regionCode!=null) && (global.hasRiskDataForRegion(regionCode))) {
+            if (mapCurrentDetailLevel=='world') {
+                // Case : the current map displays the full world, so no focusing on a geographical region
+                if (currentMouseOverRegion != regionCode) {
+                    // Case : the user changed of geographical region
+                    // Action : colorize the region pointed by the mouse
+                    currentMouseOverRegion = regionCode;
+                    colorizeRegion(currentMouseOverRegion, true);
+                } else {
+                    // Case : the mouse was on a country but moved to another country of the same region
+                    // Action : cancel the clear colorize action
+                    var timeoutId = mouseEventTimeout.get(regionCode);
+                    if (timeoutId) {
+                        window.clearTimeout(timeoutId);
+                        mouseEventTimeout.delete(regionCode);
+                    }
+                }
+            } else {
+                // Case : the current map is focusing on a geographical region
+                currentSelectedRegion = regionCode;
+                colorizeCountry(extractCountry(elem), regionCode, true);
+            }
+        }
+    });
+
+    $("path").mouseout(function(event){
+        // Case : the user move the mouse outside of a country
+        if (mapCurrentDetailLevel=='world') {
+            // Case : the current map displays the full world, so no focusing on a geographical region
+            if (currentMouseOverRegion!=null) {
+                var currentSelectedRegionCp = currentMouseOverRegion;
+                mouseEventTimeout.set(currentSelectedRegionCp, window.setTimeout(function() {
+                    if (currentSelectedRegionCp!=currentMouseOverRegion) {
+                        currentMouseOverRegion = null;
+                    }
+                    colorizeRegion(currentSelectedRegionCp, null);
+                }, 250));
+            }
+        } else {
+            // Case : the current map is focusing on a geographical region
+            var elem = event.target;
+            currentMouseOverRegion = null;
+            colorizeCountry(extractCountry(elem), extractRegion(elem), false);
+        }
+    });
 }
 
 function drawWorldMap(fundID){
@@ -56,21 +124,19 @@ function drawWorldMap(fundID){
         }, {});
         drawMap(data);
         updateWorldData(regionsMap);
+        bindEvents();
         $('#country-charts').html(''); //Remove potential displayed column charts
         $('#c-topten').hide();
         $("#topten").html('');
         $("#pepsInformations").hide('');
         $("#pepsInformations").html('');
-        zoomStatic('world');
     });
 }}
-
 
 function drawMap(regionData) {
     $('#world-map').vectorMap({
         map: 'world_mill',
         backgroundColor: 'transparent',
-        //backgroundColor: '#d0e7f7',
         series: {
             regions: [{
                 scale: {
@@ -81,8 +147,9 @@ function drawMap(regionData) {
                 values:  regionData
             }]
         },
-        zoomOnScroll:false,
-        zoomButtons : false
+        zoomOnScroll: false,
+        zoomButtons : false,
+        onRegionClick : onCountryClick
     });
 }
 
@@ -105,6 +172,19 @@ $.each( regionData.regions, function( key, val ) {
   return regionsList;
 }
 
+function resizeWorldMap(reduce) {
+    if (reduce) {
+        $('#maps-container').addClass("col-md-8");
+        $('#maps-container').removeClass("col-md-12");
+        $("#country-charts").show();
+    } else {
+        $("#maps-container").addClass("col-md-12");
+        $("#maps-container").removeClass("col-md-8");
+        $("#country-charts").hide();
+
+    }
+}
+
 function getCountriesDataAndDrawMap(fundID, code, callback, placeholder) {
     return $.getJSON( "/api/funds/" + fundID + "/regions/" + code + "/countries", function( data ) {
         var countriesList = {};
@@ -118,3 +198,18 @@ function getCountriesDataAndDrawMap(fundID, code, callback, placeholder) {
         callback(placeholder, maps.get(code), countriesList);
     });
 }
+
+function onCountryClick(e, code){
+    var coutryData = countriesMap[code];
+    if (coutryData) {
+        resizeWorldMap(true);
+        getAndDrawColumnChart(code);
+    }
+}
+
+function getAndDrawColumnChart(countryCode) {
+    //$.getJSON( "../jsonfiles/Country" + countryCode + '.json', function( data ) {
+    $.getJSON( "/api/funds/" + selectedFund() + "/countries/" + countryCode , function( data ) {
+        drawColumnChart(data);
+    });
+};

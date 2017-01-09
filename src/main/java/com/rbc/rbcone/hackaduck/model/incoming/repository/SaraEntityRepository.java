@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 import com.rbc.rbcone.hackaduck.model.incoming.SaraEntity;
 
 public interface SaraEntityRepository extends CrudRepository<SaraEntity, String> { 
