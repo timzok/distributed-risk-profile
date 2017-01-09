@@ -61,12 +61,29 @@ function drawWorldMap(fundID){
         $("#topten").html('');
         $("#pepsInformations").hide('');
         $("#pepsInformations").html('');
-
+        zoomStatic('world');
     });
 }}
 
 
 function drawMap(regionData) {
+    $('#world-map').vectorMap({
+        map: 'world_mill',
+        backgroundColor: 'transparent',
+        //backgroundColor: '#d0e7f7',
+        series: {
+            regions: [{
+                scale: {
+                    '1': 'FFF',
+                    '2': '#002144'
+                },
+                attribute: 'fill',
+                values:  regionData
+            }]
+        },
+        zoomOnScroll:false,
+        zoomButtons : false
+    });
 }
 
 

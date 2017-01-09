@@ -228,32 +228,36 @@ function drawColumnChart(countryData) {
 
         google.visualization.events.addListener(chart, 'select', function(e) {
             var selectedItem = chart.getSelection()[0];
-            var countryCode = chart.ga.id.replace("country-chart-", "");
-            var columnIndex = selectedItem.column;
-            var riskMap = {"0": "low", "1": "medium", "2": "high"};
-            getAndDisplayPeps(countryCode, riskMap[columnIndex]);
+            if (selectedItem) {
+                var countryCode = chart.ga.id.replace("country-chart-", "");
+                var columnIndex = selectedItem.column;
+                var riskMap = {"0": "low", "1": "medium", "2": "high"};
+                getAndDisplayPeps(countryCode, riskMap[columnIndex]);
+            }
+
         });
 
         //chart.draw(data, options);
-
+        // divided variable
+        var numberOfSplitPart = 50;
         // initial value
         var percentInvestor  = 0;
         var percentInvestor2  = 0;
         var countInvestor = countryData.low.investorCount+countryData.medium.investorCount+countryData.high.investorCount;
-        var incInvestor = countryData.low.investorCount/100;
-        var incInvestor2 = (countInvestor-countryData.high.investorCount)/100;
+        var incInvestor = countryData.low.investorCount/numberOfSplitPart;
+        var incInvestor2 = (countInvestor-countryData.high.investorCount)/numberOfSplitPart;
 
         var percentCountry  = 0;
         var percentCountry2  = 0;
         var countCountry = countryData.low.assetValue+countryData.medium.assetValue+countryData.high.assetValue;
-        var incCountry = countryData.low.assetValue/100;
-        var incCountry2 = (countCountry-countryData.high.assetValue)/100;
+        var incCountry = countryData.low.assetValue/numberOfSplitPart;
+        var incCountry2 = (countCountry-countryData.high.assetValue)/numberOfSplitPart;
 
         var percentWorld  = 0;
         var percentWorld2  = 0;
         var countWorld = countryData.low.globalAssetValue+countryData.medium.globalAssetValue+countryData.high.globalAssetValue;
-        var incWorld = countryData.low.globalAssetValue/100;
-        var incWorld2 = (countWorld-countryData.high.globalAssetValue)/100;
+        var incWorld = countryData.low.globalAssetValue/numberOfSplitPart;
+        var incWorld2 = (countWorld-countryData.high.globalAssetValue)/numberOfSplitPart;
 
         // start the animation
         var countnum=0;
@@ -287,7 +291,7 @@ function drawColumnChart(countryData) {
             // update the pie
             chart.draw(data, options);
             // check if we have reached the desired value
-            if (countnum > 100) {
+            if (countnum > numberOfSplitPart) {
                 // stop the loop
                 data.setValue(0, 1, countryData.low.investorCount);
                 data.setValue(0, 2, countryData.medium.investorCount);
@@ -358,47 +362,40 @@ function displayPepsInfo(pepsDataForRisk) {
 
 
     //$('#pepsInformations').html('');
-    var tableDiv ="<table width='100%'>"
+    var tableDiv = ""
+    //$('#investorInformation').append("<table width='100%'>");
     // function drawTable() {
         pepsDataForRisk.legalEntities.forEach(function (legalEntity) {
             var cID = 'legal-entity-' + legalEntity.name;
-             tableDiv +="<TR><TD class='centertd20'>" +
-                            "<div class='blockquote' onclick='displayPepsDetailInfo(\""+legalEntity.name+"\")'>" +
+            tableDiv +="<TR><TD class='centertd20'>" +
+                            "<div class='blockquote' onclick='displayPepsDetailInfo(\""+legalEntity.name+"\",\"true\")'>" +
                                 "<Table> <tr> <TD align='left' class='tdcards'><Strong>" + legalEntity.name+ "</strong></TD><TR>"
                                 +" <TD class='tdcards'>"+ legalEntity.type+"</TD></TR><TR>"+
                                   "<TD class='tdcards'>" + legalEntity.nature+"</TD></TR></Table>" +
                             "</div>" +
                           "</td><TD class='centertd80'>"
             tableDiv +="<div id='pepsInformation-"+legalEntity.name+"'>&nbsp;</div></TD></TR>"
-            // var otherpart = "<div id='pepsInformation-"+legalEntity.name+"'>&nbsp;</div></TD>"
-            // $('#investorInformation').append(otherpart);
-            localStorage.setItem(legalEntity.name, JSON.stringify(pepsDataForRisk));
-            //displayPepsDetailInfo(pepsDataForRisk,legalEntity.name);
-            // var data = new google.visualization.DataTable();
-            // data.addColumn('string', 'Fisrt Name',{style: 'font-style:bold; font-size:22px;'});
-            // data.addColumn('string', 'Last Name',{style: 'font-style:bold; font-size:22px;'});
-            // data.addColumn('string', 'Role',{style: 'font-style:bold; font-size:22px;'});
-            // data.addColumn('string', 'Country',{style: 'font-style:bold; font-size:22px;'});
-            // data.addColumn('string', 'Nationality',{style: 'font-style:bold; font-size:22px;'});
-            // legalEntity.peps.forEach(function (pep) {
-            //     data.addRow(
-            //         [pep.firstName,  pep.lastName, pep.role,
-            //             pep.country,pep.country]);
-            // });
-            // var table = new google.visualization.Table(document.getElementById('d-'+cID));
-            // data.setProperty()
-            // table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
-       });
-    tableDiv +="</table>"
-    $('#investorInformation').append(tableDiv);
+            $('#investorInformation').append(tableDiv);
+            tableDiv="";
+             localStorage.setItem(legalEntity.name, JSON.stringify(pepsDataForRisk));
+            displayPepsDetailInfo(legalEntity.name,"false");
+       })
+
     // }
 }
-function displayPepsDetailInfo(legalEntityName){
+function displayPepsDetailInfo(legalEntityName,fromClick){
     var alreadyDisplay = localStorage.getItem(legalEntityName+"-active");
-    if("TRUE"==alreadyDisplay){
+    if("TRUE"==alreadyDisplay & "true"==fromClick){
         localStorage.setItem(legalEntityName+"-active", "FALSE");
-        $('#pepsInformation-'+legalEntityName).html('');
-    } else {
+        $('#pepsInformation-'+legalEntityName).hide('');
+    } else if ("true"==fromClick){
+        $('#pepsInformation-'+legalEntityName).show('');
+        localStorage.setItem(legalEntityName+"-active", "TRUE");
+    }
+    else {
+        $('#pepsInformation-'+legalEntityName).append("<DIV id='pepsInformationHeader"+legalEntityName+"' class='blockquote2'>" +
+            "<Strong>" + legalEntityName+ "</strong></DIV>" +
+            "<DIV id='pepsInformationContent"+legalEntityName+"'></DIV>")
             var pepsDataForRisk = JSON.parse(localStorage.getItem(legalEntityName));
             //console.log('retrievedObject: ', JSON.parse(pepsDataForRisk));
             google.charts.load('current', {'packages':['table']});
@@ -419,8 +416,13 @@ function displayPepsDetailInfo(legalEntityName){
                             [pep.firstName, pep.lastName, pep.role,
                                 pep.country, pep.country]);
                     });
-                    var table = new google.visualization.Table(document.getElementById('pepsInformation-'+legalEntity.name));
-                    table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+                    var table = new google.visualization.Table(document.getElementById('pepsInformationContent'+legalEntity.name));
+                        var options = {
+                            showRowNumber: true,
+                            width: '100%',
+                            height: '100%',
+                        };
+                    table.draw(data, options);
                     //$('#pepsInformation').show('');
                 }
             });
