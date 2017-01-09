@@ -13,8 +13,8 @@ public class MockGenerator {
 		countryMap.put("LU", "Luxembourg");
 		countryMap.put("FR", "France");
 		countryMap.put("BE", "Belgium");
-		countryMap.put("LT", "Lituania");
-		countryMap.put("UA", "Ukrania");
+		countryMap.put("LT", "Lithuania");
+		countryMap.put("UA", "Ukraine");
 		countryMap.put("DE", "Germany");
 		countryMap.put("HR", "Croatia");
 		countryMap.put("PL", "Poland");
@@ -28,7 +28,7 @@ public class MockGenerator {
 		countryMap.put("BW", "Botswana");
 		countryMap.put("DZ", "Algeria");
 		countryMap.put("AU", "Australia");
-		countryMap.put("JP", "JAPAN");
+		countryMap.put("JP", "Japan");
 	}
 	
 	public ArrayList<LegalFund> generateLegalFunds() {
