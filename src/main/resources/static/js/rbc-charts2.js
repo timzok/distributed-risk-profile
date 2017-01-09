@@ -511,7 +511,7 @@ function drawDonutChart(elemId, title, lowRisk, mediumRisk, highRisk) {
          var options = {
            legend: {position: "none"},
            pieHole: 0.4,
-           colors: ['#FCA311', '#6AADE4', '#006AC3'],
+             colors: [ '#aaba0a', '#fca311', '#c71D06'],
            pieSliceText: 'none',
 		   pieStartAngle: 90,
  		   backgroundColor: { fill:'transparent' },
@@ -581,7 +581,7 @@ function drawOuterDonutChart(elemId, title, lowRisk, globalLowRisk, mediumRisk, 
          var options = {
            legend: {position: "none"},
            pieHole: 0.9,
-           colors: ['#FCA311', 'rgb(185,227,207)', '#6AADE4', 'rgb(255,240,199)', '#006AC3', 'rgb(244,200,197)'],
+           colors: ['#aaba0a', 'rgb(185,227,207)', '#fca311', 'rgb(255,240,199)', '#c71D06', 'rgb(244,200,197)'],
            pieSliceText: 'none',
 		   pieStartAngle: 90,
  		   backgroundColor: { fill:'transparent' },
