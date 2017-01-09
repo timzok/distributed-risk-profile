@@ -105,7 +105,7 @@ function bindEvents(){
                         currentMouseOverRegion = null;
                     }
                     colorizeRegion(currentSelectedRegionCp, null);
-                }, 250));
+                }, 1));
             }
         } else {
             // Case : the current map is focusing on a geographical region
@@ -141,8 +141,14 @@ function drawWorldMap(fundID){
     });
 }}
 
-function drawMap(regionData) {
+function drawMap(data) {
+    var regionColors = {};
 
+    data.regions.forEach(function (region) {
+        regionData[region.regionCode].forEach(function(country) {
+            regionColors[country] = 2;
+        })
+    });
     $('#world-map').html('');
     $('#world-map').vectorMap({
         map: 'world_mill',
@@ -150,11 +156,11 @@ function drawMap(regionData) {
         series: {
             regions: [{
                 scale: {
-                    '1': 'FFF',
-                    '2': '#002144'
+                    '1': '#D0DCE9',
+                    '2': '#006AC3'
                 },
                 attribute: 'fill',
-                values:  regionData
+                values:  regionColors
             }]
         },
         zoomOnScroll: false,
@@ -173,15 +179,6 @@ function setObserver() {
     });
 }
 
-function getWorldData(regionData) {
-var regionsList = { };
-$.each( regionData.regions, function( key, val ) {
-    regionsList[val.regionCode] = 2;
-  });
-
-  return regionsList;
-}
-
 function resizeWorldMap(reduce) {
     if (reduce) {
         $('#maps-container').addClass("col-md-8");
@@ -191,6 +188,7 @@ function resizeWorldMap(reduce) {
         $("#maps-container").addClass("col-md-12");
         $("#maps-container").removeClass("col-md-8");
         $("#country-charts").hide();
+        $("#country-charts").html('');
 
     }
 }
