@@ -105,7 +105,7 @@ function bindEvents(){
                         currentMouseOverRegion = null;
                     }
                     colorizeRegion(currentSelectedRegionCp, null);
-                }, 250));
+                }, 1));
             }
         } else {
             // Case : the current map is focusing on a geographical region

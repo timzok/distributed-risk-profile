@@ -1137,37 +1137,33 @@ function colorizeCountry(countryCode, regionCode, isMouseOver) {
 
 		if (isSelectedCountry) {
 			// Case : the user selected this country
-			jQuery(".country-" + countryCode).each(function(index, elem){
+			var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
 				elem.classList.remove("mapRegionData");
 				elem.classList.add("mapRegionDataSelected");
 				elem.classList.remove("mapRegionMouseOver");
-			});
 		} else {
 			// Case : the user did not selected this region
 			var isSelectedRegion = (global.detailLevel.regionCode!=null) ? (global.detailLevel.regionCode==regionCode) : false;
 			if (isSelectedRegion) {
 				// Case : the country under focus is part of the currently selected region
-				jQuery(".country-" + countryCode).each(function(index, elem){
+				var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
 					elem.classList.remove("mapRegionData");
 					elem.classList.add("mapRegionDataSelected");
 					elem.classList.remove("mapRegionMouseOver");
-				});
 			} else {
 				// Case : the country under focus is not part of the currently selected region
-				jQuery(".country-" + countryCode).each(function(index, elem){
+				var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
 					elem.classList.add("mapRegionData");
 					elem.classList.remove("mapRegionDataSelected");
 					elem.classList.remove("mapRegionMouseOver");
-				});
 			}
 		}
 	} else {
 		if (global.detailLevel.regionCode==regionCode) {
-			jQuery(".country-" + countryCode).each(function(index, elem){
+			var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
 				elem.classList.remove("mapRegionData");
 				elem.classList.remove("mapRegionDataSelected");
 				elem.classList.add("mapRegionMouseOver");
-			});
 		}
 	}
 	
