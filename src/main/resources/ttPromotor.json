@@ -1,10 +1,6 @@
 [
   {
-    "fc-region-id": "RBCO",
-    "fc-name": "RBCO Promotor"
-  ,
-    {
-    "fc-region-id": "LEMA",
-    "fc-name": "LEMA Promotor"
+    "fc-region-id": "DEMO",
+    "fc-name": "Promotor Hackaton DEMO"
   }
 ]
