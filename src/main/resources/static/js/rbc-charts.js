@@ -3,7 +3,7 @@ mapTitles.set("EU", 'Europe');
 mapTitles.set("AF", 'Africa');
 mapTitles.set("AS", 'Asia');
 mapTitles.set("NA", 'North America');
-mapTitles.set("OC", 'APAC');
+mapTitles.set("OC", 'Oceania');
 mapTitles.set("SA", 'South America');
 
 function drawWorldMapPieCharts(regionData) {
