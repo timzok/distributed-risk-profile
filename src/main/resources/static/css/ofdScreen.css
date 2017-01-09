@@ -285,11 +285,15 @@ div.fancy {
     background: none;
 }
 
+.google-visualization-table-table{
+    border-radius: 5px;
+}
 
 table.google-visualization-table-table th {
     background-color: #002144;
     color: #FFD129;
     text-align: left;
+
 }
 
 table.google-visualization-table-table td {
@@ -298,8 +302,8 @@ table.google-visualization-table-table td {
 }
 
 table.google-visualization-table-table th.gradient  {
-    /*background-image: none; !important*/
-    background-image: linear-gradient(to bottom,rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.7) 0%,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 50%);
+    background-image: none; !important
+    /*background-image: linear-gradient(to bottom,rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.7) 0%,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 50%);*/
 }
 
 
