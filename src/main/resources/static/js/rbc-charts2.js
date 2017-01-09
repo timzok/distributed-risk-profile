@@ -631,7 +631,7 @@ function drawTopTenColumnChart(){
 	var elemStr = 
 		'<td class="top10">' +
 			'<div class="chartContainer">' +
-				'<div id="donutchart-TOP10-title" class="donutContainerTitle">Top 10 highest risk countries with high risk investors</div>' +
+				'<div id="donutchart-TOP10-title" class="donutContainerTitle">Top 10 countries with high risk investors</div>' +
 				'<div id="donutchart-TOP10" style="height:140px; width:100%"></div>' +
 				'<div id="donutchart-TOP10-action" class="donutContainerActions" style="position:relative; height:34px;">' +
 				'</div>' +
