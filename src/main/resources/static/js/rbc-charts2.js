@@ -1315,9 +1315,9 @@ function displayPepsDetailInfo(legalEntityName,fromClick){
     var alreadyDisplay = localStorage.getItem(legalEntityName+"-active");
     if("TRUE"==alreadyDisplay & "true"==fromClick){
         localStorage.setItem(legalEntityName+"-active", "FALSE");
-        $('#pepsInformation-'+legalEntityName).hide('');
+        $('#pepsInformation-'+legalEntityName.replace(/\s+/g, '')).hide('');
     } else if ("true"==fromClick){
-        $('#pepsInformation-'+legalEntityName).show('');
+        $('#pepsInformation-'+legalEntityName.replace(/\s+/g, '')).show('');
         localStorage.setItem(legalEntityName+"-active", "TRUE");
     }
     else {
