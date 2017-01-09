@@ -1018,13 +1018,16 @@ function pepsClickedHandler(event) {
 }
 
 
-function loadFundDropdown() {
+function loadFundDropdown(initWorldMap) {
     $.getJSON("/api/funds", function (funds) {
         funds.forEach(function (fund) {
             var option = $('<option/>');
             option.attr({'value': fund.id}).text(fund.name);
             $('#fund-selection').append(option);
         });
+		if (initWorldMap) {
+			$(drawWorldMap(selectedFund()));
+		}
     });
 }
 
