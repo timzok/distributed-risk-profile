@@ -1286,7 +1286,7 @@ function getAndDisplayPeps(countryCode,riskLevel){
 function displayPepsInfo(pepsDataForRisk) {
 
     if (pepsDataForRisk.legalEntities.length <= 0 ) {
-        $("#c-pepsInformations").hide();
+        $("#pepsPanel").hide();
         $('#investorInformation').html('');
     } else {
         var tableDiv = ""
@@ -1308,7 +1308,7 @@ function displayPepsInfo(pepsDataForRisk) {
             count++
 
         })
-        $("#c-pepsInformations").show();
+        $("#pepsPanel").show();
     }
 
 }
