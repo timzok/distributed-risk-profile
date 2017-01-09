@@ -228,10 +228,13 @@ function drawColumnChart(countryData) {
 
         google.visualization.events.addListener(chart, 'select', function(e) {
             var selectedItem = chart.getSelection()[0];
-            var countryCode = chart.ga.id.replace("country-chart-", "");
-            var columnIndex = selectedItem.column;
-            var riskMap = {"0": "low", "1": "medium", "2": "high"};
-            getAndDisplayPeps(countryCode, riskMap[columnIndex]);
+            if (selectedItem) {
+                var countryCode = chart.ga.id.replace("country-chart-", "");
+                var columnIndex = selectedItem.column;
+                var riskMap = {"0": "low", "1": "medium", "2": "high"};
+                getAndDisplayPeps(countryCode, riskMap[columnIndex]);
+            }
+
         });
 
         //chart.draw(data, options);
