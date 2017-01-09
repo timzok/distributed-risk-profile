@@ -505,7 +505,7 @@ function drawDonutChart(elemId, title, lowRisk, mediumRisk, highRisk) {
          var options = {
            legend: {position: "none"},
            pieHole: 0.4,
-           colors: ['rgb(23,160,94)', 'rgb(255,206,66)', 'rgb(219,72,60)'],
+           colors: ['#FCA311', '#6AADE4', '#006AC3'],
            pieSliceText: 'none',
 		   pieStartAngle: 90,
  		   backgroundColor: { fill:'transparent' },
@@ -540,7 +540,7 @@ function drawOuterDonutChart(elemId, title, lowRisk, globalLowRisk, mediumRisk, 
          var options = {
            legend: {position: "none"},
            pieHole: 0.9,
-           colors: ['rgb(23,160,94)', 'rgb(185,227,207)', 'rgb(255,206,66)', 'rgb(255,240,199)', 'rgb(219,72,60)', 'rgb(244,200,197)'],
+           colors: ['#FCA311', 'rgb(185,227,207)', '#6AADE4', 'rgb(255,240,199)', '#006AC3', 'rgb(244,200,197)'],
            pieSliceText: 'none',
 		   pieStartAngle: 90,
  		   backgroundColor: { fill:'transparent' },
@@ -588,7 +588,7 @@ function drawTopTenColumnChart(){
 	var elemStr = 
 		'<td class="top10">' +
 			'<div class="chartContainer">' +
-				'<div id="donutchart-TOP10-title" class="donutContainerTitle">Top 10 highest risk countries</div>' +
+				'<div id="donutchart-TOP10-title" class="donutContainerTitle">Top 10 highest risk countries with high risk investors</div>' +
 				'<div id="donutchart-TOP10" style="height:140px; width:100%"></div>' +
 				'<div id="donutchart-TOP10-action" class="donutContainerActions" style="position:relative; height:34px;">' +
 				'</div>' +
@@ -642,11 +642,11 @@ function drawTopTenColumnChart(){
             },
             axes: {
                 y: {
-                    assetNum: {label: 'Asset Number'}, // Left y-axis.
+                    assetNum: {label: 'Asset in EUR'}, // Left y-axis.
                     compWorld: {side: 'right', label: '%'} // Right y-axis.
                 }
             },
-            colors: [ 'red', 'blue', 'blue']
+             	colors: [ 'red', 'blue', 'blue']
         };
                
         var chart = new google.charts.Bar(document.getElementById('donutchart-TOP10'));
