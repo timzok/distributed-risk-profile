@@ -87,47 +87,40 @@ function drawPieChart(chartID, title, l, m, h) {
          };
 
          var chart = new google.visualization.PieChart(document.getElementById(chartID));
-         chart.draw(data, options);
-           // var counter = 0;
-           //
-           // var handler = setInterval(function(){
-           //     counter = counter + 0.1
-           //     options = {
-           //         legend: {position: "none"},
-           //         title: title,
-           //         width: 150,
-           //         height: 150,
-           //         titleTextStyle: { fontSize: 13 },
-           //         pieHole: 0.6,
-           //         colors: [ '#aaba0a', '#fca311', 'c71D06'],
-           //         pieSliceText: 'none',
-           //         backgroundColor: 'none',
-           //         chartArea: {left:10, top:40, 'width': '100%', 'height': '100%'},
-           //         slices: { 1: {offset: counter},
-           //             2: {offset: counter},
-           //             3: {offset: counter},
-           //         }
-           //     };
-           //     chart.draw(data, options);
-           //
-           //     if (counter > 0.3) clearInterval(handler);
-           // }, 200);
+         //chart.draw(data, options);
+
            // initial value
-           var percent = 0;
+           var percent  = 0;
+           var percent2  = 0;
+           var countnum = 0;
+           //calculate in %
+           var count = l+h+m;
+           //increment
+           var inc1 = l/100
+           var inc2 = (count-h)/100;
             // start the animation loop
            var handler = setInterval(function(){
                // values increment
-               percent += 1;
-               // apply new values
-               data.setValue(0, 1, percent);
-               data.setValue(1, 1, 100 - percent);
+               countnum += 1
+               percent += inc1
+               percent2 += inc2
+               // apply new values;
+                data.setValue(0, 1, percent);
+                data.setValue(1, 1, m);
+                data.setValue(2, 1, count-percent2);
                // update the pie
                chart.draw(data, options);
                // check if we have reached the desired value
-               if (percent > 74)
-               // stop the loop
-                   clearInterval(handler);
-           }, 15);
+               if (countnum > 100) {
+                   // stop the loop
+                   data.setValue(0, 1, l);
+                   data.setValue(1, 1, m);
+                   data.setValue(2, 1, h);
+                   chart.draw(data, options);
+                   clearInterval(handler)
+               }
+           }, 10)
+
        }
  }
 
@@ -186,22 +179,39 @@ function drawTopTenColumnChart (countryCode){
                 colors: [ 'red', 'blue', 'blue']
         };
         var chart = new google.charts.Bar(document.getElementById('topten'));
-        chart.draw(data, options);
-        var percent = 0;
+        // chart.draw(data, options);
+
+        // initial value
+        var percent  = 0;
+        var percent2  = 0;
+        var countnum = 0;
+        var initialValue = data.getValue(0,1)
+        var initialValue2 = data.getValue(0,2)
+        //calculate in %
+        var count = initialValue+initialValue2;
+        //increment
+        var inc1 = initialValue/100
+        var inc2 = (count-initialValue2)/100;
         // start the animation loop
         var handler = setInterval(function(){
             // values increment
-            percent += 1;
-            // apply new values
+            countnum += 1
+            percent += inc1
+            percent2 += inc2
+            // apply new values;
             data.setValue(0, 1, percent);
-            data.setValue(1, 1, 100 - percent);
+            data.setValue(0, 2, count-percent2);
             // update the pie
             chart.draw(data, options);
             // check if we have reached the desired value
-            if (percent > 74)
-            // stop the loop
-                clearInterval(handler);
-        }, 15);
+            if (countnum > 100) {
+                // stop the loop
+                data.setValue(0, 1, initialValue);
+                data.setValue(0, 2, initialValue2);
+                chart.draw(data, options);
+                clearInterval(handler)
+            }
+        }, 10)
     }
 
 }
@@ -235,23 +245,80 @@ function drawColumnChart(countryData) {
             getAndDisplayPeps(countryCode, riskMap[columnIndex]);
         });
 
-        chart.draw(data, options);
+        //chart.draw(data, options);
+
         // initial value
-        var percent = 0;
+        var percentInvestor  = 0;
+        var percentInvestor2  = 0;
+        var countInvestor = countryData.low.investorCount+countryData.medium.investorCount+countryData.high.investorCount;
+        var incInvestor = countryData.low.investorCount/100;
+        var incInvestor2 = (countInvestor-countryData.high.investorCount)/100;
+
+        var percentCountry  = 0;
+        var percentCountry2  = 0;
+        var countCountry = countryData.low.assetValue+countryData.medium.assetValue+countryData.high.assetValue;
+        var incCountry = countryData.low.assetValue/100;
+        var incCountry2 = (countCountry-countryData.high.assetValue)/100;
+
+        var percentWorld  = 0;
+        var percentWorld2  = 0;
+        var countWorld = countryData.low.globalAssetValue+countryData.medium.globalAssetValue+countryData.high.globalAssetValue;
+        var incWorld = countryData.low.globalAssetValue/100;
+        var incWorld2 = (countWorld-countryData.high.globalAssetValue)/100;
+
         // start the animation loop
         var handler = setInterval(function(){
             // values increment
-            percent += 1;
-            // apply new values
-            data.setValue(0, 1, percent);
-            data.setValue(1, 1, 100 - percent);
+            countnum += 1
+            //Investor
+            percentInvestor += incInvestor
+            percentInvestor2 += incInvestor2
+            // apply new values;
+            data.setValue(0, 1, percentInvestor);
+            data.setValue(0, 2, countryData.medium.investorCount);
+            data.setValue(0, 3, countInvestor-percentInvestor2);
+
+            //Country
+            percentCountry += incCountry
+            percentCountry2 += incCountry2
+            // apply new values;
+            data.setValue(1, 1, percentCountry);
+            data.setValue(1, 2, countryData.medium.assetValue);
+            data.setValue(1, 3, countCountry-percentCountry2);
+
+            //World
+            percentWorld += incWorld
+            percentWorld2 += incWorld2
+            // apply new values;
+            data.setValue(2, 1, percentWorld);
+            data.setValue(2, 2, countryData.medium.globalAssetValue);
+            data.setValue(2, 3, countWorld-percentWorld2);
+
             // update the pie
             chart.draw(data, options);
             // check if we have reached the desired value
-            if (percent > 74)
-            // stop the loop
-                clearInterval(handler);
-        }, 15);
+            if (countnum > 100) {
+                // stop the loop
+                data.setValue(0, 1, countryData.low.investorCount);
+                data.setValue(0, 2, countryData.medium.investorCount);
+                data.setValue(0, 3, countryData.high.investorCount);
+
+                //Country
+
+                data.setValue(1, 1, countryData.low.assetValue);
+                data.setValue(1, 2, countryData.medium.assetValue);
+                data.setValue(1, 3, countryData.high.assetValue);
+
+                //World
+
+                data.setValue(2, 1, countryData.low.globalAssetValue);
+                data.setValue(2, 2, countryData.medium.globalAssetValue);
+                data.setValue(2, 3, countryData.high.globalAssetValue);
+
+                chart.draw(data, options);
+                clearInterval(handler)
+            }
+        }, 10)
 
     }
 
