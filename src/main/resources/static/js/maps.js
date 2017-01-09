@@ -5,10 +5,12 @@ function onTipShow(e, el, code){
     var map =  $('#world-map').vectorMap('get', 'mapObject');
     var regionData = regionsMap[code];
     if (regionData) {
+        //calculate percent
+        var count = regionData.low.assetValue+regionData.medium.assetValue+regionData.high.assetValue;
         map.tip.html(el[0].innerText +
-            " low: " + regionData.low.assetValue +
-            " %, medium:" + regionData.medium.assetValue +
-            "%, high:" + regionData.high.assetValue +"% ");
+            " low: " + ((regionData.low.assetValue/count)*100).toFixed(2)  +
+            "%, medium:" + ((regionData.medium.assetValue/count)*100).toFixed(2) +
+            "%, high:" + ((regionData.high.assetValue/count)*100).toFixed(2) +"% ");
     } else {
         e.preventDefault();
     }
@@ -18,10 +20,11 @@ function onCountryTipShow(e, el, code){
     var map =  $(currentMapId).vectorMap('get', 'mapObject');
     var coutryData = countriesMap[code];
     if (coutryData) {
+        var count = coutryData.low.assetValue+coutryData.medium.assetValue+coutryData.high.assetValue;
         map.tip.html(el[0].innerText +
-            " low: " + coutryData.low.assetValue +
-            " %, medium:" + coutryData.medium.assetValue +
-            "%, high:" + coutryData.high.assetValue +"% ");
+            " low: " + ((coutryData.low.assetValue/count)*100).toFixed(2) +
+            "%, medium:" + ((coutryData.medium.assetValue/count)*100).toFixed(2) +
+            "%, high:" + ((coutryData.high.assetValue/count)*100).toFixed(2) +"% ");
     } else {
         e.preventDefault();
     }
