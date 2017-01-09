@@ -37,54 +37,15 @@ maps.set("oc", 'oceania_mill');{
 maps.set("sa", 'south_america_mill');
 
 function renderMap(code){
-    function complete() {
-        function placeholder(code) {
-            return '#' + code + '-map';
-        }
-
-        for (var key of maps.keys()) {
-            $(placeholder(key)).fadeOut();
-        }
-
-        var placeholder = placeholder(code);
-        $(placeholder).fadeIn();
-
-        getCountriesDataAndDrawMap(selectedFund(), code, drawVectorMap, placeholder);
-    }
-
-    $("#world-map").fadeOut( 200, "linear", complete );
 }
 
 function onRegionClick(e, code){
-    $("#worldMapBtn").fadeIn();
-    var regionData = regionsMap[code];
-    if (regionData) {
-        getAndDisplayTopTen(code);
-        $('#maps-container').addClass("col-md-8");
-        $('#maps-container').removeClass("col-md-12");
-        $("#country-charts").show();
-
-        renderMap(code.toLowerCase());
-    } else {
-        e.preventDefault();
-    }
 }
 
 function onCountryClick(e, code){
-    var coutryData = countriesMap[code];
-    if (coutryData) {
-        getAndDrawColumnChart(code);
-    }
 }
 
 function showWorldMap(){
-    function complete() {
-        $("#world-map").fadeIn();
-        $("#worldMapBtn").fadeOut();
-        drawWorldMap(selectedFund())
-    }
-
-    $(currentMapId).fadeOut(1, 'linear', complete);
 }
 
 function drawWorldMap(fundID){
@@ -94,62 +55,27 @@ function drawWorldMap(fundID){
             return map;
         }, {});
         drawMap(data);
-        drawWorldMapPieCharts(regionsMap);
+        updateWorldData(regionsMap);
         $('#country-charts').html(''); //Remove potential displayed column charts
         $('#c-topten').hide();
-        $('#topten').html('');
-        $('#pepsInformations').hide('');
-        $('#investorInformation').html('');
+        $("#topten").html('');
+        $("#pepsInformations").hide('');
+        $("#pepsInformations").html('');
 
     });
 }}
 
 
 function drawMap(regionData) {
-    drawVectorMap('#world-map', 'continents_mill', getWorldData(regionData), true)
 }
 
 
 function drawVectorMap(mapID, mapName, data, worldMap) {
-    currentMapId = mapID;
-
-    if (worldMap) {
-        $("#maps-container").addClass("col-md-12");
-        $("#maps-container").removeClass("col-md-8");
-        $("#country-charts").hide();
-
-    } else {
-        $('#maps-container').addClass("col-md-8");
-        $('#maps-container').removeClass("col-md-12");
-        $("#country-charts").show();
-    }
-    $(mapID + " div.jvectormap-container").remove();
-    $(mapID).vectorMap({
-        map: mapName,
-        backgroundColor: 'transparent',
-        //backgroundColor: '#d0e7f7',
-        series: {
-            regions: [{
-                scale: {
-                    '1': 'FFF',
-                    '2': '#002144'
-                },
-                attribute: 'fill',
-                values:  data
-            }]
-        },
-        zoomOnScroll:false,
-        onRegionTipShow : worldMap ? onTipShow : onCountryTipShow,
-        onRegionClick : worldMap ? onRegionClick : onCountryClick
-
-    });
-
-
 }
 
 function setObserver() {
     $( "#fund-selection" ).change(function() {
-        showWorldMap();
+        $(drawWorldMap(selectedFund()));
     });
 }
 
