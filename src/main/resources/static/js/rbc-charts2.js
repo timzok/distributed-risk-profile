@@ -1113,7 +1113,13 @@ mapTitles.forEach(function(value, key){
 var mapCurrentDetailLevel = 'world';
 
 function extractRegion(elem) {
-	var countryCode = elem.dataset.code;
+	var countryCode;
+	if (elem.dataset) {
+		countryCode = elem.dataset.code;
+	} else {
+		countryCode = elem.getAttribute("data-code");
+	}
+
 	var regionData = countryData[countryCode];
 	if (regionData) {
 		return regionData.region;
@@ -1122,7 +1128,12 @@ function extractRegion(elem) {
 }
 
 function extractCountry(elem) {
-	var countryCode = elem.dataset.code;
+	var countryCode;
+	if (elem.dataset) {
+		countryCode = elem.dataset.code;
+	} else {
+		countryCode = elem.getAttribute("data-code");
+	}
 	return countryCode || null;
 }
 
