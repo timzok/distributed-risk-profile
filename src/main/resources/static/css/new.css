@@ -94,11 +94,10 @@ button.actionButton:hover {
 	background-color: rgb(205, 205, 205);
 }
 .mapRegionData {
-	/* fill: #006AC3; */
-	fill: #002144;
+	fill: #006AC3;
 }
 .mapRegionNoData {
-	fill: rgb(255, 255, 255);
+	fill: #D0DCE9;
 }
 .mapRegionDataSelected {
 	fill: #FCA311;

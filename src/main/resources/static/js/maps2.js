@@ -96,7 +96,6 @@ function bindEvents(){
             if (!path.getAttribute("data-code")) {
                 removeSelection();
             }
-            console.log('Region: ' + path.getAttribute("data-code") + ' at point: ' + e.clientX + ','+ e.clientY);
         }
     });
 }
@@ -142,7 +141,7 @@ function drawMap(data) {
             regions: [{
                 scale: {
                     '1': '#D0DCE9',
-                    '2': '#002144' //#006AC3 - Mike: relace color, not enough contrast when having white regions
+                    '2': '#006AC3'
                 },
                 attribute: 'fill',
                 values:  regionColors
