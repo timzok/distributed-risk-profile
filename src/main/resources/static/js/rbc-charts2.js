@@ -345,8 +345,11 @@ function regionDetailActionHandlerEvent(regionCode) {
 	drawPieCharts();
 	// Refresh the colorization of the countries in the map
 	colorizeRegion(regionCode, false);
+	getCountriesDataAndMarkMap(selectedFund(), regionCode);
 	// Update the map: zoom to the selected region
 	zoomAnimate('world', regionCode);
+
+
 }
 
 function drawCountryDonutChart() {
@@ -806,6 +809,7 @@ function drawColumnChart(countryData) {
         ]);
 
         var options = {
+            tooltip:{ textStyle:{ fontSize: 13 },ignoreBounds:false},
             legend: {position: "none"},
             isStacked: 'percent',
             titleTextStyle: { fontSize: 13 },
@@ -1179,44 +1183,6 @@ function colorizeRegion(regionCode, isMouseOver) {
 			}
 		});
 	}	
-}
-
-function colorizeCountry(countryCode, regionCode, isMouseOver) {
-	if (!isMouseOver) {
-		var isSelectedCountry = (global.detailLevel.countryCode!=null) ? (global.detailLevel.countryCode==countryCode) : false; 
-
-		if (isSelectedCountry) {
-			// Case : the user selected this country
-			var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
-				elem.classList.remove("mapRegionData");
-				elem.classList.add("mapRegionDataSelected");
-				elem.classList.remove("mapRegionMouseOver");
-		} else {
-			// Case : the user did not selected this region
-			var isSelectedRegion = (global.detailLevel.regionCode!=null) ? (global.detailLevel.regionCode==regionCode) : false;
-			if (isSelectedRegion) {
-				// Case : the country under focus is part of the currently selected region
-				var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
-					elem.classList.remove("mapRegionData");
-					elem.classList.add("mapRegionDataSelected");
-					elem.classList.remove("mapRegionMouseOver");
-			} else {
-				// Case : the country under focus is not part of the currently selected region
-				var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
-					elem.classList.add("mapRegionData");
-					elem.classList.remove("mapRegionDataSelected");
-					elem.classList.remove("mapRegionMouseOver");
-			}
-		}
-	} else {
-		if (global.detailLevel.regionCode==regionCode) {
-			var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
-				elem.classList.remove("mapRegionData");
-				elem.classList.remove("mapRegionDataSelected");
-				elem.classList.add("mapRegionMouseOver");
-		}
-	}
-	
 }
 
 function animate(i, scale, offsetX, offsetY, mapElem) {

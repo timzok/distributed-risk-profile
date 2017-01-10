@@ -1,34 +1,6 @@
 var regionsMap = {};
 var countriesMap = {};
-
-function onTipShow(e, el, code){
-    var map =  $('#world-map').vectorMap('get', 'mapObject');
-    var regionData = regionsMap[code];
-    if (regionData) {
-        map.tip.html(el[0].innerText +
-            " low: " + regionData.low.assetValue +
-            " %, medium:" + regionData.medium.assetValue +
-            "%, high:" + regionData.high.assetValue +"% ");
-    } else {
-        e.preventDefault();
-    }
-}
-
-function onCountryTipShow(e, el, code){
-    var map =  $(currentMapId).vectorMap('get', 'mapObject');
-    var coutryData = countriesMap[code];
-    if (coutryData) {
-        map.tip.html(el[0].innerText +
-            " low: " + coutryData.low.assetValue +
-            " %, medium:" + coutryData.medium.assetValue +
-            "%, high:" + coutryData.high.assetValue +"% ");
-    } else {
-        e.preventDefault();
-    }
-}
-
 var maps = new Map();
-var currentMapId = '#world-map';
 maps.set("eu", 'europe_mill');
 maps.set("af", 'africa_mill');
 maps.set("as", 'asia_mill');
@@ -36,15 +8,29 @@ maps.set("na", 'north_america_mill');
 maps.set("oc", 'oceania_mill');{
 maps.set("sa", 'south_america_mill');
 
-function renderMap(code){
-}
-
-function onRegionClick(e, code){
-}
-
 function bindEvents(){
     var currentMouseOverRegion = null;
-    var mouseEventTimeout = new Map();
+
+    function removeSelection() {
+        $(".mapRegionDataSelected").each(function (i, elem) {
+            elem.classList.remove("mapRegionDataSelected");
+        });
+    }
+
+    function markRegion(regionCode) {
+        removeSelection();
+
+        currentMouseOverRegion = regionCode;
+        regionData[regionCode].forEach(function (countryCode) {
+            var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
+            if (elem) {
+                elem.classList.remove("mapRegionData");
+                elem.classList.add("mapRegionDataSelected");
+                elem.classList.remove("mapRegionNoData");
+                elem.classList.remove("mapRegionMouseOver");
+            }
+        });
+    }
 
     $("path").click(function(event){
         var elem = event.target;
@@ -71,47 +57,17 @@ function bindEvents(){
 
         if ((regionCode!=null) && (global.hasRiskDataForRegion(regionCode))) {
             if (mapCurrentDetailLevel=='world') {
-                // Case : the current map displays the full world, so no focusing on a geographical region
-                if (currentMouseOverRegion != regionCode) {
-                    // Case : the user changed of geographical region
-                    // Action : colorize the region pointed by the mouse
-                    currentMouseOverRegion = regionCode;
-                    colorizeRegion(currentMouseOverRegion, true);
-                } else {
-                    // Case : the mouse was on a country but moved to another country of the same region
-                    // Action : cancel the clear colorize action
-                    var timeoutId = mouseEventTimeout.get(regionCode);
-                    if (timeoutId) {
-                        window.clearTimeout(timeoutId);
-                        mouseEventTimeout.delete(regionCode);
-                    }
-                }
-            } else {
-                // Case : the current map is focusing on a geographical region
-                currentSelectedRegion = regionCode;
-                colorizeCountry(extractCountry(elem), regionCode, true);
+                markRegion(regionCode);
             }
         }
     });
 
-    $("path").mouseout(function(event){
-        // Case : the user move the mouse outside of a country
+    $("svg").mousemove(function(e){
         if (mapCurrentDetailLevel=='world') {
-            // Case : the current map displays the full world, so no focusing on a geographical region
-            if (currentMouseOverRegion!=null) {
-                var currentSelectedRegionCp = currentMouseOverRegion;
-                mouseEventTimeout.set(currentSelectedRegionCp, window.setTimeout(function() {
-                    if (currentSelectedRegionCp!=currentMouseOverRegion) {
-                        currentMouseOverRegion = null;
-                    }
-                    colorizeRegion(currentSelectedRegionCp, null);
-                }, 1));
+            var path = document.elementFromPoint(e.clientX,e.clientY);
+            if (!path.getAttribute("data-code")) {
+                removeSelection();
             }
-        } else {
-            // Case : the current map is focusing on a geographical region
-            var elem = event.target;
-            currentMouseOverRegion = null;
-            colorizeCountry(extractCountry(elem), extractRegion(elem), false);
         }
     });
 }
@@ -157,7 +113,7 @@ function drawMap(data) {
             regions: [{
                 scale: {
                     '1': '#D0DCE9',
-                    '2': '#002144' //#006AC3 - Mike: relace color, not enough contrast when having white regions
+                    '2': '#006AC3'
                 },
                 attribute: 'fill',
                 values:  regionColors
@@ -193,17 +149,13 @@ function resizeWorldMap(reduce) {
     }
 }
 
-function getCountriesDataAndDrawMap(fundID, code, callback, placeholder) {
+function getCountriesDataAndMarkMap(fundID, code) {
     return $.getJSON( "/api/funds/" + fundID + "/regions/" + code + "/countries", function( data ) {
-        var countriesList = {};
-        $.each( data.countries, function( key, val ) {
-            countriesList[val.countryCode] = 2;
+        data.countries.forEach(function(country) {
+            $("[data-code='" + country.countryCode +"']").each(function (i, elem) {
+                elem.classList.add("hasData");
+            });
         });
-        countriesMap = data.countries.reduce(function(map, obj) {
-            map[obj.countryCode] = obj;
-            return map;
-        }, {});
-        callback(placeholder, maps.get(code), countriesList);
     });
 }
 
