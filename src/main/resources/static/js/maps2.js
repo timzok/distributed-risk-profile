@@ -153,7 +153,7 @@ function getCountriesDataAndMarkMap(fundID, code) {
     return $.getJSON( "/api/funds/" + fundID + "/regions/" + code + "/countries", function( data ) {
         data.countries.forEach(function(country) {
             $("[data-code='" + country.countryCode +"']").each(function (i, elem) {
-                elem.classList.add("hasData");
+                elem.classList.add("hasData"); //Test
             });
         });
     });
