@@ -99,7 +99,7 @@ button.actionButton:hover {
 .mapRegionNoData {
 	fill: #D0DCE9;
 }
-.mapRegionDataSelected .hasData {
+.mapRegionDataSelected.hasData {
 	fill: #6AADE4;
 }
 .mapRegionDataSelected {
