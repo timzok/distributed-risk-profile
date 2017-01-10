@@ -801,6 +801,7 @@ function drawColumnChart(countryData) {
         ]);
 
         var options = {
+            tooltip:{ textStyle:{ fontSize: 13 },ignoreBounds:false},
             legend: {position: "none"},
             isStacked: 'percent',
             titleTextStyle: { fontSize: 13 },
