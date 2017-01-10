@@ -695,7 +695,10 @@ function drawTopTenColumnChart(){
                 0: { axis: 'assetNum', visibleInLegend:false }, // Bind series 0 to an axis named 'distance'.
                 1: { axis: 'compWorld', visibleInLegend: false } // Bind series 1 to an axis named 'brightness'.
             },
-            hAxes:{1:{maxValue:highPercent},2:{maxValue:highAssetValue}},
+            hAxes:{1:{maxValue:highPercent,viewWindow:{
+                max:highAssetValue,
+                min:0
+            }},2:{maxValue:highAssetValue}},
             axes: {
                 y: {
                     assetNum: {label: 'Asset in EUR'}, // Left y-axis.
@@ -719,8 +722,10 @@ function drawTopTenColumnChart(){
             // apply new values;
             var dataNum;
             for (dataNum = 0; dataNum < dataAnimated.getNumberOfRows(); dataNum+=1) {
-                dataAnimated.setValue(dataNum, 1, data.getValue(dataNum,1)/(splitNumber-countnum));
-                dataAnimated.setValue(dataNum, 2, data.getValue(dataNum,2)/(splitNumber-countnum));
+            	if(!(data.getValue(dataNum,1) == highAssetValue || data.getValue(dataNum,2) == highPercent)) {
+                    dataAnimated.setValue(dataNum, 1, data.getValue(dataNum, 1) / (splitNumber - countnum));
+                    dataAnimated.setValue(dataNum, 2, data.getValue(dataNum, 2) / (splitNumber - countnum));
+                }
             }
             // update the pie
             chart.draw(dataAnimated, options);
