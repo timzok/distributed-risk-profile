@@ -111,7 +111,14 @@
 
     <!-- World map and bar charts -->
     <div class="row fancy" >
-		<h2 class="bodyTitle bodyTitleCustom">Risk distribution by country</h2>
+        <div style="position: relative">
+		    <h2 class="bodyTitle bodyTitleCustom" >Risk distribution by country</h2>
+            <ul class="legend" style="position: absolute; top: 0px; right: 20px; padding: 0px">
+                <li><span class="no-risk"></span>No Risk</li>
+                <li><span class="with-risk"></span>With Risk </li>
+                <li><span class="selected-region"></span>Selected region</li>
+            </ul>
+        </div>
         <div>
             <div id="maps-container" class="col-md-12">
                 <div id="world-map" style="width: auto; height: 500px"></div>

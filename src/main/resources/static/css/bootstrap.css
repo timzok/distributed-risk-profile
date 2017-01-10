@@ -29,6 +29,10 @@
 .legend .medium { background-color: #fca311; }
 .legend .high { background-color: #c71D06; }
 
+.legend .no-risk { background-color: #D0DCE9;  }
+.legend .with-risk { background-color: #6AADE4; }
+.legend .selected-region { background-color: #FCA311;  }
+
 
 html {
     font-family: sans-serif;
