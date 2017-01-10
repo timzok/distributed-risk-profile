@@ -345,8 +345,11 @@ function regionDetailActionHandlerEvent(regionCode) {
 	drawPieCharts();
 	// Refresh the colorization of the countries in the map
 	colorizeRegion(regionCode, false);
+	getCountriesDataAndMarkMap(selectedFund(), regionCode);
 	// Update the map: zoom to the selected region
 	zoomAnimate('world', regionCode);
+
+
 }
 
 function drawCountryDonutChart() {
@@ -1110,6 +1113,11 @@ function extractRegion(elem) {
 		return regionData.region;
 	}
 	return null;
+}
+
+function extractCountry(elem) {
+	var countryCode = elem.dataset.code;
+	return countryCode || null;
 }
 
 function colorizeAllRegions() {

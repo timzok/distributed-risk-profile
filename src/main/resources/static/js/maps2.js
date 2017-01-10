@@ -1,34 +1,6 @@
 var regionsMap = {};
 var countriesMap = {};
-
-function onTipShow(e, el, code){
-    var map =  $('#world-map').vectorMap('get', 'mapObject');
-    var regionData = regionsMap[code];
-    if (regionData) {
-        map.tip.html(el[0].innerText +
-            " low: " + regionData.low.assetValue +
-            " %, medium:" + regionData.medium.assetValue +
-            "%, high:" + regionData.high.assetValue +"% ");
-    } else {
-        e.preventDefault();
-    }
-}
-
-function onCountryTipShow(e, el, code){
-    var map =  $(currentMapId).vectorMap('get', 'mapObject');
-    var coutryData = countriesMap[code];
-    if (coutryData) {
-        map.tip.html(el[0].innerText +
-            " low: " + coutryData.low.assetValue +
-            " %, medium:" + coutryData.medium.assetValue +
-            "%, high:" + coutryData.high.assetValue +"% ");
-    } else {
-        e.preventDefault();
-    }
-}
-
 var maps = new Map();
-var currentMapId = '#world-map';
 maps.set("eu", 'europe_mill');
 maps.set("af", 'africa_mill');
 maps.set("as", 'asia_mill');
@@ -177,17 +149,13 @@ function resizeWorldMap(reduce) {
     }
 }
 
-function getCountriesDataAndDrawMap(fundID, code, callback, placeholder) {
+function getCountriesDataAndMarkMap(fundID, code) {
     return $.getJSON( "/api/funds/" + fundID + "/regions/" + code + "/countries", function( data ) {
-        var countriesList = {};
-        $.each( data.countries, function( key, val ) {
-            countriesList[val.countryCode] = 2;
+        data.countries.forEach(function(country) {
+            $("[data-code='" + country.countryCode +"']").each(function (i, elem) {
+                elem.classList.add("hasData");
+            });
         });
-        countriesMap = data.countries.reduce(function(map, obj) {
-            map[obj.countryCode] = obj;
-            return map;
-        }, {});
-        callback(placeholder, maps.get(code), countriesList);
     });
 }
 
