@@ -36,15 +36,29 @@ maps.set("na", 'north_america_mill');
 maps.set("oc", 'oceania_mill');{
 maps.set("sa", 'south_america_mill');
 
-function renderMap(code){
-}
-
-function onRegionClick(e, code){
-}
-
 function bindEvents(){
     var currentMouseOverRegion = null;
-    var mouseEventTimeout = new Map();
+
+    function removeSelection() {
+        $(".mapRegionDataSelected").each(function (i, elem) {
+            elem.classList.remove("mapRegionDataSelected");
+        });
+    }
+
+    function markRegion(regionCode) {
+        removeSelection();
+
+        currentMouseOverRegion = regionCode;
+        regionData[regionCode].forEach(function (countryCode) {
+            var elem = $(".jvectormap-region.jvectormap-element[data-code='" + countryCode + "'")[0];
+            if (elem) {
+                elem.classList.remove("mapRegionData");
+                elem.classList.add("mapRegionDataSelected");
+                elem.classList.remove("mapRegionNoData");
+                elem.classList.remove("mapRegionMouseOver");
+            }
+        });
+    }
 
     $("path").click(function(event){
         var elem = event.target;
@@ -71,47 +85,18 @@ function bindEvents(){
 
         if ((regionCode!=null) && (global.hasRiskDataForRegion(regionCode))) {
             if (mapCurrentDetailLevel=='world') {
-                // Case : the current map displays the full world, so no focusing on a geographical region
-                if (currentMouseOverRegion != regionCode) {
-                    // Case : the user changed of geographical region
-                    // Action : colorize the region pointed by the mouse
-                    currentMouseOverRegion = regionCode;
-                    colorizeRegion(currentMouseOverRegion, true);
-                } else {
-                    // Case : the mouse was on a country but moved to another country of the same region
-                    // Action : cancel the clear colorize action
-                    var timeoutId = mouseEventTimeout.get(regionCode);
-                    if (timeoutId) {
-                        window.clearTimeout(timeoutId);
-                        mouseEventTimeout.delete(regionCode);
-                    }
-                }
-            } else {
-                // Case : the current map is focusing on a geographical region
-                currentSelectedRegion = regionCode;
-                colorizeCountry(extractCountry(elem), regionCode, true);
+                markRegion(regionCode);
             }
         }
     });
 
-    $("path").mouseout(function(event){
-        // Case : the user move the mouse outside of a country
+    $("svg").mousemove(function(e){
         if (mapCurrentDetailLevel=='world') {
-            // Case : the current map displays the full world, so no focusing on a geographical region
-            if (currentMouseOverRegion!=null) {
-                var currentSelectedRegionCp = currentMouseOverRegion;
-                mouseEventTimeout.set(currentSelectedRegionCp, window.setTimeout(function() {
-                    if (currentSelectedRegionCp!=currentMouseOverRegion) {
-                        currentMouseOverRegion = null;
-                    }
-                    colorizeRegion(currentSelectedRegionCp, null);
-                }, 1));
+            var path = document.elementFromPoint(e.clientX,e.clientY);
+            if (!path.getAttribute("data-code")) {
+                removeSelection();
             }
-        } else {
-            // Case : the current map is focusing on a geographical region
-            var elem = event.target;
-            currentMouseOverRegion = null;
-            colorizeCountry(extractCountry(elem), extractRegion(elem), false);
+            console.log('Region: ' + path.getAttribute("data-code") + ' at point: ' + e.clientX + ','+ e.clientY);
         }
     });
 }
