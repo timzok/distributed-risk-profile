@@ -932,7 +932,6 @@ function drawColumnChart(countryData) {
     var btn = "<a class=\"btn btn-default\" type=\"button\" " +
 		"onclick=\"$('#c-" + cID + "').remove()\" " +
 		"style='position:absolute; top:0; right:0'" +
-        "data-track-content data-content-name=\"Delete\"" + cId + " data-content-piece=\" + cID + "\"" +
 		">";
     btn += "<i class=\"fa fa-trash\"></i> ";
     btn += "</a>";
