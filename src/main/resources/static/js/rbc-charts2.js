@@ -106,6 +106,9 @@ function clearWorldMapPieCharts(removeUpToDetailLevel) {
  * @param regionData Global risk information on per geographical region basis.
  */
 function updateWorldData(regionData) {
+    goToPage('New fund selected');
+
+
 	// Clear the UI up to the 'world' level included
 	clearWorldMapPieCharts('world');
 
@@ -337,6 +340,8 @@ function drawRegionsDonutChart(val, timeout, detailActionButtonType) {
  * chart and query the server for the top 10 countries of that region.
  */
 function regionDetailActionHandlerEvent(regionCode) {
+    goToPage('Region details ' + regionCode);
+
 	// Clear the UI up to the region level included
 	clearWorldMapPieCharts('region');
 	// Set the region to focus on
@@ -780,6 +785,8 @@ function drawTopTenColumnChart(){
  * country risk information and for the list of legal entities / peps. 
  */
 function countryDetailActionHandlerEvent(countryCode) {
+    goToPage('Country details ' + countryCode);
+
 	getAndDisplayCountryDetails(countryCode);
     getAndDisplayPepsPie(countryCode, 'H');
     getAndDisplayPeps(countryCode, 'H');
@@ -922,7 +929,11 @@ function drawColumnChart(countryData) {
 
     google.charts.setOnLoadCallback(drawChart);
 
-    var btn = "<a class=\"btn btn-default\" type=\"button\" onclick=\"$('#c-" + cID + "').remove()\" style='position:absolute; top:0; right:0'>";
+    var btn = "<a class=\"btn btn-default\" type=\"button\" " +
+		"onclick=\"$('#c-" + cID + "').remove()\" " +
+		"style='position:absolute; top:0; right:0'" +
+        "data-track-content data-content-name=\"Delete\"" + cId + " data-content-piece=\" + cID + "\"" +
+		">";
     btn += "<i class=\"fa fa-trash\"></i> ";
     btn += "</a>";
 
@@ -1089,20 +1100,6 @@ function loadFundDropdown(initWorldMap) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The list of all the possible geographical regions
 var regions = []; 
 mapTitles.forEach(function(value, key){
@@ -1256,7 +1253,7 @@ function getAndDisplayPeps(countryCode,riskLevel){
 
         displayPepsInfo(data);
 
-        var btn  = "<a class='btn btn-default btn-small' type='button' href='" + csvUrl + "' style='position:absolute; top:20px; right:20px'>";
+        var btn  = "<a class='btn btn-default btn-small piwik_download' type='button' href='" + csvUrl + "' style='position:absolute; top:20px; right:20px'>";
         btn += "<i class='fa fa-file'></i> to CSV";
         btn += "</a>";
 
@@ -1335,6 +1332,31 @@ function displayPepsDetailInfo(legalEntityName,fromClick){
         localStorage.setItem(legalEntityName+"-active", "TRUE");
     }
 }
+
+function goToPage(pageTitle) {
+
+    var currentUrl = location.href;
+    window.addEventListener('hashchange', function() {
+        _paq.push(['setReferrerUrl', currentUrl]);
+        currentUrl = '' + window.location.hash.substr(1);
+        _paq.push(['setCustomUrl', currentUrl]);
+        _paq.push(['setDocumentTitle', pageTitle]);
+
+        // remove all previously assigned custom variables, requires Piwik 3.0.2
+        _paq.push(['deleteCustomVariables', 'page']);
+        _paq.push(['setGenerationTimeMs', 0]);
+        _paq.push(['trackPageView']);
+
+        // make Piwik aware of newly added content
+        var content = document.getElementById('content');
+        _paq.push(['MediaAnalytics::scanForMedia', content]);
+        _paq.push(['FormAnalytics::scanForForms', content]);
+        _paq.push(['trackContentImpressionsWithinNode', content]);
+        _paq.push(['enableLinkTracking']);
+    });
+
+}
+
 
 function abbreviateNumber(value) {
     var newValue = value;
