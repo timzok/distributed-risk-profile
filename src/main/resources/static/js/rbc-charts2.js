@@ -1256,7 +1256,7 @@ function getAndDisplayPeps(countryCode,riskLevel){
 
         displayPepsInfo(data);
 
-        var btn  = "<a class='btn btn-default btn-small' type='button' href='" + csvUrl + "' style='position:absolute; top:20px; right:20px'>";
+        var btn  = "<a class='btn btn-default btn-small piwik_download' type='button' href='" + csvUrl + "' style='position:absolute; top:20px; right:20px'>";
         btn += "<i class='fa fa-file'></i> to CSV";
         btn += "</a>";
 
