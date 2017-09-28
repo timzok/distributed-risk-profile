@@ -1335,7 +1335,6 @@ function displayPepsDetailInfo(legalEntityName,fromClick){
 function goToPage(pageTitle) {
 
     var currentUrl = location.href;
-    window.addEventListener('hashchange', function() {
         _paq.push(['setReferrerUrl', currentUrl]);
         currentUrl = '' + window.location.hash.substr(1);
         _paq.push(['setCustomUrl', currentUrl]);
@@ -1352,7 +1351,6 @@ function goToPage(pageTitle) {
         _paq.push(['FormAnalytics::scanForForms', content]);
         _paq.push(['trackContentImpressionsWithinNode', content]);
         _paq.push(['enableLinkTracking']);
-    });
 
 }
 
