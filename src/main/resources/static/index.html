@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="./css/rbcdScreen.css?12345" media="all">
     <link rel="stylesheet" type="text/css" href="./css/ofdScreen.css?12345" media="all">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css?12345" media="all">
-	<link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css?12345">
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css?12345">
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico?12345">
     <!-- JVectorMap -->
     <link rel="stylesheet" media="all" href="./css/jquery-jvectormap.css?12345"/>
@@ -67,10 +67,12 @@
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
+
         (function() {
             var u="//reg1.innocraft.cloud/";
             _paq.push(['setTrackerUrl', u+'piwik.php']);
             _paq.push(['setSiteId', '2']);
+            _paq.push(['trackAllContentImpressions']);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
             g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
@@ -103,7 +105,7 @@
 
             <div class="col-lg-6">
                 <ul class="legend">
-					<li><label>Risk Profile :</label></li>
+                    <li><label>Risk Profile :</label></li>
                     <li><span class="low"></span> Low</li>
                     <li><span class="medium"></span> Medium</li>
                     <li><span class="high"></span> High</li>
@@ -116,12 +118,12 @@
 
 <div class="container">
     <!-- Region pie charts -->
-    <div class="row fancy" >
+    <div class="row fancy" data-track-content data-content-name="Investor risk distribution" data-content-piece="IRD">
         <h2 class="bodyTitle bodyTitleCustom">Investor risk distribution</h2>
         <div>
             <table>
                 <tr id="donutContainer">
-                 </tr>
+                </tr>
             </table>
         </div>
     </div>
@@ -129,7 +131,7 @@
     <!-- World map and bar charts -->
     <div class="row fancy" >
         <div style="position: relative">
-		    <h2 class="bodyTitle bodyTitleCustom" >Risk distribution by country</h2>
+            <h2 class="bodyTitle bodyTitleCustom" >Risk distribution by country</h2>
             <ul class="legend" style="position: absolute; top: 0px; right: 20px; padding: 0px">
                 <li><span class="no-risk"></span>No Risk</li>
                 <li><span class="with-risk"></span>With Risk </li>
@@ -137,25 +139,25 @@
             </ul>
         </div>
         <div>
-            <div id="maps-container" class="col-md-12">
+            <div id="maps-container" class="col-md-12" data-track-content data-content-name="World Map" data-content-piece="WM">
                 <div id="world-map" style="width: auto; height: 500px"></div>
             </div>
 
 
-			<div class="col-md-4" id="country-charts" style="display:none">
-			</div>
+            <div class="col-md-4" id="country-charts" style="display:none">
+            </div>
         </div>
     </div>
 </div>
 
 <div class="container" id="pepsPanel">
     <div class="row fancy" id="pepsList" style="position: relative">
-		<h2 class="bodyTitle bodyTitleCustom">Politically Exposed Persons (PEP)</h2>
-		<div id="investorInformation2">
-			<table id="investorInformation" width='100%'>
-			</table>
-		</div>
-	</div>
+        <h2 class="bodyTitle bodyTitleCustom">Politically Exposed Persons (PEP)</h2>
+        <div id="investorInformation2">
+            <table id="investorInformation" width='100%'>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div>
